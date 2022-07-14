@@ -1,0 +1,162 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "@ngx-toolset/lazy-dialogs": {
+      "projectType": "library",
+      "root": "projects/lazy-dialogs",
+      "sourceRoot": "projects/lazy-dialogs/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/lazy-dialogs/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lazy-dialogs/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/lazy-dialogs/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lazy-dialogs/src/test.ts",
+            "tsConfig": "projects/lazy-dialogs/tsconfig.spec.json",
+            "karmaConfig": "projects/lazy-dialogs/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@ngx-toolset/template-type-checker": {
+      "projectType": "library",
+      "root": "projects/template-type-checker",
+      "sourceRoot": "projects/template-type-checker/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/template-type-checker/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/template-type-checker/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/template-type-checker/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/template-type-checker/src/test.ts",
+            "tsConfig": "projects/template-type-checker/tsconfig.spec.json",
+            "karmaConfig": "projects/template-type-checker/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@ngx-toolset/loading-spinner": {
+      "projectType": "library",
+      "root": "projects/loading-spinner",
+      "sourceRoot": "projects/loading-spinner/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/loading-spinner/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/loading-spinner/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/loading-spinner/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/loading-spinner/src/test.ts",
+            "tsConfig": "projects/loading-spinner/tsconfig.spec.json",
+            "karmaConfig": "projects/loading-spinner/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@ngx-toolset/api-token-interceptor": {
+      "projectType": "library",
+      "root": "projects/api-token-interceptor",
+      "sourceRoot": "projects/api-token-interceptor/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/api-token-interceptor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/api-token-interceptor/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/api-token-interceptor/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/api-token-interceptor/src/test.ts",
+            "tsConfig": "projects/api-token-interceptor/tsconfig.spec.json",
+            "karmaConfig": "projects/api-token-interceptor/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@ngx-toolset/date-interceptors": {
+      "projectType": "library",
+      "root": "projects/date-interceptors",
+      "sourceRoot": "projects/date-interceptors/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/date-interceptors/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/date-interceptors/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/date-interceptors/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/date-interceptors/src/test.ts",
+            "tsConfig": "projects/date-interceptors/tsconfig.spec.json",
+            "karmaConfig": "projects/date-interceptors/karma.conf.js"
+          }
+        }
+      }
+    }
+  }
+}

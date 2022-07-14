@@ -1,0 +1,49 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "paths": {
+      "@ngx-toolset/api-token-interceptor": [
+        "dist/api-token-interceptor"
+      ],
+      "@ngx-toolset/date-interceptors": [
+        "dist/date-interceptors"
+      ],
+      "@ngx-toolset/lazy-dialogs": [
+        "dist/lazy-dialogs"
+      ],
+      "@ngx-toolset/loading-spinner": [
+        "dist/loading-spinner"
+      ],
+      "@ngx-toolset/template-type-checker": [
+        "dist/template-type-checker"
+      ]
+    },
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
