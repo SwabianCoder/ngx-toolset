@@ -1,6 +1,29 @@
 {
   "name": "@ngx-toolset/date-interceptors",
   "version": "0.0.1",
+  "description": "Angular date interceptors (parses API response dates to date objects and stringifys API request body date objects to given format)",
+  "homepage": "https://github.com/SwabianCoder/ngx-toolset",
+  "license": "MIT",
+  "author": "SwabianCoder",
+  "keywords": [
+    "angular",
+    "ngx",
+    "ngx-toolset",
+    "date-interceptors",
+    "date",
+    "interceptor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SwabianCoder/ngx-toolset"
+  },
+  "bugs": {
+    "url": "https://github.com/SwabianCoder/ngx-toolset/issues"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
   "peerDependencies": {
     "@angular/common": "^14.0.0",
     "@angular/core": "^14.0.0"

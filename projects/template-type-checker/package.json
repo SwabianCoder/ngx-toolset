@@ -1,6 +1,30 @@
 {
   "name": "@ngx-toolset/template-type-checker",
   "version": "0.0.1",
+  "description": "Angular template class type check support",
+  "homepage": "https://github.com/SwabianCoder/ngx-toolset",
+  "license": "MIT",
+  "author": "SwabianCoder",
+  "keywords": [
+    "angular",
+    "ngx",
+    "ngx-toolset",
+    "template",
+    "class",
+    "type-check",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SwabianCoder/ngx-toolset"
+  },
+  "bugs": {
+    "url": "https://github.com/SwabianCoder/ngx-toolset/issues"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
   "peerDependencies": {
     "@angular/common": "^14.0.0",
     "@angular/core": "^14.0.0"
