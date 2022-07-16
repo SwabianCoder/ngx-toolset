@@ -1,6 +1,7 @@
 name: Build & Publish @ngx-toolset/lazy-dialogs
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -12,4 +13,4 @@ jobs:
     name: Call Build & Publish workflow
     uses: ./.github/workflows/build_publish.yml
     with:
-      packge_name: lazy-dialogs
+      packageName: lazy-dialogs
