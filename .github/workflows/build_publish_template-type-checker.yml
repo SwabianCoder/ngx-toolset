@@ -1,6 +1,7 @@
 name: Build & Publish @ngx-toolset/template-type-checker
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -12,4 +13,4 @@ jobs:
     name: Call Build & Publish workflow
     uses: ./.github/workflows/build_publish.yml
     with:
-      packge_name: template-type-checker
+      packageName: template-type-checker
