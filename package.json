@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:api-token-interceptor": "ng b @ngx-toolset/api-token-interceptor",
+    "build:api-token-interceptor": "ng build @ngx-toolset/api-token-interceptor",
     "build:api-token-interceptor:watch": "npm run build:api-token-interceptor -- --watch -c development",
     "build:date-interceptors": "ng b @ngx-toolset/date-interceptors",
     "build:date-interceptors:watch": "npm run build:date-interceptors -- --watch -c development",
