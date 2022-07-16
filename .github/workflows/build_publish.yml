@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./projects/${{ inputs.packageName }}
+        working-directory: ./
     strategy:
       matrix:
         node-version: [16.x]
@@ -40,13 +40,11 @@ jobs:
         run: |
           npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
-        working-directory: ./
         run: |
-          cp CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
+          cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
       - name: Copy LICENSE
-        working-directory: ./
         run: |
-          cp LICENSE dist/${{ inputs.packageName }}/LICENSE
+          cp projects/${{ inputs.packageName }}/LICENSE dist/${{ inputs.packageName }}/LICENSE
       - name: Upload artifact
         uses: actions/upload-artifact@v2.3.1
         with:
