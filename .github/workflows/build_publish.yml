@@ -39,15 +39,14 @@ jobs:
       - name: Build lib
         run: |
           npm run build:${{ inputs.package_name }}
-      #- name: Copy CHANGELOG
-      #  run: |
-      #    cp ./CHANGELOG.md CHANGELOG.md
-      #- name: Copy LICENSE
-      #  run: |
-      #    cp ../../LICENSE LICENSE
-      #- name: Remove node_modules
-      #  run: |
-      #    rm -rf node_modules/
+      - name: Copy CHANGELOG
+        working-directory: ./
+        run: |
+          cp CHANGELOG.md dist/${{ inputs.package_name }}/CHANGELOG.md
+      - name: Copy LICENSE
+        working-directory: ./
+        run: |
+          cp LICENSE dist/${{ inputs.package_name }}/LICENSE
       - name: Upload artifact
         uses: actions/upload-artifact@v2.3.1
         with:
