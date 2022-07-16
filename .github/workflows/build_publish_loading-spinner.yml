@@ -1,6 +1,7 @@
 name: Build & Publish @ngx-toolset/loading-spinner
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -12,4 +13,4 @@ jobs:
     name: Call Build & Publish workflow
     uses: ./.github/workflows/build_publish.yml
     with:
-      packge_name: loading-spinner
+      packageName: loading-spinner
