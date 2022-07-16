@@ -3,7 +3,7 @@ name: Build & Publish package
 on:
   workflow_call:
     inputs:
-      package_name:
+      packageName:
         required: true
         type: string
 
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./projects/${{ inputs.package_name }}
+        working-directory: ./projects/${{ inputs.packageName }}
     strategy:
       matrix:
         node-version: [16.x]
@@ -38,20 +38,20 @@ jobs:
       #    npm run test:e2e
       - name: Build lib
         run: |
-          npm run build:${{ inputs.package_name }}
+          npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         working-directory: ./
         run: |
-          cp CHANGELOG.md dist/${{ inputs.package_name }}/CHANGELOG.md
+          cp CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
       - name: Copy LICENSE
         working-directory: ./
         run: |
-          cp LICENSE dist/${{ inputs.package_name }}/LICENSE
+          cp LICENSE dist/${{ inputs.packageName }}/LICENSE
       - name: Upload artifact
         uses: actions/upload-artifact@v2.3.1
         with:
-          name: ${{ inputs.package_name }}_artifact
-          path: dist/${{ inputs.package_name }}
+          name: ${{ inputs.packageName }}_artifact
+          path: dist/${{ inputs.packageName }}
   pre_publish_validation:
     name: Pre-Publish Validation
     runs-on: ubuntu-latest
@@ -70,13 +70,13 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2.1.0
         with:
-          name: ${{ inputs.package_name }}_artifact
+          name: ${{ inputs.packageName }}_artifact
       - name: Check for package version update
         id: check_package_version
         run: |
           localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
-          npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.package_name }} version )
+          npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.packageName }} version )
           echo "Latest package version on NPM: $npmPackageVersion"
           if $(dpkg --compare-versions $localPackageVersion gt $npmPackageVersion);
           then
@@ -106,12 +106,12 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2.1.0
         with:
-          name: ${{ inputs.package_name }}_artifact
+          name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
         run: |
           packageVersion=$( jq -r '.version' package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
-          zipName="${{ inputs.package_name }}-v${packageVersion}.zip"
+          zipName="${{ inputs.packageName }}-v${packageVersion}.zip"
           echo "zipName=$zipName" >> $GITHUB_ENV
           changelog=$(<CHANGELOG.md)
           echo "changelog<<EOF" >> $GITHUB_ENV
