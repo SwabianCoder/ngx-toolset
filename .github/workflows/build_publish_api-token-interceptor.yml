@@ -6,3 +6,10 @@ on:
       - main
     paths:
       - 'projects/api-token-interceptor/**'
+      
+jobs:
+  call-build-publish-workflow:
+    name: Call Build & Publish workflow
+    uses: ./.github/workflows/build_publish.yml
+    with:
+      packge_name: api-token-interceptor
