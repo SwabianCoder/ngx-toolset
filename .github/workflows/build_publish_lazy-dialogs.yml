@@ -1,1 +1,8 @@
+name: Build & Publish @ngx-toolset/lazy-dialogs
 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/lazy-dialogs/**'
