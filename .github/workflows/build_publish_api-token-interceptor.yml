@@ -1,6 +1,7 @@
 name: Build & Publish @ngx-toolset/api-token-interceptor
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
