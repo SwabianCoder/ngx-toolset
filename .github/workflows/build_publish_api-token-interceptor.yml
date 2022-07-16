@@ -13,4 +13,4 @@ jobs:
     name: Call Build & Publish workflow
     uses: ./.github/workflows/build_publish.yml
     with:
-      packge_name: api-token-interceptor
+      packgeName: api-token-interceptor
