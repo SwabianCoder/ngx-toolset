@@ -1,1 +1,8 @@
+name: Build & Publish @ngx-toolset/date-interceptors
 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/date-interceptors/**'
