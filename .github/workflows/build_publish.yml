@@ -1,3 +1,5 @@
+name: Build & Publish package
+
 on:
   workflow_call:
     inputs:
