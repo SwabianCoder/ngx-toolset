@@ -26,7 +26,7 @@ jobs:
           npm i
       - name: Build lib
         run: |
-          npm start
+          npm start -- @ngx-toolset/${{ inputs.packageName }}
           #npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
