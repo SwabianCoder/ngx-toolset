@@ -2,7 +2,6 @@
   "name": "ngx-toolset",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build:api-token-interceptor": "ng b @ngx-toolset/api-token-interceptor",
     "build:api-token-interceptor:watch": "npm run build:api-token-interceptor -- --watch -c development",
