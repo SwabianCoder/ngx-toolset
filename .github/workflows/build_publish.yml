@@ -26,7 +26,7 @@ jobs:
           npm i
       - name: Build lib
         run: |
-          npm run ng
+          npm run ng -- --help
           #npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
