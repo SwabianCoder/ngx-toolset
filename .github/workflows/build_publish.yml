@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: |
-          npm ci
+          npm ci --legacy-peer-deps
       #- name: Check code style (Prettier)
       #  run: |
       #    npm run format:check
