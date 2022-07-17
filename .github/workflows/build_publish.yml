@@ -27,7 +27,7 @@ jobs:
       - name: Build lib
         run: |
           npm run ng -- --help
-          #npm run build:${{ inputs.packageName }}
+          npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
