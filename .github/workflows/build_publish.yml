@@ -16,9 +16,9 @@ jobs:
         node-version: [18.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
@@ -43,7 +43,7 @@ jobs:
         run: |
           cp projects/${{ inputs.packageName }}/LICENSE dist/${{ inputs.packageName }}/LICENSE
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ inputs.packageName }}_artifact
           path: dist/${{ inputs.packageName }}
@@ -58,12 +58,12 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.com'
       - name: Download artifact
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v2
         with:
           name: ${{ inputs.packageName }}_artifact
       - name: Check for package version update
@@ -94,12 +94,12 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.com'
       - name: Download artifact
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v2
         with:
           name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
