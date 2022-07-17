@@ -16,9 +16,9 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
@@ -34,7 +34,7 @@ jobs:
         run: |
           cp projects/${{ inputs.packageName }}/LICENSE dist/${{ inputs.packageName }}/LICENSE
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.packageName }}_artifact
           path: dist/${{ inputs.packageName }}
@@ -49,12 +49,12 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.com'
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.packageName }}_artifact
       - name: Check for package version update
@@ -85,12 +85,12 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.com'
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
@@ -119,7 +119,7 @@ jobs:
           cd ./unpackedPackage/package
           zip -r "../../${{ env.zipName }}" *
       - name: Create GitHub release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: ${{ env.zipName }}
           body: ${{ env.changelog }}
