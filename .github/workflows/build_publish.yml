@@ -119,7 +119,7 @@ jobs:
           cd ./unpackedPackage/package
           zip -r "../../${{ env.zipName }}" *
       - name: Create GitHub release
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1
         with:
           artifacts: ${{ env.zipName }}
           body: ${{ env.changelog }}
