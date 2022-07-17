@@ -24,15 +24,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm i
-      #- name: Check code style (Prettier)
-      #  run: |
-      #    npm run format:check
-      #- name: Run Unit Tests
-      #  run: |
-      #    npm run test:unit
-      #- name: Run E2E Tests
-      #  run: |
-      #    npm run test:e2e
       - name: Build lib
         run: |
           npm run build:${{ inputs.packageName }}
