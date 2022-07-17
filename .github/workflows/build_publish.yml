@@ -26,7 +26,8 @@ jobs:
           npm i
       - name: Build lib
         run: |
-          npm run build:${{ inputs.packageName }}
+          npm start
+          #npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
