@@ -87,7 +87,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [18.x]
     steps:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
