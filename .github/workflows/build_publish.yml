@@ -111,6 +111,7 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
+          echo ${{ secrets.TEST_SECRET }}
           npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
