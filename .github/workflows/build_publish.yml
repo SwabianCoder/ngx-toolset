@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -51,7 +51,7 @@ jobs:
   #    version_increased: ${{ steps.check_package_version.outputs.version_increased }}
   #  strategy:
   #    matrix:
-  #      node-version: [16.x]
+  #      node-version: [18.x]
   #  steps:
   #    - name: Node ${{ matrix.node-version }}
   #      uses: actions/setup-node@v3
@@ -87,7 +87,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
