@@ -94,6 +94,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
+          scope: '@ngx-toolset'
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -111,7 +112,7 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
-          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
+          #echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
