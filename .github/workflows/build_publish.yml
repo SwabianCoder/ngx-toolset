@@ -111,7 +111,7 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
-          npm publish --access public
+          npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub release artifact
