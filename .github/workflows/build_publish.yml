@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
@@ -29,7 +29,7 @@ jobs:
       #    npm run test:unit:${{ inputs.packageName }}
       - name: Build lib
         run: |
-          npm run build:${{ inputs.packageName }}
+          npm run build:pkg:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
