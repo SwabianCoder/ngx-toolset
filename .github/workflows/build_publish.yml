@@ -87,7 +87,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
     steps:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -111,7 +111,6 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
-          npm login
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
