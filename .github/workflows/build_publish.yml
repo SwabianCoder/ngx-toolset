@@ -100,8 +100,6 @@ jobs:
           name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
         run: |
-          pwd
-          ls -l
           packageVersion=$( jq -r '.version' package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           zipName="${{ inputs.packageName }}-v${packageVersion}.zip"
@@ -112,7 +110,6 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
           rm CHANGELOG.md
       - name: Publish package on NPM
-        working-directory: dist/${{ inputs.packageName }}
         run: |
           npm publish --access public
         env:
