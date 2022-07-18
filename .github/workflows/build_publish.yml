@@ -35,9 +35,9 @@ jobs:
         if: ${{ steps.cache-npm.outputs.cache-hit == 'False' }}
         run: |
           npm i
-      #- name: Run unit tests
-      #  run: |
-      #    npm run test:unit:${{ inputs.packageName }}:no-watch
+      - name: Run unit tests
+        run: |
+          npm run test:unit:${{ inputs.packageName }}:no-watch
       - name: Build lib
         continue-on-error: true
         run: |
