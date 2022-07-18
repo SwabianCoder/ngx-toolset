@@ -111,11 +111,9 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
-          echo "$TEST_A"
           npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TEST_A: ${{ secrets.TEST_SECRET }}
       - name: Create GitHub release artifact
         run: |
           wget --quiet --method GET -O npmPackageData.json "https://registry.npmjs.org/@ngx-toolset/${{ inputs.packageName }}/${{ env.packageVersion }}"
