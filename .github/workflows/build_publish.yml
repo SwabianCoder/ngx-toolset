@@ -29,8 +29,8 @@ jobs:
       #    npm run test:unit:${{ inputs.packageName }}
       - name: Build lib
         run: |
-          npm run build
-          #npm run build:${{ inputs.packageName }}
+          #npm run build
+          npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
