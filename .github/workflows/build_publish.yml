@@ -65,7 +65,7 @@ jobs:
       - name: Check for package version update
         id: check_package_version
         run: |
-          localPackageVersion=$( jq -r '.version' dist/${{ inputs.PACKAGE_NAME }}/package.json )
+          localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
           npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
           echo "Latest package version on NPM: $npmPackageVersion"
