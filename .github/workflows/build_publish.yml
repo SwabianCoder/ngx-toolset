@@ -16,9 +16,9 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
@@ -39,7 +39,7 @@ jobs:
         run: |
           cp LICENSE dist/${{ inputs.packageName }}/LICENSE
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ inputs.packageName }}_artifact
           path: dist/${{ inputs.packageName }}
@@ -54,7 +54,7 @@ jobs:
   #      node-version: [16.x]
   #  steps:
   #    - name: Node ${{ matrix.node-version }}
-  #      uses: actions/setup-node@v3
+  #      uses: actions/setup-node@v2
   #      with:
   #        node-version: ${{ matrix.node-version }}
   #        registry-url: 'https://registry.npmjs.org'
@@ -90,12 +90,12 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
