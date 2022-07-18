@@ -111,7 +111,7 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
-          npm login --scope=@ngx-toolset
+          npm login
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
