@@ -13,5 +13,5 @@ jobs:
     name: Call Build & Publish workflow
     uses: ./.github/workflows/build_publish.yml
     with:
-      packageName: lazy-dialogs
+      PACKAGE_NAME: lazy-dialogs
     secrets: inherit
