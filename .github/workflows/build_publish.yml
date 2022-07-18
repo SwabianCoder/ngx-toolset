@@ -100,7 +100,7 @@ jobs:
           name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
         run: |
-          packageVersion=$( jq -r '.version' dist/${{ inputs.packageName }}/package.json )
+          packageVersion=$( jq -r '.version' ./dist/${{ inputs.packageName }}/package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           zipName="${{ inputs.packageName }}-v${packageVersion}.zip"
           echo "zipName=$zipName" >> $GITHUB_ENV
