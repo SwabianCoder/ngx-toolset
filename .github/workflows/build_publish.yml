@@ -42,7 +42,7 @@ jobs:
       - name: Build lib
         continue-on-error: true
         run: |
-          npx ng build @ngx-toolset/${{ inputs.packageName }}
+          npx -c 'ng build @ngx-toolset/${{ inputs.packageName }}''
           #npm run build:${{ inputs.packageName }}
       #- name: Copy CHANGELOG
       #  run: |
