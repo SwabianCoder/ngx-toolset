@@ -112,8 +112,9 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
-          #echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
-          npm publish --access public
+          npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
+          npm publish --ignore-scripts
+          #npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub release artifact
