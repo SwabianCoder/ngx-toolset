@@ -29,6 +29,8 @@ jobs:
       #    npm run test:unit:${{ inputs.packageName }}
       - name: Build lib
         run: |
+          node -v
+          npm -v
           npm run build:pkg:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
