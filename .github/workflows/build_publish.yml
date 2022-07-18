@@ -111,6 +111,7 @@ jobs:
           rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
+          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
