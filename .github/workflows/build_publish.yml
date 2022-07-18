@@ -6,6 +6,7 @@ on:
       packageName:
         required: true
         type: string
+    secrets: inherit
 
 jobs:
   build:
