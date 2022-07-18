@@ -17,6 +17,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - if: ${{ steps.cache-npm.outputs.cache-hit == 'False' }}
+        name: List the state of node modules
+        continue-on-error: true
+        run: npm list
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
