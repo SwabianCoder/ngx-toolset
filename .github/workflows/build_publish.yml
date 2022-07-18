@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
+        if: ${{ steps.cache-npm.outputs.cache-hit == 'False' }}
         run: |
           npm i
       #- name: Run unit tests
