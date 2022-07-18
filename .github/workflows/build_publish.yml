@@ -109,11 +109,11 @@ jobs:
           echo "$changelog" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           rm CHANGELOG.md
-      #- name: Publish package on NPM
-      #  run: |
-      #    npm publish --access public
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish package on NPM
+        run: |
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub release artifact
         run: |
           wget --quiet --method GET -O npmPackageData.json "https://registry.npmjs.org/@ngx-toolset/${{ inputs.packageName }}/${{ env.packageVersion }}"
