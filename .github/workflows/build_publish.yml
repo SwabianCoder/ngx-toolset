@@ -65,7 +65,7 @@ jobs:
   #    - name: Check for package version update
   #      id: check_package_version
   #      run: |
-  #        localPackageVersion=$( jq -r '.version' package.json )
+  #        localPackageVersion=$( jq -r '.version' dist/${{ inputs.packageName }}/package.json )
   #        echo "Local package version: $localPackageVersion"
   #        npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.packageName }} version )
   #        echo "Latest package version on NPM: $npmPackageVersion"
@@ -100,7 +100,7 @@ jobs:
           name: ${{ inputs.packageName }}_artifact
       - name: Prepare GitHub release
         run: |
-          packageVersion=$( jq -r '.version' package.json )
+          packageVersion=$( jq -r '.version' dist/${{ inputs.packageName }}/package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           zipName="${{ inputs.packageName }}-v${packageVersion}.zip"
           echo "zipName=$zipName" >> $GITHUB_ENV
@@ -110,6 +110,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
           rm CHANGELOG.md
       - name: Publish package on NPM
+        working-directory: dist/${{ inputs.packageName }}
         run: |
           npm publish --access public
         env:
