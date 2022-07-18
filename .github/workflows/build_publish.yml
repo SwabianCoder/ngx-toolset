@@ -24,12 +24,12 @@ jobs:
       - name: Install dependencies
         run: |
           npm i
-      #- name: Run unit tests
-      #  run: |
-      #    npm run test-unit-${{ inputs.packageName }}
+      - name: Run unit tests
+        run: |
+          npm run test:unit:${{ inputs.packageName }}:no-watch
       - name: Build lib
         run: |
-          npm run build-${{ inputs.packageName }}
+          npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
