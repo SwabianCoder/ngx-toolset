@@ -26,14 +26,10 @@ jobs:
           npm i
       #- name: Run unit tests
       #  run: |
-      #    npm run test:unit:${{ inputs.packageName }}
+      #    npm run test-unit-${{ inputs.packageName }}
       - name: Build lib
         run: |
-          node -v
-          npm -v
-          npm install -g npm@latest
-          npm -v
-          npm run build:pkg:${{ inputs.packageName }}
+          npm run build-${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
