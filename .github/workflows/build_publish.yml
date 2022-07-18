@@ -37,7 +37,7 @@ jobs:
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
       - name: Copy LICENSE
         run: |
-          cp projects/${{ inputs.packageName }}/LICENSE dist/${{ inputs.packageName }}/LICENSE
+          cp LICENSE dist/${{ inputs.packageName }}/LICENSE
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
