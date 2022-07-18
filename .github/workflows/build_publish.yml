@@ -35,6 +35,7 @@ jobs:
         #if: ${{ steps.cache-npm.outputs.cache-hit == 'False' }}
         run: |
           npm i
+      - run: npm i --g @angular/cli@latest
       - name: Run unit tests
         continue-on-error: true
         run: |
