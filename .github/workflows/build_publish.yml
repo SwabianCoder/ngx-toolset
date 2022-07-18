@@ -41,17 +41,17 @@ jobs:
         continue-on-error: true
         run: |
           npm run build:${{ inputs.packageName }}
-      - name: Copy CHANGELOG
-        run: |
-          cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
-      - name: Copy LICENSE
-        run: |
-          cp projects/${{ inputs.packageName }}/LICENSE dist/${{ inputs.packageName }}/LICENSE
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ inputs.packageName }}_artifact
-          path: dist/${{ inputs.packageName }}
+      #- name: Copy CHANGELOG
+      #  run: |
+      #    cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
+      #- name: Copy LICENSE
+      #  run: |
+      #    cp projects/${{ inputs.packageName }}/LICENSE dist/${{ inputs.packageName }}/LICENSE
+      #- name: Upload artifact
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: ${{ inputs.packageName }}_artifact
+      #    path: dist/${{ inputs.packageName }}
   pre_publish_validation:
     name: Pre-Publish Validation
     runs-on: ubuntu-latest
