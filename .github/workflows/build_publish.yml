@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
@@ -35,11 +35,11 @@ jobs:
         #if: ${{ steps.cache-npm.outputs.cache-hit == 'False' }}
         run: |
           npm i
-      - run: npm i --g @angular/cli@latest
-      - name: Run unit tests
-        continue-on-error: true
-        run: |
-          npm run test:unit:${{ inputs.packageName }}:no-watch
+      - run: npm i @angular/cli@latest --location=global
+      #- name: Run unit tests
+      #  continue-on-error: true
+      #  run: |
+      #    npm run test:unit:${{ inputs.packageName }}:no-watch
       - name: Build lib
         continue-on-error: true
         run: |
