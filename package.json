@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve",
+    "build": "ng b",
     "build:api-token-interceptor": "ng b @ngx-toolset/api-token-interceptor",
     "build:api-token-interceptor:watch": "npm run build:api-token-interceptor -- --watch -c development",
     "build:date-interceptors": "ng b @ngx-toolset/date-interceptors",
