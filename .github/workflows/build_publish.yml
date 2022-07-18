@@ -36,6 +36,7 @@ jobs:
         run: |
           npm i
       - name: Run unit tests
+        continue-on-error: true
         run: |
           npm run test:unit:${{ inputs.packageName }}:no-watch
       - name: Build lib
