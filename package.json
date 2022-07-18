@@ -24,7 +24,7 @@
     "test:unit:template-type-checker": "ng t @ngx-toolset/template-type-checker --browsers=ChromeHeadless",
     "test:unit:template-type-checker:no-watch": "npm run test:unit:template-type-checker -- --watch=false"
   },
-  "private": false,
+  "private": true,
   "dependencies": {
     "@angular/animations": "^14.0.0",
     "@angular/common": "^14.0.0",
