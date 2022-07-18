@@ -94,6 +94,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
+          always-auth: true
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
