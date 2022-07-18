@@ -27,10 +27,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - if: ${{ steps.cache-npm.outputs.cache-hit == 'False' }}
-        name: List the state of node modules
-        continue-on-error: true
-        run: npm list
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -42,9 +38,9 @@ jobs:
       #  run: |
       #    npm run test:unit:${{ inputs.packageName }}:no-watch
       - name: Build lib
+        continue-on-error: true
         run: |
-          #npm run build:${{ inputs.packageName }}
-          ng build @ngx-toolset/${{ inputs.packageName }}
+          npm run build:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
           cp projects/${{ inputs.packageName }}/CHANGELOG.md dist/${{ inputs.packageName }}/CHANGELOG.md
