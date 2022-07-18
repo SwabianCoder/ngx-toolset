@@ -14,15 +14,15 @@
     "build:template-type-checker": "ng b @ngx-toolset/template-type-checker",
     "build:template-type-checker:watch": "npm run build:template-type-checker -- --watch -c development",
     "test:unit:api-token-interceptor": "ng t @ngx-toolset/api-token-interceptor --browsers=ChromeHeadless",
-    "test:unit:api-token-interceptor:no-watch": "npm run test-unit-api-token-interceptor -- --watch=false",
+    "test:unit:api-token-interceptor:no-watch": "npm run test:unit:api-token-interceptor -- --watch=false",
     "test:unit:date-interceptors": "ng t @ngx-toolset/date-interceptors --browsers=ChromeHeadless",
-    "test:unit:date-interceptors:no-watch": "npm run test-unit-date-interceptors -- --watch=false",
+    "test:unit:date-interceptors:no-watch": "npm run test:unit:date-interceptors -- --watch=false",
     "test:unit:lazy-dialogs": "ng t @ngx-toolset/lazy-dialogs --browsers=ChromeHeadless",
-    "test:unit:lazy-dialogs:no-watch": "npm run test-unit-lazy-dialogs -- --watch=false",
+    "test:unit:lazy-dialogs:no-watch": "npm run test:unit:lazy-dialogs -- --watch=false",
     "test:unit:loading-spinner": "ng t @ngx-toolset/loading-spinner --browsers=ChromeHeadless",
-    "test:unit:loading-spinner:no-watch": "npm run test-unit-loading-spinner -- --watch=false",
+    "test:unit:loading-spinner:no-watch": "npm run test:unit:loading-spinner -- --watch=false",
     "test:unit:template-type-checker": "ng t @ngx-toolset/template-type-checker --browsers=ChromeHeadless",
-    "test:unit:template-type-checker:no-watch": "npm run test-unit-template-type-checker -- --watch=false"
+    "test:unit:template-type-checker:no-watch": "npm run test:unit:template-type-checker -- --watch=false"
   },
   "private": true,
   "dependencies": {
