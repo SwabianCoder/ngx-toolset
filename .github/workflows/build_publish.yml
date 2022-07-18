@@ -57,7 +57,7 @@ jobs:
   #      uses: actions/setup-node@v3
   #      with:
   #        node-version: ${{ matrix.node-version }}
-  #        registry-url: 'https://registry.npmjs.com'
+  #        registry-url: 'https://registry.npmjs.org'
   #    - name: Download artifact
   #      uses: actions/download-artifact@v3
   #      with:
@@ -93,7 +93,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.com'
+          registry-url: 'https://registry.npmjs.org'
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
@@ -116,7 +116,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub release artifact
         run: |
-          wget --quiet --method GET -O npmPackageData.json "http://registry.npmjs.com/@ngx-toolset/${{ inputs.package_name }}/${{ env.packageVersion }}"
+          wget --quiet --method GET -O npmPackageData.json "http://registry.npmjs.org/@ngx-toolset/${{ inputs.package_name }}/${{ env.packageVersion }}"
           tarballUrl=$( jq -r '.dist.tarball' npmPackageData.json )
           wget --quiet --method GET -O npmPackage.tgz "$tarballUrl"
           mkdir unpackedPackage
