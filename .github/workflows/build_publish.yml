@@ -128,6 +128,6 @@ jobs:
         with:
           artifacts: ${{ env.zipName }}
           body: ${{ env.changelog }}
-          name: ${{ env.packageVersion }}
-          tag: "v${{ env.packageVersion }}"
+          name: "@ngx-toolset/${{ input.packageName }} ${{ env.packageVersion }}"
+          tag: "@ngx-toolset/${{ input.packageName }} v${{ env.packageVersion }}"
           token: ${{ secrets.GITHUB_TOKEN }}
