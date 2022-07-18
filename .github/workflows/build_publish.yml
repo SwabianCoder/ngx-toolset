@@ -31,6 +31,8 @@ jobs:
         run: |
           node -v
           npm -v
+          npm install -g npm@latest
+          npm -v
           npm run build:pkg:${{ inputs.packageName }}
       - name: Copy CHANGELOG
         run: |
