@@ -1,4 +1,4 @@
-name: Build & Publish @ngx-toolset/api-token-interceptor
+name: Build & Release @ngx-toolset/api-token-interceptor
 
 on:
   workflow_dispatch:
