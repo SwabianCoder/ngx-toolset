@@ -96,6 +96,7 @@ jobs:
           name: ${{ inputs.PACKAGE_NAME }}_artifact
       - name: Publish package on NPM
         run: |
+          npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
           npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
