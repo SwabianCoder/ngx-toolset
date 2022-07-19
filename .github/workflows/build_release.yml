@@ -119,23 +119,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.PACKAGE_NAME }}_artifact
-      - name: Get changelog entry
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
-        with:
-          validation_level: error
-          version: ${{ env.packageVersion }}
-          path: ./CHANGELOG.md
-      - name: Get package version
+      - name: Get zip archive name
         run: |
           packageVersion=$( jq -r '.version' package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           zipName="${{ inputs.PACKAGE_NAME }}-v${packageVersion}.zip"
           echo "zipName=$zipName" >> $GITHUB_ENV
-          #changelog=$(<CHANGELOG.md)
-          #echo "changelog<<EOF" >> $GITHUB_ENV
-          #echo "$changelog" >> $GITHUB_ENV
-          #echo "EOF" >> $GITHUB_ENV
       - name: Create GitHub release artifact
         run: |
           wget --quiet --method GET -O npmPackageData.json "https://registry.npmjs.org/@ngx-toolset/${{ inputs.packageName }}/${{ env.packageVersion }}"
@@ -145,6 +134,13 @@ jobs:
           tar -zxvf ./npmPackage.tgz -C ./unpackedPackage
           cd ./unpackedPackage/package
           zip -r "../../${{ env.zipName }}" *
+      - name: Get changelog entry
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_level: error
+          version: ${{ env.packageVersion }}
+          path: ./CHANGELOG.md
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
