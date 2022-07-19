@@ -1,4 +1,4 @@
-name: Build & Publish @ngx-toolset/loading-spinner
+name: Build & Release @ngx-toolset/loading-spinner
 
 on:
   workflow_dispatch:
@@ -9,9 +9,9 @@ on:
       - 'projects/loading-spinner/**'
 
 jobs:
-  call-build-publish-workflow:
-    name: Call Build & Publish workflow
-    uses: ./.github/workflows/build_publish.yml
+  call-build-release-workflow:
+    name: Call Build & Release workflow
+    uses: ./.github/workflows/build_release.yml
     with:
       PACKAGE_NAME: loading-spinner
     secrets: inherit
