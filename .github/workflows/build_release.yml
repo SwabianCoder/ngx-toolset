@@ -118,16 +118,23 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.PACKAGE_NAME }}_artifact
-      - name: Prepare GitHub release
+      - name: Get changelog entry
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_level: error
+          version: ${{ env.packageVersion }}
+          path: ./CHANGELOG.md
+      - name: Get package version
         run: |
           packageVersion=$( jq -r '.version' package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           zipName="${{ inputs.PACKAGE_NAME }}-v${packageVersion}.zip"
           echo "zipName=$zipName" >> $GITHUB_ENV
-          changelog=$(<CHANGELOG.md)
-          echo "changelog<<EOF" >> $GITHUB_ENV
-          echo "$changelog" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          #changelog=$(<CHANGELOG.md)
+          #echo "changelog<<EOF" >> $GITHUB_ENV
+          #echo "$changelog" >> $GITHUB_ENV
+          #echo "EOF" >> $GITHUB_ENV
       - name: Create GitHub release artifact
         run: |
           wget --quiet --method GET -O npmPackageData.json "https://registry.npmjs.org/@ngx-toolset/${{ inputs.packageName }}/${{ env.packageVersion }}"
@@ -141,7 +148,8 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: ${{ env.zipName }}
-          body: ${{ env.changelog }}
+          body: ${{ steps.changelog_reader.outputs.changes }}
+          prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
           name: "@ngx-toolset/${{ inputs.PACKAGE_NAME }} - ${{ env.packageVersion }}"
           tag: "@ngx-toolset/${{ inputs.PACKAGE_NAME }}@${{ env.packageVersion }}"
           token: ${{ secrets.GITHUB_TOKEN }}
