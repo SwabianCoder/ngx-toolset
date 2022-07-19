@@ -127,7 +127,7 @@ jobs:
           echo "zipName=$zipName" >> $GITHUB_ENV
       - name: Create GitHub release artifact
         run: |
-          wget --quiet --method GET -O npmPackageData.json "https://registry.npmjs.org/@ngx-toolset/${{ inputs.packageName }}/${{ env.packageVersion }}"
+          wget --quiet --method GET -O npmPackageData.json "https://registry.npmjs.org/@ngx-toolset/${{ inputs.PACKAGE_NAME }}/${{ env.packageVersion }}"
           tarballUrl=$( jq -r '.dist.tarball' npmPackageData.json )
           wget --quiet --method GET -O npmPackage.tgz "$tarballUrl"
           mkdir unpackedPackage
