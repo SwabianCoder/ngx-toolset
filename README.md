@@ -14,4 +14,12 @@
 
 [![npm version](https://badge.fury.io/js/@ngx-toolset%2Fapi-token-interceptor.svg)](https://badge.fury.io/js/@ngx-toolset%2Fapi-token-interceptor)
 
+[![npm version](https://badge.fury.io/js/@ngx-toolset%2Fdate-interceptors.svg)](https://badge.fury.io/js/@ngx-toolset%2Fdate-interceptors)
+
+[![npm version](https://badge.fury.io/js/@ngx-toolset%2Flazy-dialogs.svg)](https://badge.fury.io/js/@ngx-toolset%2Flazy-dialogs)
+
+[![npm version](https://badge.fury.io/js/@ngx-toolset%2Floading-spinner.svg)](https://badge.fury.io/js/@ngx-toolset%2Floading-spinner)
+
+[![npm version](https://badge.fury.io/js/@ngx-toolset%2Ftemplate-type-checker.svg)](https://badge.fury.io/js/@ngx-toolset%2Ftemplate-type-checker)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
