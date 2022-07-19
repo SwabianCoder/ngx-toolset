@@ -128,12 +128,8 @@ jobs:
           fi
       - name: Install dependencies
         run: |
-          cd ./pr/components
-          npm i
-      - name: Check code style (Prettier)
-        run: |
-          cd ./pr/components
-          npm run format:check
+          cd ./pr/projects/project-name
+          npm ci --ignore-scripts
       - name: Run Unit Tests
         run: |
           cd ./pr/components
