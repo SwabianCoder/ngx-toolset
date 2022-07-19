@@ -1,4 +1,4 @@
-name: Build & Publish package
+name: Build & Release package
 
 on:
   workflow_call:
