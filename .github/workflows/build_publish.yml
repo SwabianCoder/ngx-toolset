@@ -43,8 +43,8 @@ jobs:
         with:
           name: ${{ inputs.PACKAGE_NAME }}_artifact
           path: dist/${{ inputs.PACKAGE_NAME }}
-  pre_publish_validation:
-    name: Pre-Publish Validation
+  pre_release_validation:
+    name: Pre-release validation
     runs-on: ubuntu-latest
     needs: build
     outputs:
@@ -80,7 +80,7 @@ jobs:
     name: NPM package
     runs-on: ubuntu-latest
     needs: pre_publish_validation
-    if: ${{ needs.pre_publish_validation.outputs.version_increased == 'True' }}
+    if: ${{ needs.pre_release_validation.outputs.version_increased == 'True' }}
     environment: NPM
     strategy:
       matrix:
@@ -103,7 +103,7 @@ jobs:
     name: GitHub release
     runs-on: ubuntu-latest
     needs: npm-package
-    if: ${{ needs.pre_publish_validation.outputs.version_increased == 'True' }}
+    if: ${{ needs.pre_release_validation.outputs.version_increased == 'True' }}
     permissions:
       contents: write
     strategy:
