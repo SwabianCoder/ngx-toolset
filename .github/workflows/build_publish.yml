@@ -108,7 +108,6 @@ jobs:
           echo "changelog<<EOF" >> $GITHUB_ENV
           echo "$changelog" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          rm CHANGELOG.md
       - name: Publish package on NPM
         run: |
           npm publish --access public --ignore-scripts
@@ -128,6 +127,6 @@ jobs:
         with:
           artifacts: ${{ env.zipName }}
           body: ${{ env.changelog }}
-          name: "@ngx-toolset/${{ inputs.PACKAGE_NAME }} ${{ env.packageVersion }}"
-          tag: "@ngx-toolset/${{ inputs.PACKAGE_NAME }} v${{ env.packageVersion }}"
+          name: "@ngx-toolset/${{ inputs.PACKAGE_NAME }} - ${{ env.packageVersion }}"
+          tag: "@ngx-toolset/${{ inputs.PACKAGE_NAME }}@${{ env.packageVersion }}"
           token: ${{ secrets.GITHUB_TOKEN }}
