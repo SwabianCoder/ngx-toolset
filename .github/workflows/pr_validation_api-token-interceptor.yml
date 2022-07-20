@@ -23,9 +23,9 @@ jobs:
           base: main
           filters: |
             root:
-              - '/*.json'
-              - '/.gitignore'
-              - '/LICENSE'
+              - '*.json'
+              - '.gitignore'
+              - 'LICENSE'
             project:
               - 'projects/api-token-interceptor/**'
   call-pr-validation-workflow:
