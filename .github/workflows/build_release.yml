@@ -66,44 +66,12 @@ jobs:
         run: |
           localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
-          
-          
-          
-          
-          
-          
-          
-          foo=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
-          echo "$foo"
-          
-          
-          
-          
-          
-          
-          
-          npmShowStatusCode=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version 2>&1 1>/dev/null || 0)
-          if [ $npmShowStatusCode -eq 127 ]; then
-            npmPackageVersion='0.0.0'
-          elif [ $npmShowStatusCode -eq 0 ]; then
+          npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
+          if [ $npmSearchResult -eq 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]; then
             npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
           else
-            exit $npmShowStatusCode;
+            npmPackageVersion="0.0.0"
           endif
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          #npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
           echo "Latest package version on NPM: $npmPackageVersion"
           if $(dpkg --compare-versions $localPackageVersion gt $npmPackageVersion);
           then
