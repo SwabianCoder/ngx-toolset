@@ -1,9 +1,8 @@
 name: PR validation @ngx-toolset/api-token-interceptor
 
-on:
-  pull_request:
-    paths:
-      - 'projects/api-token-interceptor/**'
+on: [pull_request]
+    #paths:
+    #  - 'projects/api-token-interceptor/**'
 
 jobs:
   call-pr-validation-workflow:
