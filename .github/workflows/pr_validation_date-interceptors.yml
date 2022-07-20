@@ -10,7 +10,8 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.project }}
+      root_changes: ${{ steps.changes.outputs.root }}
+      project_changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,12 +20,16 @@ jobs:
         id: changes
         with:
           filters: |
+            root:
+              - '*.json'
+              - '.gitignore'
+              - 'LICENSE'
             project:
               - 'projects/date-interceptors/**'
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.changes == 'True' }}
+    if: ${{ needs.path-filter.outputs.root_changes == 'True' || needs.path-filter.outputs.project_changes == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: date-interceptors
