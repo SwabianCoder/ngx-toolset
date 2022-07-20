@@ -24,7 +24,7 @@ jobs:
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.api-token-interceptor == 'true' }}
+    if: ${{ needs.path-filter.outputs.api-token-interceptor == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: api-token-interceptor
