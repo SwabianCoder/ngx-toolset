@@ -21,6 +21,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Get package version
+        run: |
+          packageVersion=$( jq -r '.version' package.json )
+          echo "packageVersion=$packageVersion" >> $GITHUB_ENV
+      - name: Validate changelog entry
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_level: error
+          version: ${{ env.packageVersion }}
+          path: ./CHANGELOG.md
       - name: Install dependencies
         run: |
           npm ci --ignore-scripts
@@ -125,11 +135,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.PACKAGE_NAME }}_artifact
-      - name: Get zip archive name
+      - name: Get package version
         run: |
           packageVersion=$( jq -r '.version' package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
-          zipName="${{ inputs.PACKAGE_NAME }}-v${packageVersion}.zip"
+      - name: Get zip archive name
+        run: |
+          zipName="${{ inputs.PACKAGE_NAME }}-v${{ env.packageVersion }}.zip"
           echo "zipName=$zipName" >> $GITHUB_ENV
       - name: Create GitHub release artifact
         run: |
@@ -144,7 +156,6 @@ jobs:
         id: changelog_reader
         uses: mindsers/changelog-reader-action@v2
         with:
-          validation_level: error
           version: ${{ env.packageVersion }}
           path: ./CHANGELOG.md
       - name: Create GitHub release
