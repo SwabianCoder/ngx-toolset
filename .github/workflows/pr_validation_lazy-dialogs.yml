@@ -11,7 +11,7 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.changes }}
+      changes: ${{ steps.changes.outputs.lazy-dialogs }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,12 +20,12 @@ jobs:
         id: changes
         with:
           filters: |
-            changes:
+            lazy-dialogs:
               - 'projects/lazy-dialogs/**'
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.changes == 'true' }}
+    if: ${{ needs.path-filter.outputs.lazy-dialogs == 'true' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: lazy-dialogs
