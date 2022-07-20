@@ -3,7 +3,7 @@ name: Run PR Checks
 on: [pull_request]
 
 jobs:
-  validate:
+  abcdefg:
     name: Validate
     runs-on: ubuntu-latest
     strategy:
@@ -15,13 +15,3 @@ jobs:
         with:
           ref: "main"
           path: main
-
-      - name: Checkout PR branch
-        uses: actions/checkout@v2.4.0
-        with:
-          path: pr
-
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.1
-        with:
-          node-version: ${{ matrix.node-version }}
