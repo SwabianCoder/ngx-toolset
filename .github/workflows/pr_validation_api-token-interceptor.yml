@@ -1,6 +1,7 @@
 name: PR validation @ngx-toolset/api-token-interceptor
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
