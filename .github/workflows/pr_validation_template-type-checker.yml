@@ -24,7 +24,7 @@ jobs:
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.changes == 'True' }}
+    if: ${{ needs.path-filter.outputs.root_changes == 'True' || needs.path-filter.outputs.project_changes == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: template-type-checker
