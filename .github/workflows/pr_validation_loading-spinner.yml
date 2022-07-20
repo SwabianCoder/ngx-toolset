@@ -6,7 +6,7 @@ on:
       - 'projects/loading-spinner/**'
 
 jobs:
-  call-build-release-workflow:
+  call-pr-validation-workflow:
     name: Call PR validation workflow
     uses: ./.github/workflows/pr_validation.yml
     with:
