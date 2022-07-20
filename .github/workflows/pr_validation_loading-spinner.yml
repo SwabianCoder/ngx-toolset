@@ -10,7 +10,8 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.project }}
+      root_changes: ${{ steps.changes.outputs.root }}
+      project_changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
