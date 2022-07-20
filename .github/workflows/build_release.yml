@@ -67,6 +67,9 @@ jobs:
           localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
           npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+          status=$?
+          echo $status
+          npmPackageVersion='0.0.0'
           echo "Latest package version on NPM: $npmPackageVersion"
           if $(dpkg --compare-versions $localPackageVersion gt $npmPackageVersion);
           then
