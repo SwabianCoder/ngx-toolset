@@ -20,6 +20,10 @@ jobs:
         id: changes
         with:
           filters: |
+            root:
+              - '*.json'
+              - '.gitignore'
+              - 'LICENSE'
             project:
               - 'projects/template-type-checker/**'
   call-pr-validation-workflow:
