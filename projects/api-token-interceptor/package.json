@@ -1,6 +1,6 @@
 {
   "name": "@ngx-toolset/api-token-interceptor",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.0",
   "description": "Angular API token interceptor",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",
