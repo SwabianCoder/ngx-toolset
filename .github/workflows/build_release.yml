@@ -77,13 +77,13 @@ jobs:
           
           
           error=$(npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version 2>&1 1>/dev/null)
-          echo $error
+          echo "$error"
           if [ $? -eq 0 ]; then
              echo "service $i started by script"
           elif [ error =~ "is not in this registry" ]; then
             npmPackageVersion='0.0.0'
           else
-            exit 1
+            #exit 1
           endif
           
           
