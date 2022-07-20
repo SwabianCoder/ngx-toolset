@@ -66,9 +66,11 @@ jobs:
         run: |
           localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
-          if [[ npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version ) 2>&1) =~ "is not in this registry" ]]; then
+          if [ $(npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version 2>&1) =~ "is not in this registry" ]; then
             npmPackageVersion='0.0.0'
           endif
+          npmPackageVersion='0.0.0'
+          #npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
           echo "Latest package version on NPM: $npmPackageVersion"
           if $(dpkg --compare-versions $localPackageVersion gt $npmPackageVersion);
           then
