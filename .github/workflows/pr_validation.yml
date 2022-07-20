@@ -8,8 +8,8 @@ on:
         type: string
 
 jobs:
-  build:
-    name: Build
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
     strategy:
       matrix:
