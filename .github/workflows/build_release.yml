@@ -73,6 +73,12 @@ jobs:
           
           
           
+          foo=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
+          echo "$foo"
+          
+          
+          
+          
           
           
           
