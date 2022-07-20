@@ -10,7 +10,7 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.template-type-checker }}
+      changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,12 +19,12 @@ jobs:
         id: changes
         with:
           filters: |
-            template-type-checker:
+            project:
               - 'projects/template-type-checker/**'
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.template-type-checker == 'true' }}
+    if: ${{ needs.path-filter.outputs.project == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: template-type-checker

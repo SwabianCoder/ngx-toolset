@@ -10,7 +10,7 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.date-interceptors }}
+      changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,12 +19,12 @@ jobs:
         id: changes
         with:
           filters: |
-            date-interceptors:
+            project:
               - 'projects/date-interceptors/**'
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.date-interceptors == 'true' }}
+    if: ${{ needs.path-filter.outputs.project == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: date-interceptors

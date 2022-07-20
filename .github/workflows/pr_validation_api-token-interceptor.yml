@@ -10,7 +10,7 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.api-token-interceptor }}
+      changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,12 +19,12 @@ jobs:
         id: changes
         with:
           filters: |
-            api-token-interceptor:
+            project:
               - 'projects/api-token-interceptor/**'
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.api-token-interceptor == 'True' }}
+    if: ${{ needs.path-filter.outputs.project == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: api-token-interceptor

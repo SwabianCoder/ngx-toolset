@@ -10,7 +10,7 @@ jobs:
     name: Path filter
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.changes.outputs.loading-spinner }}
+      changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,12 +19,12 @@ jobs:
         id: changes
         with:
           filters: |
-            loading-spinner:
+            project:
               - 'projects/loading-spinner/**'
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.loading-spinner == 'true' }}
+    if: ${{ needs.path-filter.outputs.project == 'True' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: loading-spinner
