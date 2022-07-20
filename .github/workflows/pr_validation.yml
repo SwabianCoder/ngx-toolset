@@ -21,6 +21,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Get package version
+        run: |
+          packageVersion=$( jq -r '.version' projects/${{ inputs.PACKAGE_NAME }}/package.json )
+          echo "packageVersion=$packageVersion" >> $GITHUB_ENV
+          echo "$packageVersion"
+      - name: Validate changelog entry
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_level: error
+          version: ${{ env.packageVersion }}
+          path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
         run: |
           npm ci --ignore-scripts
