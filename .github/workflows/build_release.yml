@@ -30,6 +30,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_level: error
+          validation_depth: 1
           version: ${{ env.packageVersion }}
           path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
@@ -157,6 +158,7 @@ jobs:
         id: changelog_reader
         uses: mindsers/changelog-reader-action@v2
         with:
+          validation_depth: 1
           version: ${{ env.packageVersion }}
           path: ./CHANGELOG.md
       - name: Create GitHub release
