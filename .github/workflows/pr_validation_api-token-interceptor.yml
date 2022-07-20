@@ -1,4 +1,4 @@
-name: PR validation @ngx-toolset/api-token-interceptor
+name: abc
 
 on: [pull_request]
     #paths:
