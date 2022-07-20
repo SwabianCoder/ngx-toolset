@@ -76,8 +76,7 @@ jobs:
           
           
           
-          npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version 2>&1 1>/dev/null
-          npmShowStatusCode=$?
+          npmShowStatusCode=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version 2>&1 1>/dev/null )
           if [ $npmShowStatusCode -eq 127 ]; then
             npmPackageVersion='0.0.0'
           elif [ $npmShowStatusCode -eq 0 ]; then
