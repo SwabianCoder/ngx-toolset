@@ -27,9 +27,10 @@ jobs:
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           echo "$packageVersion"
       - name: Validate changelog entry
-        uses: mindsers/changelog-reader-action@v2
+        uses: mindsers/changelog-reader-action@v2.1.1
         with:
           validation_level: error
+          validation_depth: 1
           version: ${{ env.packageVersion }}
           path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
