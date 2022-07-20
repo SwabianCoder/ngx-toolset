@@ -8,6 +8,7 @@ on:
       
 jobs:
   path-filter:
+    name: Path filter
     runs-on: ubuntu-latest
     outputs:
       changes: ${{ steps.changes.outputs.changes }}
@@ -24,7 +25,7 @@ jobs:
   call-pr-validation-workflow:
     name: Call PR validation workflow
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.changes == 'True' }}
+    if: ${{ needs.path-filter.outputs.changes == 'true' }}
     uses: ./.github/workflows/pr_validation.yml
     with:
       PACKAGE_NAME: date-interceptors
