@@ -76,7 +76,7 @@ jobs:
           
           
           
-          error=$(npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version 2>&1 1>/dev/null) || 0
+          error=$(npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version || 0 2>&1 1>/dev/null)
           echo "$error"
           if [ $? -eq 0 ]; then
              echo "service $i started by script"
