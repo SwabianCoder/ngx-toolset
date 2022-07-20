@@ -24,9 +24,9 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci --ignore-scripts
-      - name: Run unit tests
-        run: |
-          npm run test:unit:${{ inputs.PACKAGE_NAME }}:no-watch
+      #- name: Run unit tests
+      #  run: |
+      #    npm run test:unit:${{ inputs.PACKAGE_NAME }}:no-watch
       - name: Build lib
         run: |
           npx -c 'ng b @ngx-toolset/${{ inputs.PACKAGE_NAME }}'
@@ -67,7 +67,8 @@ jobs:
           localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
           npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} 2>&1 1>/dev/null )
-          if [ $npmSearchResult -eq "No matches found for \"@ngx-toolset/${{ inputs.PACKAGE_NAME }}\"" ]; then
+          if $($npmSearchResult -eq 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"');
+          then
             npmPackageVersion="0.0.0"
           else
             npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
