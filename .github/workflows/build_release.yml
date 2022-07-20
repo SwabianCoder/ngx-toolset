@@ -30,7 +30,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2.1.1
         with:
           validation_level: error
-          validation_depth: 1
+          validation_depth: 0
           version: ${{ env.packageVersion }}
           path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
