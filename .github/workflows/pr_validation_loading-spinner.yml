@@ -1,7 +1,6 @@
 name: PR validation @ngx-toolset/loading-spinner
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - main

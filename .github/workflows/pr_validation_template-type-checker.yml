@@ -1,7 +1,6 @@
 name: PR validation @ngx-toolset/template-type-checker
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - main
