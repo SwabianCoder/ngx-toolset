@@ -1,0 +1,27 @@
+name: PR validation @ngx-toolset/api-token-interceptor
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  path-filter:
+    outputs:
+      changes: ${{ steps.changes.outputs.changes }}
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            changes:
+              - 'projects/api-token-interceptor/**'
+  call-pr-validation-workflow:
+    name: Call PR validation workflow
+    needs: path-filter
+    if: ${{ needs.path-filter.outputs.changes == 'True' }}
+    uses: ./.github/workflows/pr_validation.yml
+    with:
+      PACKAGE_NAME: api-token-interceptor
+    secrets: inherit
