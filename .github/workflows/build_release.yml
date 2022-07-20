@@ -68,10 +68,10 @@ jobs:
           echo "Local package version: $localPackageVersion"
           npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
           if [ $npmSearchResult -eq 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]; then
-            npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
-          else
             npmPackageVersion="0.0.0"
-          endif
+          else
+            npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+          fi
           echo "Latest package version on NPM: $npmPackageVersion"
           if $(dpkg --compare-versions $localPackageVersion gt $npmPackageVersion);
           then
