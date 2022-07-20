@@ -5,27 +5,8 @@ on: [pull_request]
     #  - 'projects/api-token-interceptor/**'
 
 jobs:
-  validate:
-      name: Validate
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node-version: [18.x]
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-        - name: Node ${{ matrix.node-version }}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-        - name: Install dependencies
-          run: |
-            npm ci --ignore-scripts
-        - name: Run unit tests
-          run: |
-            npm run test:unit:${{ inputs.PACKAGE_NAME }}:no-watch
-        - name: Build lib
-          run: |
-            npx -c 'ng b @ngx-toolset/${{ inputs.PACKAGE_NAME }}'
-            # Somehow calling build script via npm run does not work as of now.
-            # npm run build:${{ inputs.PACKAGE_NAME }}
+  call-pr-validation-workflow:
+    name: Call PR validation workflow
+    uses: ./.github/workflows/pr_validation.yml
+    with:
+      PACKAGE_NAME: api-token-interceptor
