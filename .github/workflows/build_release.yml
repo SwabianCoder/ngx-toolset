@@ -67,7 +67,7 @@ jobs:
           localPackageVersion=$( jq -r '.version' package.json )
           echo "Local package version: $localPackageVersion"
           npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} 2>&1 1>/dev/null )
-          if $($npmSearchResult -eq 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"');
+          if [[ "$npmSearchResult" == 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]];
           then
             npmPackageVersion="0.0.0"
           else
