@@ -20,6 +20,10 @@ jobs:
         id: changes
         with:
           filters: |
+            root:
+              - '*.json'
+              - '.gitignore'
+              - 'LICENSE'
             project:
               - 'projects/lazy-dialogs/**'
   call-pr-validation-workflow:
