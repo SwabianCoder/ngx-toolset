@@ -1,0 +1,13 @@
+name: PR validation @ngx-toolset/loading-spinner
+
+on:
+  pull_request:
+    paths:
+      - 'projects/loading-spinner/**'
+
+jobs:
+  call-build-release-workflow:
+    name: Call PR validation workflow
+    uses: ./.github/workflows/pr_validation.yml
+    with:
+      PACKAGE_NAME: loading-spinner

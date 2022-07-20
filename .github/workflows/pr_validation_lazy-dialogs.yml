@@ -1,0 +1,13 @@
+name: PR validation @ngx-toolset/lazy-dialogs
+
+on:
+  pull_request:
+    paths:
+      - 'projects/lazy-dialogs/**'
+
+jobs:
+  call-build-release-workflow:
+    name: Call PR validation workflow
+    uses: ./.github/workflows/pr_validation.yml
+    with:
+      PACKAGE_NAME: lazy-dialogs
