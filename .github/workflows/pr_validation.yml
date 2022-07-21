@@ -66,15 +66,16 @@ jobs:
           fi
       - name: Read PR package version
         if: ${{ env.skipVersionValidation == 'False' }}
-        working-directory: ./pr
+        working-directory: ./pr/projects/${{ inputs.PACKAGE_NAME }}
         run: |
           prPackageVersion=$( jq -r '.version' package.json )
           echo "prPackageVersion=$prPackageVersion" >> $GITHUB_ENV
           echo "Current PR version: $prPackageVersion"
       - name: Validate package version change
         if: ${{ env.skipVersionValidation == 'False' }}
+        working-directory: ./main/projects/${{ inputs.PACKAGE_NAME }}
         run: |
-          mainPackageVersion=$( jq -r '.version' ./main/package.json )
+          mainPackageVersion=$( jq -r '.version' package.json )
           echo "PR package version: ${{ env.prPackageVersion }}"
           echo "Main package version: $mainPackageVersion"
           if $(dpkg --compare-versions ${{ env.prPackageVersion }} gt $mainPackageVersion);
