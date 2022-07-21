@@ -57,7 +57,7 @@ Please follow these steps to have your contribution considered by the maintainer
 2. Follow the [styleguides](#styleguides)
 3. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing.
 
-While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
+While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests or other changes before your pull request can be ultimately accepted.
 
 ### Semantic Versioning
 
@@ -105,11 +105,11 @@ feature/10-setup-eslint-prettier-and-stylelint
 
 Please start the commit message with an applicable emoji (see [gitmoji](https://gitmoji.dev/)).
 
-### Coding Styleguide
+### Code Style Guide
 
 All code is linted with [ESLint](https://eslint.org/), [Prettier](https://prettier.io/) and [Stylelint](https://stylelint.io/).
 
-### Specs Styleguide
+### Specs Style Guide
 
 - Include sophisticated [Jasmine](https://jasmine.github.io/) specs in the corresponding `<(directive|guard|interceptor|pipe|service|component)-name>.spec.ts` file(s) of the directive(s), guard(s), interceptor(s), pipe(s), service(s), component(s).
 - Treat `describe` as a noun or situation.
