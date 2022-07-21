@@ -2,19 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-loading-spinner',
-  template: `
-    <p>
-      loading-spinner works!
-    </p>
-  `,
-  styles: [
-  ]
+  template: ` <p>loading-spinner works!</p> `,
+  styles: [],
 })
 export class LoadingSpinnerComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

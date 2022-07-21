@@ -8,9 +8,8 @@ describe('DateInterceptorsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DateInterceptorsComponent ]
-    })
-    .compileComponents();
+      declarations: [DateInterceptorsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DateInterceptorsComponent);
     component = fixture.componentInstance;

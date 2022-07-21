@@ -2,19 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-lazy-dialogs',
-  template: `
-    <p>
-      lazy-dialogs works!
-    </p>
-  `,
-  styles: [
-  ]
+  template: ` <p>lazy-dialogs works!</p> `,
+  styles: [],
 })
 export class LazyDialogsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
