@@ -23,8 +23,16 @@
     "test:unit:loading-spinner:no-watch": "npm run test:unit:loading-spinner -- --watch=false",
     "test:unit:template-type-checker": "ng t @ngx-toolset/template-type-checker --browsers=ChromeHeadless",
     "test:unit:template-type-checker:no-watch": "npm run test:unit:template-type-checker -- --watch=false",
-    "lint": "ng lint && npx stylelint \"src/**/*.{css,scss}\" --quiet",
-    "lint:fix": "ng lint --fix && npx stylelint \"src/**/*.{css,scss}\" --quiet --fix"
+    "lint:api-token-interceptor": "ng lint @ngx-toolset/api-token-interceptor && npx stylelint \"projects/api-token-interceptor/**/*.{css,scss}\" --quiet",
+    "lint:api-token-interceptor:fix": "ng lint @ngx-toolset/api-token-interceptor --fix && npx stylelint \"projects/api-token-interceptor/**/*.{css,scss}\" --quiet --fix",
+    "lint:date-interceptors": "ng lint @ngx-toolset/date-interceptors && npx stylelint \"projects/date-interceptors/**/*.{css,scss}\" --quiet",
+    "lint:date-interceptors:fix": "ng lint @ngx-toolset/date-interceptors --fix && npx stylelint \"projects/date-interceptors/**/*.{css,scss}\" --quiet --fix",
+    "lint:lazy-dialogs": "ng lint @ngx-toolset/lazy-dialogs && npx stylelint \"projects/lazy-dialogs/**/*.{css,scss}\" --quiet",
+    "lint:lazy-dialogs:fix": "ng lint @ngx-toolset/lazy-dialogs --fix && npx stylelint \"projects/lazy-dialogs/**/*.{css,scss}\" --quiet --fix",
+    "lint:loading-spinner": "ng lint @ngx-toolset/loading-spinner && npx stylelint \"projects/loading-spinner/**/*.{css,scss}\" --quiet",
+    "lint:loading-spinner:fix": "ng lint @ngx-toolset/loading-spinner --fix && npx stylelint \"projects/loading-spinner/**/*.{css,scss}\" --quiet --fix",
+    "lint:template-type-checker": "ng lint @ngx-toolset/template-type-checker && npx stylelint \"projects/template-type-checker/**/*.{css,scss}\" --quiet",
+    "lint:template-type-checker:fix": "ng lint @ngx-toolset/template-type-checker --fix && npx stylelint \"projects/template-type-checker/**/*.{css,scss}\" --quiet --fix"
   },
   "private": true,
   "dependencies": {
