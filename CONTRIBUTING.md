@@ -30,7 +30,7 @@ When you are creating a bug report, please fill out [the required template](./.g
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
-#### Before Submitting A Bug Report
+#### Before Submitting a Bug Report
 
 * You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem when using the latest version of the specific @ngx-toolset package(s).
 * Check if the problem has already been reported. If it has **and the issue is still open**, add a comment to the existing issue instead of opening a new one.
@@ -39,7 +39,7 @@ When you are creating a bug report, please fill out [the required template](./.g
 
 When you are creating an enhancement suggestion, please fill in [the template](./.github/ISSUE_TEMPLATE/feature_request.md).
 
-#### Before Submitting An Enhancement Suggestion
+#### Before Submitting an Enhancement Suggestion
 
 * Check if you're using the latest version of the specific @ngx-toolset package(s).
 * Check if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
