@@ -143,7 +143,6 @@ This section lists the labels we use to help us track and manage issues and pull
 | --- | --- |
 | `enhancement` | Feature requests. |
 | `bug` | Confirmed bugs or reports that are very likely to be bugs. |
-| `question` | Questions more than bug reports or feature requests (e.g. how do I do X). |
 | `help-wanted` | The maintainers would appreciate help from the community in resolving these issues. |
 | `more-information-needed` | More information needs to be collected about these problems or feature requests (e.g. steps to reproduce). |
 | `needs-reproduction` | Likely bugs, but haven't been reliably reproduced. |
