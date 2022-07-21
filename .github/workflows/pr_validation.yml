@@ -15,15 +15,22 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v3
+        with:
+          ref: "main"
+          path: main
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          path: pr
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Get package version
         run: |
-          packageVersion=$( jq -r '.version' projects/${{ inputs.PACKAGE_NAME }}/package.json )
+          packageVersion=$( jq -r '.version' pr/projects/${{ inputs.PACKAGE_NAME }}/package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           echo "$packageVersion"
       - name: Validate changelog entry
@@ -31,17 +38,21 @@ jobs:
         with:
           validation_level: error
           version: ${{ env.packageVersion }}
-          path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
+          path: ./pr/projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
+        working-directory: ./pr
         run: |
           npm ci --ignore-scripts
       - name: Check code style
+        working-directory: ./pr
         run: |
           npm run lint:${{ inputs.PACKAGE_NAME }}
       - name: Run unit tests
+        working-directory: ./pr
         run: |
           npm run test:unit:${{ inputs.PACKAGE_NAME }}:no-watch
       - name: Build lib
+        working-directory: ./pr
         run: |
           npx -c 'ng b @ngx-toolset/${{ inputs.PACKAGE_NAME }}'
           # Somehow calling build script via npm run does not work as of now.
