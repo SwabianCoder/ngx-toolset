@@ -45,11 +45,11 @@
            */
           "@angular-eslint/directive-selector": [
             "error",
-            { "type": "attribute", "prefix": "app", "style": "camelCase" }
+            { "type": "attribute", "prefix": "ngx-toolset", "style": "camelCase" }
           ],
           "@angular-eslint/component-selector": [
             "error",
-            { "type": "element", "prefix": "app", "style": "kebab-case" }
+            { "type": "element", "prefix": "ngx-toolset", "style": "kebab-case" }
           ],
           "radix": "error",
           "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],

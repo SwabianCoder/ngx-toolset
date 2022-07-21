@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/lazy-dialogs",
       "sourceRoot": "projects/lazy-dialogs/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -47,7 +47,7 @@
       "projectType": "library",
       "root": "projects/template-type-checker",
       "sourceRoot": "projects/template-type-checker/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -87,7 +87,7 @@
       "projectType": "library",
       "root": "projects/loading-spinner",
       "sourceRoot": "projects/loading-spinner/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -127,7 +127,7 @@
       "projectType": "library",
       "root": "projects/api-token-interceptor",
       "sourceRoot": "projects/api-token-interceptor/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -167,7 +167,7 @@
       "projectType": "library",
       "root": "projects/date-interceptors",
       "sourceRoot": "projects/date-interceptors/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
