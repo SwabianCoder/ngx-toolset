@@ -13,11 +13,11 @@ The following is a set of guidelines for contributing to any of the @ngx-toolset
   * [Semantic Versioning](#semantic-versioning)
   * [Changelog](#changelog)
 
-[Styleguides](#styleguides)
+[Style Guides](#style-guides)
   * [Branch Naming Conventions](#branch-naming-conventions)
   * [Git Commit Messages](#git-commit-messages)
-  * [JavaScript Styleguide](#javascript-styleguide)
-  * [Specs Styleguide](#specs-styleguide)
+  * [JavaScript Style Guide](#javascript-style-guide)
+  * [Specs Style Guide](#specs-style-guide)
 
 [Additional Notes](#additional-notes)
   * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
@@ -54,7 +54,7 @@ The process described here has several goals:
 Please follow these steps to have your contribution considered by the maintainers:
 
 1. Follow all instructions in [the template](./.github/pull_request_template.md)
-2. Follow the [styleguides](#styleguides)
+2. Follow the [style guides](#style-guides)
 3. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing.
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests or other changes before your pull request can be ultimately accepted.
@@ -70,7 +70,7 @@ Please update the changelog of the @ngx-toolset package when changing any code l
 The changelog format should follow [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format guidelines.
 > Note: When changing any of the files in root directory mentioned previously you need to update all project changelogs.
 
-## Styleguides
+## Style Guides
 
 ### Branch Naming Conventions
 
