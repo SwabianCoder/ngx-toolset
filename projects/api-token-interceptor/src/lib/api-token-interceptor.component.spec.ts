@@ -8,9 +8,8 @@ describe('ApiTokenInterceptorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApiTokenInterceptorComponent ]
-    })
-    .compileComponents();
+      declarations: [ApiTokenInterceptorComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ApiTokenInterceptorComponent);
     component = fixture.componentInstance;

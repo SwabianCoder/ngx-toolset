@@ -1,20 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-api-token-interceptor',
-  template: `
-    <p>
-      api-token-interceptor works!
-    </p>
-  `,
-  styles: [
-  ]
+  selector: 'ngx-toolset-api-token-interceptor',
+  template: ` <p>api-token-interceptor works!</p> `,
+  styles: [],
 })
-export class ApiTokenInterceptorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class ApiTokenInterceptorComponent {}

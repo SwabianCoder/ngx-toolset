@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/lazy-dialogs",
       "sourceRoot": "projects/lazy-dialogs/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -31,6 +31,15 @@
             "tsConfig": "projects/lazy-dialogs/tsconfig.spec.json",
             "karmaConfig": "projects/lazy-dialogs/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/lazy-dialogs/**/*.ts",
+              "projects/lazy-dialogs/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -38,7 +47,7 @@
       "projectType": "library",
       "root": "projects/template-type-checker",
       "sourceRoot": "projects/template-type-checker/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -62,6 +71,15 @@
             "tsConfig": "projects/template-type-checker/tsconfig.spec.json",
             "karmaConfig": "projects/template-type-checker/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/template-type-checker/**/*.ts",
+              "projects/template-type-checker/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -69,7 +87,7 @@
       "projectType": "library",
       "root": "projects/loading-spinner",
       "sourceRoot": "projects/loading-spinner/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -93,6 +111,15 @@
             "tsConfig": "projects/loading-spinner/tsconfig.spec.json",
             "karmaConfig": "projects/loading-spinner/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/loading-spinner/**/*.ts",
+              "projects/loading-spinner/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -100,7 +127,7 @@
       "projectType": "library",
       "root": "projects/api-token-interceptor",
       "sourceRoot": "projects/api-token-interceptor/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -124,6 +151,15 @@
             "tsConfig": "projects/api-token-interceptor/tsconfig.spec.json",
             "karmaConfig": "projects/api-token-interceptor/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/api-token-interceptor/**/*.ts",
+              "projects/api-token-interceptor/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -131,7 +167,7 @@
       "projectType": "library",
       "root": "projects/date-interceptors",
       "sourceRoot": "projects/date-interceptors/src",
-      "prefix": "lib",
+      "prefix": "ngx-toolset",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -155,8 +191,20 @@
             "tsConfig": "projects/date-interceptors/tsconfig.spec.json",
             "karmaConfig": "projects/date-interceptors/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/date-interceptors/**/*.ts",
+              "projects/date-interceptors/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

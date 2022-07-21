@@ -8,9 +8,8 @@ describe('TemplateTypeCheckerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplateTypeCheckerComponent ]
-    })
-    .compileComponents();
+      declarations: [TemplateTypeCheckerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TemplateTypeCheckerComponent);
     component = fixture.componentInstance;

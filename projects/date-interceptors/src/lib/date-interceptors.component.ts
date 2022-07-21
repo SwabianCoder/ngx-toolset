@@ -1,20 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-date-interceptors',
-  template: `
-    <p>
-      date-interceptors works!
-    </p>
-  `,
-  styles: [
-  ]
+  selector: 'ngx-toolset-date-interceptors',
+  template: ` <p>date-interceptors works!</p> `,
+  styles: [],
 })
-export class DateInterceptorsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class DateInterceptorsComponent {}
