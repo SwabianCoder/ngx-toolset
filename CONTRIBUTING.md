@@ -2,7 +2,7 @@
 
 Huge thanks for taking the time to contribute!
 
-The following is a set of guidelines for contributing to any of the @ngx-toolset libraries.
+The following is a set of guidelines for contributing to any of the @ngx-toolset packages.
 
 #### Table of Contents
 
