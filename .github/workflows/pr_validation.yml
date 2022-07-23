@@ -69,7 +69,6 @@ jobs:
       - name: Validate package version change
         if: ${{ env.skipVersionValidation == 'False' }}
         run: |
-          echo "$NEW_VERSION"
           if [[ $VERSION_CHANGED == 'true' ]];
           then
             echo 'Version changed'
@@ -78,7 +77,7 @@ jobs:
             exit 1
           fi
         env:
-          NEW_VERSION: ${{ steps.version-compare.outputs.version }}
+          VERSION_CHANGED: ${{ steps.version-compare.outputs.changed }}
       - name: Validate changelog entry
         uses: mindsers/changelog-reader-action@v2
         with:
