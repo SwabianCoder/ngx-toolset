@@ -13,10 +13,10 @@ describe('ApiTokenInterceptor', () => {
   const createService = createServiceFactory({
     service: ApiTokenInterceptor,
     providers: [
-      { provide: API_URL_REGEX, useValue: (): string => 'dummyToken' },
+      { provide: API_URL_REGEX, useValue: /^https:\/\/test-url.com/ },
       {
         provide: BEARER_TOKEN_CALLBACK_FN,
-        useValue: /^https:\/\/test-url.com/,
+        useValue: (): string => 'dummyToken',
       },
     ],
   });
