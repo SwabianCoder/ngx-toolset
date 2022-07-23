@@ -32,18 +32,20 @@ describe('ApiTokenInterceptor', () => {
   for (const testCase of [
     {
       message: 'append token',
-      urlStart: 'https://test-url.com',
+      url: 'https://test-url.com',
       hasToken: true,
     },
     {
       message: 'not append token',
-      urlStart: 'https://some-url.com',
+      url: 'https://some-url.com',
       hasToken: false,
     },
   ]) {
     // eslint-disable-next-line require-await
     it(`should ${testCase.message}`, async (): Promise<HttpEvent<unknown>> => {
       dummyRequest.castToWritable().headers = new HttpHeaders();
+      dummyRequest.castToWritable().url = testCase.url;
+
       const next = {
         handle(
           request: HttpRequest<unknown>
