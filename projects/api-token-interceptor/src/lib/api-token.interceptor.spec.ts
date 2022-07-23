@@ -1,15 +1,59 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import { firstValueFrom, Observable, of } from 'rxjs';
+import {
+  createServiceFactory,
+  SpectatorService,
+  createSpyObject,
+} from '@ngneat/spectator';
 import { ApiTokenInterceptor } from './api-token.interceptor';
+import { API_URL_REGEX, BEARER_TOKEN_CALLBACK_FN } from './injection-tokens';
 
 describe('ApiTokenInterceptor', () => {
-  let service: ApiTokenInterceptor;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ApiTokenInterceptor);
+  let spectator: SpectatorService<ApiTokenInterceptor>;
+  const createService = createServiceFactory({
+    service: ApiTokenInterceptor,
+    mocks: [],
+    providers: [
+      { provide: API_URL_REGEX, useValue: (): string => 'dummyToken' },
+      {
+        provide: BEARER_TOKEN_CALLBACK_FN,
+        useValue: /^https:\/\/test-url.com/,
+      },
+    ],
   });
+  const dummyRequest = createSpyObject(HttpRequest<unknown>);
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  beforeEach(() => (spectator = createService()));
+
+  for (const testCase of [
+    {
+      message: 'append token',
+      urlStart: 'https://test-url.com',
+      hasToken: true,
+    },
+    {
+      message: 'not append token',
+      urlStart: 'https://some-url.com',
+      hasToken: false,
+    },
+  ]) {
+    // eslint-disable-next-line require-await
+    it(`should ${testCase.message}`, async (): Promise<HttpEvent<unknown>> => {
+      const next = {
+        handle(
+          request: HttpRequest<unknown>
+        ): Observable<HttpResponse<unknown>> {
+          expect(request.headers.has('Authorization')).toBe(testCase.hasToken);
+          const httpResponse = new HttpResponse({ status: 200 });
+
+          return of(httpResponse);
+        },
+      };
+
+      const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+      const interceptResult = firstValueFrom(interceptResult$);
+
+      return interceptResult;
+    });
+  }
 });
