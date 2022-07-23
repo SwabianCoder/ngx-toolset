@@ -75,11 +75,7 @@ jobs:
           static-checking: localIsNew
       - name: Validate package version change
         if: ${{ env.skipVersionValidation == 'False' }}
-        working-directory: ./main/projects/${{ inputs.PACKAGE_NAME }}
         run: |
-          mainPackageVersion=$( jq -r '.version' package.json )
-          echo "PR package version: ${{ env.prPackageVersion }}"
-          echo "Main package version: $mainPackageVersion"
           if [[ steps.version-compare.outputs.changed == 'True' ]];
           then
             echo 'Version changed'
