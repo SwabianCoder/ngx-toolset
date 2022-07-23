@@ -71,7 +71,7 @@ jobs:
         with:
           diff-search: true
           file-name: ./pr/projects/${{ inputs.PACKAGE_NAME }}/package.json
-          file-url: ./main/projects/${{ inputs.PACKAGE_NAME }}/package.json
+          file-url: https://raw.githubusercontent.com/SwabianCoder/ngx-toolset/main/projects/${{ PACKAGE_NAME }}/package.json
           static-checking: localIsNew
       - name: Validate package version change
         if: ${{ env.skipVersionValidation == 'False' }}
