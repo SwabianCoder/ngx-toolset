@@ -12,7 +12,8 @@ import { API_URL_REGEX, BEARER_TOKEN_CALLBACK_FN } from './injection-tokens';
 export class ApiTokenInterceptor implements HttpInterceptor {
   public constructor(
     @Inject(API_URL_REGEX) private readonly apiUrlRegex: RegExp,
-    @Inject(BEARER_TOKEN_CALLBACK_FN) private readonly bearerTokenCallback: () => string,
+    @Inject(BEARER_TOKEN_CALLBACK_FN)
+    private readonly bearerTokenCallback: () => string
   ) {}
 
   public intercept(
