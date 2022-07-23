@@ -69,7 +69,6 @@ jobs:
       - name: Validate package version change
         if: ${{ env.skipVersionValidation == 'False' }}
         run: |
-          echo $VERSION_CHANGED
           if [[ $VERSION_CHANGED == 'true' ]];
           then
             echo 'Version changed'
