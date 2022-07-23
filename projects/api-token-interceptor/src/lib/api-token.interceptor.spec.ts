@@ -43,7 +43,7 @@ describe('ApiTokenInterceptor', () => {
   ]) {
     // eslint-disable-next-line require-await
     it(`should ${testCase.message}`, async (): Promise<HttpEvent<unknown>> => {
-      dummyRequest.castToWritable().headers = new HttpHeaders();
+      dummyRequest.castToWritable().headers = new HttpHeaders({});
       dummyRequest.castToWritable().url = testCase.url;
 
       const next = {
