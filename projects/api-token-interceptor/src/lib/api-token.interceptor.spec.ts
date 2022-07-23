@@ -1,4 +1,10 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpHeaders,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { firstValueFrom, Observable, of } from 'rxjs';
 import {
   createServiceFactory,
