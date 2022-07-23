@@ -82,7 +82,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_level: error
-          version: ${{ env.packageVersion }}
+          version: ${{ steps.version-compare.outputs.version }}
           path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
         run: |

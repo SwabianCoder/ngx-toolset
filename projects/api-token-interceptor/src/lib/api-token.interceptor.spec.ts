@@ -49,7 +49,9 @@ describe('ApiTokenInterceptor', () => {
         },
       };
 
+      // eslint-disable-next-line no-console
       console.log(spectator.inject(API_URL_REGEX));
+      // eslint-disable-next-line no-console
       console.log(spectator.inject(BEARER_TOKEN_CALLBACK_FN));
       const interceptResult$ = spectator.service.intercept(dummyRequest, next);
       const interceptResult = firstValueFrom(interceptResult$);
