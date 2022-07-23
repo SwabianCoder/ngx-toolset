@@ -1,4 +1,4 @@
-import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { firstValueFrom, Observable, of } from 'rxjs';
 import {
   createServiceFactory,
@@ -38,6 +38,7 @@ describe('ApiTokenInterceptor', () => {
   ]) {
     // eslint-disable-next-line require-await
     it(`should ${testCase.message}`, async (): Promise<HttpEvent<unknown>> => {
+      dummyRequest.castToWritable().headers = new HttpHeaders();
       const next = {
         handle(
           request: HttpRequest<unknown>
