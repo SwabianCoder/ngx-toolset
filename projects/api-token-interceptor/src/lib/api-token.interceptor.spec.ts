@@ -12,7 +12,6 @@ describe('ApiTokenInterceptor', () => {
   let spectator: SpectatorService<ApiTokenInterceptor>;
   const createService = createServiceFactory({
     service: ApiTokenInterceptor,
-    mocks: [],
     providers: [
       { provide: API_URL_REGEX, useValue: (): string => 'dummyToken' },
       {
@@ -50,6 +49,8 @@ describe('ApiTokenInterceptor', () => {
         },
       };
 
+      console.log(spectator.inject(API_URL_REGEX));
+      console.log(spectator.inject(BEARER_TOKEN_CALLBACK_FN));
       const interceptResult$ = spectator.service.intercept(dummyRequest, next);
       const interceptResult = firstValueFrom(interceptResult$);
 
