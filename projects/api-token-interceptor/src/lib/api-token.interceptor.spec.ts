@@ -1,6 +1,5 @@
 import {
   HttpEvent,
-  HttpHandler,
   HttpHeaders,
   HttpRequest,
   HttpResponse,
