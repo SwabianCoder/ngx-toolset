@@ -64,13 +64,15 @@ jobs:
             echo "$dependabotName was not detected as PR creator"
             echo "skipVersionValidation=False" >> $GITHUB_ENV
           fi
-      - name: Read PR package version
+      - name: Compare package versions
+        id: version-compare
+        uses: EndBug/version-check@v2
         if: ${{ env.skipVersionValidation == 'False' }}
-        working-directory: ./pr/projects/${{ inputs.PACKAGE_NAME }}
-        run: |
-          prPackageVersion=$( jq -r '.version' package.json )
-          echo "prPackageVersion=$prPackageVersion" >> $GITHUB_ENV
-          echo "Current PR version: $prPackageVersion"
+        with:
+          diff-search: true
+          file-name: ./projects/${{ inputs.PACKAGE_NAME }}/package.json
+          file-url: https://unpkg.com/@ngx-toolset/${{ inputs.PACKAGE_NAME }}/package.json
+          static-checking: localIsNew
       - name: Validate package version change
         if: ${{ env.skipVersionValidation == 'False' }}
         working-directory: ./main/projects/${{ inputs.PACKAGE_NAME }}
@@ -78,7 +80,7 @@ jobs:
           mainPackageVersion=$( jq -r '.version' package.json )
           echo "PR package version: ${{ env.prPackageVersion }}"
           echo "Main package version: $mainPackageVersion"
-          if $(dpkg --compare-versions ${{ env.prPackageVersion }} gt $mainPackageVersion);
+          if [[ steps.version-compare.outputs.changed == 'True' ]];
           then
             echo 'Version changed'
           else
