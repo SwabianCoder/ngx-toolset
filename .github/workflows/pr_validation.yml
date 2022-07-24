@@ -67,7 +67,7 @@ jobs:
       #    file-url: https://raw.githubusercontent.com/SwabianCoder/ngx-toolset/main/projects/${{ inputs.PACKAGE_NAME }}/package.json
       #    static-checking: localIsNew
       - name: Semantic Version Comparator
-        uses: jackbilestech/semver-compare@v1
+        uses: jackbilestech/semver-compare@1.0.1
         if: ${{ env.skipVersionValidation == 'False' }}
         with:
           head: '1.0.0-rc.0'
