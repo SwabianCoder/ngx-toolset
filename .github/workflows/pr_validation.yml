@@ -60,9 +60,29 @@ jobs:
       - name: Install pysemver
         run: |
           pip3 install semver
+      - name: Read current package version
+        if: ${{ env.skipVersionValidation == 'False' }}
+        run: |
+          currentPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+          echo "currentPackageVersion=$currentPackageVersion" >> $GITHUB_ENV
+          echo "Current version: $prPaccurrentPackageVersionkageVersion"
+      - name: Read PR package version
+        if: ${{ env.skipVersionValidation == 'False' }}
+        working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
+        run: |
+          prPackageVersion=$( jq -r '.version' package.json )
+          echo "prPackageVersion=$prPackageVersion" >> $GITHUB_ENV
+          echo "PR version: $prPackageVersion"
       - name: Compare package versions
         run: |
-          pysemver compare 1.0.0-beta.0 1.0.0-beta.1
+          semverCompareResult=$( pysemver compare ${{ env.currentPackageVersion }} ${{ env.prPackageVersion }} )
+          if [[ $semverCompareResult == -1 ]];
+          then
+            echo 'Version changed'
+          else
+            echo 'Version did not change'
+            exit 1
+          fi
       #- name: Compare package versions
       #  id: version-compare
       #  uses: EndBug/version-check@v2
@@ -88,7 +108,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_level: error
-          version: ${{ steps.version-compare.outputs.version }}
+          version: ${{ env.prPackageVersion }}
           path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
         run: |
