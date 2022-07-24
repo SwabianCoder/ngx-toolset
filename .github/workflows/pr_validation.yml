@@ -90,7 +90,7 @@ jobs:
             exit 1
           fi
       - name: Validate changelog entry
-        uses: mindsers/changelog-reader-action@v2
+        uses: mindsers/changelog-reader-action@v2.1.1
         with:
           validation_level: error
           version: ${{ env.prPackageVersion }}
