@@ -57,6 +57,12 @@ jobs:
             echo "$dependabotName was not detected as PR creator"
             echo "skipVersionValidation=False" >> $GITHUB_ENV
           fi
+      - name: Install pysemver
+        run: |
+          pip3 install semver
+      - name: Compare package versions
+        run: |
+          pysemver compare 1.0.0-beta.0 1.0.0-beta.1
       #- name: Compare package versions
       #  id: version-compare
       #  uses: EndBug/version-check@v2
@@ -66,12 +72,6 @@ jobs:
       #    file-name: ./projects/${{ inputs.PACKAGE_NAME }}/package.json
       #    file-url: https://raw.githubusercontent.com/SwabianCoder/ngx-toolset/main/projects/${{ inputs.PACKAGE_NAME }}/package.json
       #    static-checking: localIsNew
-      - name: Semantic Version Comparator
-        uses: jackbilestech/semver-compare@1.0.1
-        if: ${{ env.skipVersionValidation == 'False' }}
-        with:
-          head: '1.0.0-rc.0'
-          base: '1.0.0-beta.0'
       #- name: Validate package version change
       #  if: ${{ env.skipVersionValidation == 'False' }}
       #  run: |
