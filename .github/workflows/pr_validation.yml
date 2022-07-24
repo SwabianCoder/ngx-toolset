@@ -63,9 +63,15 @@ jobs:
       - name: Read current package version
         if: ${{ env.skipVersionValidation == 'False' }}
         run: |
-          currentPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+          npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
+          if [[ "$npmSearchResult" == 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]];
+          then
+            currentPackageVersion="0.0.0"
+          else
+            currentPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+          fi
           echo "currentPackageVersion=$currentPackageVersion" >> $GITHUB_ENV
-          echo "Current version: $prPaccurrentPackageVersionkageVersion"
+          echo "Current version: $currentPackageVersion"
       - name: Read PR package version
         if: ${{ env.skipVersionValidation == 'False' }}
         working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
@@ -73,7 +79,7 @@ jobs:
           prPackageVersion=$( jq -r '.version' package.json )
           echo "prPackageVersion=$prPackageVersion" >> $GITHUB_ENV
           echo "PR version: $prPackageVersion"
-      - name: Compare package versions
+      - name: Check for package version update
         run: |
           semverCompareResult=$( pysemver compare ${{ env.currentPackageVersion }} ${{ env.prPackageVersion }} )
           if [[ $semverCompareResult == -1 ]];
@@ -83,27 +89,6 @@ jobs:
             echo 'Version did not change'
             exit 1
           fi
-      #- name: Compare package versions
-      #  id: version-compare
-      #  uses: EndBug/version-check@v2
-      #  if: ${{ env.skipVersionValidation == 'False' }}
-      #  with:
-      #    diff-search: true
-      #    file-name: ./projects/${{ inputs.PACKAGE_NAME }}/package.json
-      #    file-url: https://raw.githubusercontent.com/SwabianCoder/ngx-toolset/main/projects/${{ inputs.PACKAGE_NAME }}/package.json
-      #    static-checking: localIsNew
-      #- name: Validate package version change
-      #  if: ${{ env.skipVersionValidation == 'False' }}
-      #  run: |
-      #    if [[ $VERSION_CHANGED == 'true' ]];
-      #    then
-      #      echo 'Version changed'
-      #    else
-      #      echo 'Version did not change'
-      #      exit 1
-      #    fi
-      #  env:
-      #    VERSION_CHANGED: ${{ steps.version-compare.outputs.changed }}
       - name: Validate changelog entry
         uses: mindsers/changelog-reader-action@v2
         with:
