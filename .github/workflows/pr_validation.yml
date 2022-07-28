@@ -60,28 +60,29 @@ jobs:
       - name: Install pysemver
         run: |
           pip3 install semver
-      - name: Read current package version
+      - name: Get latest package version from NPM
         if: ${{ env.skipVersionValidation == 'False' }}
         run: |
           npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
           if [[ "$npmSearchResult" == 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]];
           then
-            currentPackageVersion="0.0.0"
+            latestNpmPackageVersion="0.0.0"
           else
-            currentPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+            latestNpmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
           fi
-          echo "currentPackageVersion=$currentPackageVersion" >> $GITHUB_ENV
-          echo "Current version: $currentPackageVersion"
-      - name: Read PR package version
+          echo "latestNpmPackageVersion=$latestNpmPackageVersion" >> $GITHUB_ENV
+          echo "Current version: $latestNpmPackageVersion"
+      - name: Get PR package version
         if: ${{ env.skipVersionValidation == 'False' }}
         working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
         run: |
           prPackageVersion=$( jq -r '.version' package.json )
           echo "prPackageVersion=$prPackageVersion" >> $GITHUB_ENV
           echo "PR version: $prPackageVersion"
-      - name: Check for package version update
+      - name: Verify package version change
+        if: ${{ env.skipVersionValidation == 'False' }}
         run: |
-          semverCompareResult=$( pysemver compare ${{ env.currentPackageVersion }} ${{ env.prPackageVersion }} )
+          semverCompareResult=$( pysemver compare ${{ env.latestNpmPackageVersion }} ${{ env.prPackageVersion }} )
           if [[ $semverCompareResult == -1 ]];
           then
             echo 'Version changed'
@@ -90,6 +91,7 @@ jobs:
             exit 1
           fi
       - name: Validate changelog entry
+        if: ${{ env.skipVersionValidation == 'False' }}
         uses: mindsers/changelog-reader-action@v2.1.1
         with:
           validation_level: error
