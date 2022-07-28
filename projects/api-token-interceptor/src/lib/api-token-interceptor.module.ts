@@ -6,8 +6,6 @@ import {
 } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiTokenInterceptor } from './api-token.interceptor';
-import { ApiTokenInterceptorConfig } from './interfaces';
-import { API_TOKEN_INTERCEPTOR_CONFIG } from './injection-tokens';
 
 @NgModule()
 export class ApiTokenInterceptorModule {
@@ -21,16 +19,10 @@ export class ApiTokenInterceptorModule {
     }
   }
 
-  public static forRoot(
-    config: ApiTokenInterceptorConfig
-  ): ModuleWithProviders<ApiTokenInterceptorModule> {
+  public static forRoot(): ModuleWithProviders<ApiTokenInterceptorModule> {
     return {
       ngModule: ApiTokenInterceptorModule,
       providers: [
-        {
-          provide: API_TOKEN_INTERCEPTOR_CONFIG,
-          useValue: config,
-        },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ApiTokenInterceptor,

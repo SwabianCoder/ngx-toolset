@@ -6,24 +6,24 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiTokenInterceptorConfig } from './interfaces';
-import { API_TOKEN_INTERCEPTOR_CONFIG } from './injection-tokens';
+import { API_URL_REGEX, BEARER_TOKEN_CALLBACK_FN } from './injection-tokens';
 
 @Injectable()
 export class ApiTokenInterceptor implements HttpInterceptor {
   public constructor(
-    @Inject(API_TOKEN_INTERCEPTOR_CONFIG)
-    private readonly config: ApiTokenInterceptorConfig
+    @Inject(API_URL_REGEX) private readonly apiUrlRegex: RegExp,
+    @Inject(BEARER_TOKEN_CALLBACK_FN)
+    private readonly bearerTokenCallback: () => string
   ) {}
 
   public intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const urlMatch = this.config.apiUrlRegex.test(request.url);
+    const urlMatch = this.apiUrlRegex.test(request.url);
 
     if (urlMatch) {
-      const token = this.config.bearerTokenCallback();
+      const token = this.bearerTokenCallback();
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
