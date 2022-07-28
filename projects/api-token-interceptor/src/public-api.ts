@@ -1,2 +1,2 @@
-export * from './lib/injection-tokens';
+export * from './lib/interfaces';
 export * from './lib/api-token-interceptor.module';

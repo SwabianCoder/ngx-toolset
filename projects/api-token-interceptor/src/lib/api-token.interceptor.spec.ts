@@ -11,17 +11,19 @@ import {
   createSpyObject,
 } from '@ngneat/spectator';
 import { ApiTokenInterceptor } from './api-token.interceptor';
-import { API_URL_REGEX, BEARER_TOKEN_CALLBACK_FN } from './injection-tokens';
+import { API_TOKEN_INTERCEPTOR_CONFIG } from './injection-tokens';
 
 describe('ApiTokenInterceptor', () => {
   let spectator: SpectatorService<ApiTokenInterceptor>;
   const createService = createServiceFactory({
     service: ApiTokenInterceptor,
     providers: [
-      { provide: API_URL_REGEX, useValue: /^https:\/\/test-url.com/ },
       {
-        provide: BEARER_TOKEN_CALLBACK_FN,
-        useValue: (): string => 'dummyToken',
+        provide: API_TOKEN_INTERCEPTOR_CONFIG,
+        useValue: {
+          apiUrlRegex: /^https:\/\/test-url.com/,
+          bearerTokenCallback: (): string => 'dummyToken',
+        },
       },
     ],
   });
