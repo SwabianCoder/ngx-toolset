@@ -78,7 +78,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^14.1.0",
     "prettier": "^2.7.1",
-    "stylelint": "^14.9.1",
+    "stylelint": "^14.10.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^27.0.0",
     "stylelint-config-standard-scss": "^5.0.0",
