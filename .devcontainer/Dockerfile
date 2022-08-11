@@ -13,11 +13,11 @@ RUN npm -v
 RUN npm i @angular/cli@^14.0.0 --location=global
 
 # Install latest Chrome browser
-RUN apt-get install -y x11vnc
-RUN apt-get install -y xvfb
-RUN apt-get install -y fluxbox
-RUN apt-get install -y wget
-RUN apt-get install -y wmctrl
-RUN apt-get install -y wget
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt-get install ./google-chrome-stable_current_amd64.deb
+#RUN apt-get install -y x11vnc
+#RUN apt-get install -y xvfb
+#RUN apt-get install -y fluxbox
+#RUN apt-get install -y wget
+#RUN apt-get install -y wmctrl
+#RUN apt-get install -y wget
+#RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#RUN apt-get install ./google-chrome-stable_current_amd64.deb
