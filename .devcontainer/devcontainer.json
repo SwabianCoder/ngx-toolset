@@ -19,11 +19,11 @@
 			}
 		},
 		"terminal.integrated.defaultProfile.linux": "bash",
+		"workbench.colorTheme": "GitHub Dark Default",
+		"workbench.startupEditor": "none",
 		"extensions.ignoreRecommendations": true,
 		"gitlens.showWelcomeOnInstall": false,
-		"gitlens.showWhatsNewAfterUpgrades": false,
-		"workbench.colorTheme": "GitHub Dark Default",
-		"workbench.startupEditor": "welcome"
+		"gitlens.showWhatsNewAfterUpgrades": false
 	},
 	"extensions": [
 		"eamodio.gitlens",
