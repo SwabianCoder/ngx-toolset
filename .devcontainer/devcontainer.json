@@ -22,7 +22,8 @@
 		"extensions.ignoreRecommendations": true,
 		"gitlens.showWelcomeOnInstall": false,
 		"gitlens.showWhatsNewAfterUpgrades": false,
-		"workbench.colorTheme": "GitHub Dark Default"
+		"workbench.colorTheme": "GitHub Dark Default",
+		"workbench.startupEditor": "none"
 	},
 	"extensions": [
 		"eamodio.gitlens",
