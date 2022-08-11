@@ -21,7 +21,8 @@
 		"terminal.integrated.defaultProfile.linux": "bash",
 		"extensions.ignoreRecommendations": true,
 		"gitlens.showWelcomeOnInstall": false,
-		"gitlens.showWhatsNewAfterUpgrades": false
+		"gitlens.showWhatsNewAfterUpgrades": false,
+		"workbench.colorTheme": "Default Light+"
 	},
 	"extensions": [
 		"eamodio.gitlens",
