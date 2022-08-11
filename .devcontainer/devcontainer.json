@@ -1,9 +1,9 @@
 {
-	"name": "ngx-toolset",
+	"name": "Ubuntu",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"VARIANT": "latest"
+			"VARIANT": "ubuntu-22.04"
 		}
 	},
 	"forwardPorts": [
@@ -34,5 +34,8 @@
 		"cyrilletuzi.angular-schematics",
     "seatonjiang.gitmoji-vscode",
 		"redhat.vscode-yaml"
-	]
+	],
+	"features": {
+		"node": "16"
+	}
 }
