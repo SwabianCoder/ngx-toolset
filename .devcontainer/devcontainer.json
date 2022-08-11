@@ -34,8 +34,5 @@
 		"cyrilletuzi.angular-schematics",
     "seatonjiang.gitmoji-vscode",
 		"redhat.vscode-yaml"
-	],
-	"features": {
-		"node": "16"
-	}
+	]
 }
