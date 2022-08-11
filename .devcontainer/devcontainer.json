@@ -23,7 +23,7 @@
 		"gitlens.showWelcomeOnInstall": false,
 		"gitlens.showWhatsNewAfterUpgrades": false,
 		"workbench.colorTheme": "GitHub Dark Default",
-		"workbench.startupEditor": "readme"
+		"workbench.startupEditor": "welcome"
 	},
 	"extensions": [
 		"eamodio.gitlens",
