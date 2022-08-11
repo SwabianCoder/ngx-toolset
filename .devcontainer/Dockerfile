@@ -1,5 +1,5 @@
 ARG VARIANT=16
-FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
+#FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
 # Install latest Angular 14 CLI
 RUN npm i @angular/cli@^14.0.0 --location=global
