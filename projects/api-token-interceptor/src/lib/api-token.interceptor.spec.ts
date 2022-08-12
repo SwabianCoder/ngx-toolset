@@ -83,6 +83,8 @@ describe('ApiTokenInterceptor', () => {
       const interceptResult$ = spectator.service.intercept(dummyRequest, next);
       const interceptResult = firstValueFrom(interceptResult$);
 
+      dummyRequest.clone.reset();
+
       return interceptResult;
     });
   }
