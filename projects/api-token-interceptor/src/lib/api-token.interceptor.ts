@@ -31,9 +31,6 @@ export class ApiTokenInterceptor implements HttpInterceptor {
       });
     }
 
-    // eslint-disable-next-line no-console
-    console.log('Log: ', JSON.stringify(request.headers));
-
     return next.handle(request);
   }
 }

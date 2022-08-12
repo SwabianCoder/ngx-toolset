@@ -43,14 +43,28 @@ describe('ApiTokenInterceptor', () => {
   ]) {
     // eslint-disable-next-line require-await
     it(`should ${testCase.message}`, async (): Promise<HttpEvent<unknown>> => {
-      dummyRequest.castToWritable().headers = new HttpHeaders({});
       dummyRequest.castToWritable().url = testCase.url;
+      dummyRequest.castToWritable().headers = new HttpHeaders();
+      dummyRequest.clone.andCallFake(
+        (update: {
+          setHeaders?: {
+            [name: string]: string | string[];
+          };
+        }) => new HttpRequest<unknown>('GET', testCase.url).clone(update)
+      );
 
       const next = {
         handle(
           request: HttpRequest<unknown>
         ): Observable<HttpResponse<unknown>> {
           expect(request.headers.has('Authorization')).toBe(testCase.hasToken);
+
+          if (request.headers.has('Authorization')) {
+            expect(request.headers.get('Authorization')).toBe(
+              'Bearer dummyToken'
+            );
+          }
+
           const httpResponse = new HttpResponse({ status: 200 });
 
           return of(httpResponse);
