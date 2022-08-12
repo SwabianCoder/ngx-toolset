@@ -59,10 +59,16 @@ describe('ApiTokenInterceptor', () => {
         ): Observable<HttpResponse<unknown>> {
           expect(request.headers.has('Authorization')).toBe(testCase.hasToken);
 
-          if (request.headers.has('Authorization')) {
+          if (testCase.hasToken) {
             expect(request.headers.get('Authorization')).toBe(
               'Bearer dummyToken'
             );
+            expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
+            expect(dummyRequest.clone).toHaveBeenCalledWith({
+              setHeaders: { Authorization: 'Bearer dummyToken' },
+            });
+          } else {
+            expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
           }
 
           const httpResponse = new HttpResponse({ status: 200 });
