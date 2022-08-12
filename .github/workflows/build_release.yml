@@ -22,8 +22,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Get package version
+        working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
         run: |
-          packageVersion=$( jq -r '.version' projects/${{ inputs.PACKAGE_NAME }}/package.json )
+          packageVersion=$( jq -r '.version' package.json )
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           echo "$packageVersion"
       - name: Validate changelog entry
