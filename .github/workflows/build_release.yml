@@ -179,6 +179,6 @@ jobs:
           artifacts: ${{ env.zipName }}
           body: ${{ steps.changelog_reader.outputs.changes }}
           prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
-          name: "@ngx-toolset/${{ inputs.PACKAGE_NAME }} - ${{ env.packageVersion }}"
+          name: "@ngx-toolset/${{ inputs.PACKAGE_NAME }} | ${{ env.packageVersion }}"
           tag: "@ngx-toolset/${{ inputs.PACKAGE_NAME }}@${{ env.packageVersion }}"
           token: ${{ secrets.GITHUB_TOKEN }}
