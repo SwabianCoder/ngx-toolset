@@ -91,7 +91,6 @@ jobs:
           echo "latestNpmPackageVersion=$latestNpmPackageVersion" >> $GITHUB_ENV
           echo "Latest NPM version: $latestNpmPackageVersion"
       - name: Get local package version
-        working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
         run: |
           localPackageVersion=$( jq -r '.version' package.json )
           echo "localPackageVersion=$localPackageVersion" >> $GITHUB_ENV
