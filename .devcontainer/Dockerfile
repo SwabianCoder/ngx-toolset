@@ -1,10 +1,8 @@
 ARG VARIANT=16
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
-# Setup latest Node 16
-RUN apt-get install curl
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
-RUN apt-get install nodejs
+RUN node -v
+RUN npm -v
 
 # Setup latest Angular 14 CLI
 RUN npm i @angular/cli@^14.0.0 --location=global
