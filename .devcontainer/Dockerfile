@@ -1,5 +1,5 @@
-ARG VARIANT=16
-FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
+ARG VARIANT="jammy"
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 RUN node -v
 RUN npm -v
