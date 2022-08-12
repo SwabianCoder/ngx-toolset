@@ -1,5 +1,5 @@
-ARG VARIANT="jammy"
-FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
+ARG VARIANT=16
+FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
 # Setup latest Node 16
 RUN apt-get install curl
