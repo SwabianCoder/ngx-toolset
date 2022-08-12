@@ -63,11 +63,14 @@ describe('ApiTokenInterceptor', () => {
             expect(request.headers.get('Authorization')).toBe(
               'Bearer dummyToken'
             );
+            // eslint-disable-next-line @typescript-eslint/unbound-method
             expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
+            // eslint-disable-next-line @typescript-eslint/unbound-method
             expect(dummyRequest.clone).toHaveBeenCalledWith({
               setHeaders: { Authorization: 'Bearer dummyToken' },
             });
           } else {
+            // eslint-disable-next-line @typescript-eslint/unbound-method
             expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
           }
 
