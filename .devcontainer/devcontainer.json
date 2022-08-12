@@ -1,0 +1,42 @@
+{
+	"name": "Node.js",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"VARIANT": "ubuntu-22.04"
+		}
+	},
+	"forwardPorts": [
+    4200,
+    9876
+  ],
+	"postCreateCommand": "npm i",
+	"customizations": {
+		"vscode": {
+			"settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "workbench.colorTheme": "GitHub Dark Default",
+        "workbench.startupEditor": "none",
+        "extensions.ignoreRecommendations": true,
+        "gitlens.showWelcomeOnInstall": false,
+        "gitlens.showWhatsNewAfterUpgrades": false
+      },
+			"extensions": [
+				"eamodio.gitlens",
+        "visualstudioexptteam.vscodeintellicode",
+        "github.vscode-pull-request-github",
+        "angular.ng-template",
+        "johnpapa.angular2",
+        "cyrilletuzi.angular-schematics",
+        "seatonjiang.gitmoji-vscode",
+        "redhat.vscode-yaml"
+			]
+		}
+	}
+}
