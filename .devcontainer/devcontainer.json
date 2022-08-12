@@ -1,9 +1,9 @@
 {
-	"name": "Ubuntu",
+	"name": "Node.js",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"VARIANT": "latest"
+			"VARIANT": "16-bullseye"
 		}
 	},
 	"forwardPorts": [
@@ -11,28 +11,32 @@
     9876
   ],
 	"postCreateCommand": "npm i",
-	"settings": {
-		"terminal.integrated.profiles.linux": {
-			"bash": {
-				"path": "bash",
-				"icon": "terminal-bash"
-			}
-		},
-		"terminal.integrated.defaultProfile.linux": "bash",
-		"workbench.colorTheme": "GitHub Dark Default",
-		"workbench.startupEditor": "none",
-		"extensions.ignoreRecommendations": true,
-		"gitlens.showWelcomeOnInstall": false,
-		"gitlens.showWhatsNewAfterUpgrades": false
-	},
-	"extensions": [
-		"eamodio.gitlens",
-		"visualstudioexptteam.vscodeintellicode",
-		"github.vscode-pull-request-github",
-		"angular.ng-template",
-		"johnpapa.angular2",
-		"cyrilletuzi.angular-schematics",
-    "seatonjiang.gitmoji-vscode",
-		"redhat.vscode-yaml"
-	]
+	"customizations": {
+		"vscode": {
+			"settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "workbench.colorTheme": "GitHub Dark Default",
+        "workbench.startupEditor": "none",
+        "extensions.ignoreRecommendations": true,
+        "gitlens.showWelcomeOnInstall": false,
+        "gitlens.showWhatsNewAfterUpgrades": false
+      },
+			"extensions": [
+				"eamodio.gitlens",
+        "visualstudioexptteam.vscodeintellicode",
+        "github.vscode-pull-request-github",
+        "angular.ng-template",
+        "johnpapa.angular2",
+        "cyrilletuzi.angular-schematics",
+        "seatonjiang.gitmoji-vscode",
+        "redhat.vscode-yaml"
+			]
+		}
+	}
 }
