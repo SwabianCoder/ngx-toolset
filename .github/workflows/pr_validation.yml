@@ -92,7 +92,7 @@ jobs:
           fi
       - name: Validate changelog entry
         if: ${{ env.skipVersionValidation == 'False' }}
-        uses: mindsers/changelog-reader-action@master #mindsers/changelog-reader-action@v2
+        uses: mindsers/changelog-reader-action@master #v2
         with:
           validation_level: error
           version: ${{ env.prPackageVersion }}
