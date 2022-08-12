@@ -15,15 +15,8 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v3
-        with:
-          ref: "main"
-          path: main
       - name: Checkout PR branch
         uses: actions/checkout@v3
-        with:
-          path: pr
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -64,21 +57,33 @@ jobs:
             echo "$dependabotName was not detected as PR creator"
             echo "skipVersionValidation=False" >> $GITHUB_ENV
           fi
-      - name: Read PR package version
+      - name: Install pysemver
+        run: |
+          pip3 install semver
+      - name: Get latest package version from NPM
         if: ${{ env.skipVersionValidation == 'False' }}
-        working-directory: ./pr/projects/${{ inputs.PACKAGE_NAME }}
+        run: |
+          npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
+          if [[ "$npmSearchResult" == 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]];
+          then
+            latestNpmPackageVersion="0.0.0"
+          else
+            latestNpmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+          fi
+          echo "latestNpmPackageVersion=$latestNpmPackageVersion" >> $GITHUB_ENV
+          echo "Current version: $latestNpmPackageVersion"
+      - name: Get PR package version
+        if: ${{ env.skipVersionValidation == 'False' }}
+        working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
         run: |
           prPackageVersion=$( jq -r '.version' package.json )
           echo "prPackageVersion=$prPackageVersion" >> $GITHUB_ENV
-          echo "Current PR version: $prPackageVersion"
-      - name: Validate package version change
+          echo "PR version: $prPackageVersion"
+      - name: Verify package version change
         if: ${{ env.skipVersionValidation == 'False' }}
-        working-directory: ./main/projects/${{ inputs.PACKAGE_NAME }}
         run: |
-          mainPackageVersion=$( jq -r '.version' package.json )
-          echo "PR package version: ${{ env.prPackageVersion }}"
-          echo "Main package version: $mainPackageVersion"
-          if $(dpkg --compare-versions ${{ env.prPackageVersion }} gt $mainPackageVersion);
+          semverCompareResult=$( pysemver compare ${{ env.latestNpmPackageVersion }} ${{ env.prPackageVersion }} )
+          if [[ $semverCompareResult == -1 ]];
           then
             echo 'Version changed'
           else
@@ -86,25 +91,22 @@ jobs:
             exit 1
           fi
       - name: Validate changelog entry
-        uses: mindsers/changelog-reader-action@v2
+        if: ${{ env.skipVersionValidation == 'False' }}
+        uses: mindsers/changelog-reader-action@master #v2
         with:
           validation_level: error
-          version: ${{ env.packageVersion }}
-          path: ./pr/projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
+          version: ${{ env.prPackageVersion }}
+          path: ./projects/${{ inputs.PACKAGE_NAME }}/CHANGELOG.md
       - name: Install dependencies
-        working-directory: ./pr
         run: |
           npm ci --ignore-scripts
       - name: Check code style
-        working-directory: ./pr
         run: |
           npm run lint:${{ inputs.PACKAGE_NAME }}
       - name: Run unit tests
-        working-directory: ./pr
         run: |
           npm run test:unit:${{ inputs.PACKAGE_NAME }}:no-watch
       - name: Build lib
-        working-directory: ./pr
         run: |
           npx -c 'ng b @ngx-toolset/${{ inputs.PACKAGE_NAME }}'
           # Somehow calling build script via npm run does not work as of now.

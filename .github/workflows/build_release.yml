@@ -27,7 +27,7 @@ jobs:
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           echo "$packageVersion"
       - name: Validate changelog entry
-        uses: mindsers/changelog-reader-action@v2
+        uses: mindsers/changelog-reader-action@master #v2
         with:
           validation_level: error
           version: ${{ env.packageVersion }}
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     outputs:
-      version_increased: ${{ steps.check_package_version.outputs.version_increased }}
+      version_increased: ${{ steps.verify_package_version_change.outputs.version_increased }}
     strategy:
       matrix:
         node-version: [18.x]
@@ -75,26 +75,37 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.PACKAGE_NAME }}_artifact
-      - name: Check for package version update
-        id: check_package_version
+      - name: Install pysemver
         run: |
-          localPackageVersion=$( jq -r '.version' package.json )
-          echo "Local package version: $localPackageVersion"
+          pip3 install semver
+      - name: Get latest package version from NPM
+        run: |
           npmSearchResult=$( npm search @ngx-toolset/${{ inputs.PACKAGE_NAME }} )
           if [[ "$npmSearchResult" == 'No matches found for "@ngx-toolset/${{ inputs.PACKAGE_NAME }}"' ]];
           then
-            npmPackageVersion="0.0.0"
+            latestNpmPackageVersion="0.0.0"
           else
-            npmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
+            latestNpmPackageVersion=$( npm show @ngx-toolset/${{ inputs.PACKAGE_NAME }} version )
           fi
-          echo "Latest package version on NPM: $npmPackageVersion"
-          if $(dpkg --compare-versions $localPackageVersion gt $npmPackageVersion);
+          echo "latestNpmPackageVersion=$latestNpmPackageVersion" >> $GITHUB_ENV
+          echo "Latest NPM version: $latestNpmPackageVersion"
+      - name: Get local package version
+        working-directory: ./projects/${{ inputs.PACKAGE_NAME }}
+        run: |
+          localPackageVersion=$( jq -r '.version' package.json )
+          echo "localPackageVersion=$localPackageVersion" >> $GITHUB_ENV
+          echo "Local version: $localPackageVersion"
+      - name: Verify package version change
+        id: verify_package_version_change
+        run: |
+          semverCompareResult=$( pysemver compare ${{ env.latestNpmPackageVersion }} ${{ env.localPackageVersion }} )
+          if [[ $semverCompareResult == -1 ]];
           then
             echo '::set-output name=version_increased::True'
-            echo 'Version updated'
+            echo 'Version changed'
           else
             echo '::set-output name=version_increased::False'
-            echo 'Version did not update'
+            echo 'Version did not change'
           fi
   npm-package:
     name: NPM package
@@ -158,7 +169,7 @@ jobs:
           zip -r "../../${{ env.zipName }}" *
       - name: Get changelog entry
         id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
+        uses: mindsers/changelog-reader-action@master #v2
         with:
           version: ${{ env.packageVersion }}
           path: ./CHANGELOG.md
