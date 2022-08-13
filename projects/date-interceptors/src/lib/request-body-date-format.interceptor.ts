@@ -24,6 +24,7 @@ export class RequestBodyDateFormatInterceptor implements HttpInterceptor {
 
     if (urlMatch && request.body) {
       this.convertDatesToDateStrings(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         request.body as { [key: string]: any } | any[]
       );
 
@@ -36,20 +37,24 @@ export class RequestBodyDateFormatInterceptor implements HttpInterceptor {
   }
 
   private convertDatesToDateStrings(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body?: { [key: string]: any } | any[]
   ): void {
     if (body) {
       if (Array.isArray(body)) {
         for (const item of body) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           this.convertDatesToDateStrings(item);
         }
       } else if (typeof body === 'object') {
         for (const key of Object.keys(body)) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           const value = body[key];
 
           if (value instanceof Date) {
             body[key] = format(value, this.apiDateFormat);
           } else if (typeof value === 'object') {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             this.convertDatesToDateStrings(value);
           }
         }
