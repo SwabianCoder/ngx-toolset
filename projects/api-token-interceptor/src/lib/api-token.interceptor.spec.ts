@@ -26,6 +26,7 @@ describe('ApiTokenInterceptor', () => {
     ],
   });
   const dummyRequest = createSpyObject(HttpRequest<unknown>);
+  dummyRequest.castToWritable().headers = new HttpHeaders();
 
   beforeEach(() => (spectator = createService()));
 
@@ -33,7 +34,6 @@ describe('ApiTokenInterceptor', () => {
   it('appends a token', async (): Promise<HttpEvent<unknown>> => {
     const requestUrl = 'https://test-url.com';
     dummyRequest.castToWritable().url = requestUrl;
-    dummyRequest.castToWritable().headers = new HttpHeaders();
     dummyRequest.clone.andCallFake(
       (update: {
         setHeaders?: {
@@ -71,7 +71,6 @@ describe('ApiTokenInterceptor', () => {
   it('does not append a token', async (): Promise<HttpEvent<unknown>> => {
     const requestUrl = 'https://some-url.com';
     dummyRequest.castToWritable().url = requestUrl;
-    dummyRequest.castToWritable().headers = new HttpHeaders();
     dummyRequest.clone.andCallFake(
       (update: {
         setHeaders?: {
