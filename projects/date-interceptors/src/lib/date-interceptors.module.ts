@@ -1,9 +1,34 @@
-import { NgModule } from '@angular/core';
-import { DateInterceptorsComponent } from './date-interceptors.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
+import { ResponseBodyDateParseInterceptor } from './response-body-date-parse.interceptor';
 
-@NgModule({
-  declarations: [DateInterceptorsComponent],
-  imports: [],
-  exports: [DateInterceptorsComponent],
-})
-export class DateInterceptorsModule {}
+@NgModule()
+export class DateInterceptorsModule {
+  public constructor(
+    @Optional() @SkipSelf() parentModule: DateInterceptorsModule
+  ) {
+    if (parentModule) {
+      throw new Error(
+        'DateInterceptorsModule is already loaded. Import it in the AppModule only'
+      );
+    }
+  }
+
+  public static forRoot(): ModuleWithProviders<DateInterceptorsModule> {
+    return {
+      ngModule: DateInterceptorsModule,
+      providers: [
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: ResponseBodyDateParseInterceptor,
+          multi: true,
+        },
+      ],
+    };
+  }
+}
