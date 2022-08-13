@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { TemplateTypeCheckerComponent } from './template-type-checker.component';
+import { TypeCheckerPipe } from './type-checker.pipe';
 
 @NgModule({
-  declarations: [TemplateTypeCheckerComponent],
-  imports: [],
-  exports: [TemplateTypeCheckerComponent],
+  declarations: [TypeCheckerPipe],
+  exports: [TypeCheckerPipe],
 })
 export class TemplateTypeCheckerModule {}
