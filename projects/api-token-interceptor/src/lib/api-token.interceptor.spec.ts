@@ -26,66 +26,76 @@ describe('ApiTokenInterceptor', () => {
     ],
   });
   const dummyRequest = createSpyObject(HttpRequest<unknown>);
+  dummyRequest.castToWritable().headers = new HttpHeaders();
 
   beforeEach(() => (spectator = createService()));
 
-  for (const testCase of [
-    {
-      message: 'append token',
-      url: 'https://test-url.com',
-      hasToken: true,
-    },
-    {
-      message: 'not append token',
-      url: 'https://some-url.com',
-      hasToken: false,
-    },
-  ]) {
-    // eslint-disable-next-line require-await
-    it(`should ${testCase.message}`, async (): Promise<HttpEvent<unknown>> => {
-      dummyRequest.castToWritable().url = testCase.url;
-      dummyRequest.castToWritable().headers = new HttpHeaders();
-      dummyRequest.clone.andCallFake(
-        (update: {
-          setHeaders?: {
-            [name: string]: string | string[];
-          };
-        }) => new HttpRequest<unknown>('GET', testCase.url).clone(update)
-      );
+  // eslint-disable-next-line require-await
+  it('appends a token', async (): Promise<HttpEvent<unknown>> => {
+    const requestUrl = 'https://test-url.com';
+    dummyRequest.castToWritable().url = requestUrl;
+    dummyRequest.clone.andCallFake(
+      (update: {
+        setHeaders?: {
+          [name: string]: string | string[];
+        };
+      }) => new HttpRequest<unknown>('GET', requestUrl).clone(update)
+    );
 
-      const next = {
-        handle(
-          request: HttpRequest<unknown>
-        ): Observable<HttpResponse<unknown>> {
-          expect(request.headers.has('Authorization')).toBe(testCase.hasToken);
+    const next = {
+      handle(request: HttpRequest<unknown>): Observable<HttpResponse<unknown>> {
+        expect(request.headers.has('Authorization')).toBeTrue();
+        expect(request.headers.get('Authorization')).toBe('Bearer dummyToken');
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(dummyRequest.clone).toHaveBeenCalledWith({
+          setHeaders: { Authorization: 'Bearer dummyToken' },
+        });
 
-          if (testCase.hasToken) {
-            expect(request.headers.get('Authorization')).toBe(
-              'Bearer dummyToken'
-            );
-            // eslint-disable-next-line @typescript-eslint/unbound-method
-            expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
-            // eslint-disable-next-line @typescript-eslint/unbound-method
-            expect(dummyRequest.clone).toHaveBeenCalledWith({
-              setHeaders: { Authorization: 'Bearer dummyToken' },
-            });
-          } else {
-            // eslint-disable-next-line @typescript-eslint/unbound-method
-            expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
-          }
+        const httpResponse = new HttpResponse({ status: 200 });
 
-          const httpResponse = new HttpResponse({ status: 200 });
+        return of(httpResponse);
+      },
+    };
 
-          return of(httpResponse);
-        },
-      };
+    const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+    const interceptResult = firstValueFrom(interceptResult$);
 
-      const interceptResult$ = spectator.service.intercept(dummyRequest, next);
-      const interceptResult = firstValueFrom(interceptResult$);
+    dummyRequest.clone.reset();
 
-      dummyRequest.clone.reset();
+    return interceptResult;
+  });
 
-      return interceptResult;
-    });
-  }
+  // eslint-disable-next-line require-await
+  it('does not append a token', async (): Promise<HttpEvent<unknown>> => {
+    const requestUrl = 'https://some-url.com';
+    dummyRequest.castToWritable().url = requestUrl;
+    dummyRequest.clone.andCallFake(
+      (update: {
+        setHeaders?: {
+          [name: string]: string | string[];
+        };
+      }) => new HttpRequest<unknown>('GET', requestUrl).clone(update)
+    );
+
+    const next = {
+      handle(request: HttpRequest<unknown>): Observable<HttpResponse<unknown>> {
+        expect(request.headers.has('Authorization')).toBeFalse();
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
+
+        const httpResponse = new HttpResponse({ status: 200 });
+
+        return of(httpResponse);
+      },
+    };
+
+    const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+    const interceptResult = firstValueFrom(interceptResult$);
+
+    dummyRequest.clone.reset();
+
+    return interceptResult;
+  });
 });
