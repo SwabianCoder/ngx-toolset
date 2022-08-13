@@ -108,14 +108,14 @@ describe('RequestBodyDateFormatInterceptor', () => {
       },
     },
   ]) {
-    // eslint-disable-next-line require-await
     it(`formats date objects of HTTP request body of ${testCase.description}`, async (): Promise<
       HttpEvent<unknown>
+      // eslint-disable-next-line require-await
     > => {
       const requestUrl = 'https://test-url.com/test';
       dummyRequest.castToWritable().url = requestUrl;
       dummyRequest.castToWritable().body = testCase.httpRequest;
-      dummyRequest.clone.andCallFake((update: { body?: any | null }) =>
+      dummyRequest.clone.andCallFake((update: { body?: unknown | null }) =>
         new HttpRequest<unknown>('GET', requestUrl).clone(update)
       );
 
@@ -145,9 +145,9 @@ describe('RequestBodyDateFormatInterceptor', () => {
     });
   }
 
-  // eslint-disable-next-line require-await
   it(`does not format date objects of HTTP request body when HTTP request body is empty`, async (): Promise<
     HttpEvent<unknown>
+    // eslint-disable-next-line require-await
   > => {
     dummyRequest.castToWritable().url = 'https://test-url.com/test';
     dummyRequest.castToWritable().body = null;
@@ -172,9 +172,9 @@ describe('RequestBodyDateFormatInterceptor', () => {
     return interceptResult;
   });
 
-  // eslint-disable-next-line require-await
   it(`does not format date objects of HTTP request body when HTTP request URL is wrong`, async (): Promise<
     HttpEvent<unknown>
+    // eslint-disable-next-line require-await
   > => {
     dummyRequest.castToWritable().url = 'https://demo-url.com/test';
     dummyRequest.castToWritable().body = {};
