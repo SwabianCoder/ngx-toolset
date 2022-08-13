@@ -5,6 +5,7 @@ import {
   Optional,
   SkipSelf,
 } from '@angular/core';
+import { RequestBodyDateFormatInterceptor } from './request-body-date-format.interceptor';
 import { ResponseBodyDateParseInterceptor } from './response-body-date-parse.interceptor';
 
 @NgModule()
@@ -23,6 +24,11 @@ export class DateInterceptorsModule {
     return {
       ngModule: DateInterceptorsModule,
       providers: [
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: RequestBodyDateFormatInterceptor,
+          multi: true,
+        },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ResponseBodyDateParseInterceptor,
