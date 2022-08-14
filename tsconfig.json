@@ -12,9 +12,6 @@
       "@ngx-toolset/lazy-dialogs": [
         "dist/lazy-dialogs"
       ],
-      "@ngx-toolset/loading-spinner": [
-        "dist/loading-spinner"
-      ],
       "@ngx-toolset/template-type-checker": [
         "dist/template-type-checker"
       ]

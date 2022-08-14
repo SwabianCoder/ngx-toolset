@@ -83,46 +83,6 @@
         }
       }
     },
-    "@ngx-toolset/loading-spinner": {
-      "projectType": "library",
-      "root": "projects/loading-spinner",
-      "sourceRoot": "projects/loading-spinner/src",
-      "prefix": "ngx-toolset",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/loading-spinner/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/loading-spinner/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/loading-spinner/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/loading-spinner/src/test.ts",
-            "tsConfig": "projects/loading-spinner/tsconfig.spec.json",
-            "karmaConfig": "projects/loading-spinner/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/loading-spinner/**/*.ts",
-              "projects/loading-spinner/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "@ngx-toolset/api-token-interceptor": {
       "projectType": "library",
       "root": "projects/api-token-interceptor",
