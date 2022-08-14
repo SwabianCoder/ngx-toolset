@@ -30,7 +30,7 @@
 
 ### NPM
 
-`npm install @ngx-toolset/date-interceptors --save`
+`npm install @ngx-toolset/date-interceptors date-fns@^2.0.0 rxjs@^7.0.0 --save`
 
 ## Usage
 
