@@ -8,7 +8,6 @@
 ## Table of Contents
 
 - [@ngx-toolset/api-token-interceptor](#ngx-toolsetapi-token-interceptor)
-  - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
     - [NPM](#npm)
@@ -88,7 +87,6 @@ import {
 })
 export class AppModule {}
 ```
-
 
 ## Injection Tokens
 
