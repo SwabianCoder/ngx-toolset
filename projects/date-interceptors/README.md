@@ -107,7 +107,7 @@ This is the string representation of dates of HTTP response body that are parsed
 
 ### API_URL_REGEX
 
-Only URLs of HTTP request and HTTP response matching the Regex will benefit from date conversions.
+Only HTTP requests and HTTP responses with URLs matching the Regex will benefit from date conversions.
 
 ### DATE_STRING_REGEX
 
