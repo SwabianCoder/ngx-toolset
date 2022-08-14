@@ -35,7 +35,8 @@
         "johnpapa.angular2",
         "cyrilletuzi.angular-schematics",
         "seatonjiang.gitmoji-vscode",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+	"yzhang.markdown-all-in-one"
 			]
 		}
 	}
