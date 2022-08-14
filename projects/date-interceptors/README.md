@@ -12,6 +12,13 @@
   - [Features](#features)
   - [Installation](#installation)
     - [NPM](#npm)
+  - [Usage](#usage)
+    - [Module Import](#module-import)
+    - [Provide Injection Tokens](#provide-injection-tokens)
+  - [Injection Tokens](#injection-tokens)
+    - [API_DATE_FORMAT](#api-date-format)
+    - [API_URL_REGEX](#api-url-regex)
+    - [DATE_STRING_REGEX](#date-string-regex)
 
 ## Features
 
@@ -25,3 +32,79 @@
 ### NPM
 
 `npm install @ngx-toolset/date-interceptors --save`
+
+## Usage
+
+### Module Import
+
+Import the `DateInterceptorsModule` in your `AppModule`:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { DateInterceptorsModule } from '@ngx-toolset/date-interceptors';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    DateInterceptorsModule.forRoot(),
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+### Provide Injection Tokens
+
+Provide `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `AppModule`:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { DateInterceptorsModule } from '@ngx-toolset/date-interceptors';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    DateInterceptorsModule.forRoot(),
+  ],
+  providers: [
+    {
+      provide: API_URL_REGEX,
+      useValue: /^https:\/\/test-url.com/
+    },
+    {
+      provide: DATE_STRING_REGEX,
+      useValue: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
+    },
+    {
+      provide: API_DATE_FORMAT,
+      useValue: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+    },
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+> Hint: The list of options to provide `API_DATE_FORMAT` value could be found here: [date-fns documentation](https://date-fns.org/v2.29.1/docs/parse).
+
+## Injection Tokens
+
+### API_DATE_FORMAT
+
+This is the string representation of dates of HTTP response body that are parsed to date objects. Also this value is used to format date objects in HTTP request body to date strings with the given format.
+
+> Hint: The list of options to provide `API_DATE_FORMAT` value could be found here: [date-fns documentation](https://date-fns.org/v2.29.1/docs/parse).
+
+### API_URL_REGEX
+
+Only URLs of HTTP request and HTTP response matching the Regex will benefit from date conversions.
+
+### DATE_STRING_REGEX
+
+Only date strings of HTTP response body matching the Regex will be parsed to date objects.
