@@ -15,9 +15,9 @@
     - [Module Import](#module-import)
     - [Provide Injection Tokens](#provide-injection-tokens)
   - [Injection Tokens](#injection-tokens)
-    - [API_DATE_FORMAT](#api-date-format)
-    - [API_URL_REGEX](#api-url-regex)
-    - [DATE_STRING_REGEX](#date-string-regex)
+    - [API_DATE_FORMAT](#api_date_format)
+    - [API_URL_REGEX](#api_url_regex)
+    - [DATE_STRING_REGEX](#date_string_regex)
 
 ## Features
 
@@ -63,7 +63,12 @@ Provide `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `AppM
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { DateInterceptorsModule, API_URL_REGEX, DATE_STRING_REGEX, API_DATE_FORMAT } from '@ngx-toolset/date-interceptors';
+import {
+  DateInterceptorsModule,
+  API_URL_REGEX,
+  DATE_STRING_REGEX,
+  API_DATE_FORMAT
+} from '@ngx-toolset/date-interceptors';
 
 @NgModule({
   declarations: [AppComponent],
