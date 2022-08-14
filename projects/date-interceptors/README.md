@@ -8,7 +8,6 @@
 ## Table of Contents
 
 - [@ngx-toolset/date-interceptors](#ngx-toolsetdate-interceptors)
-  - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
     - [NPM](#npm)
@@ -64,7 +63,7 @@ Provide `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `AppM
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { DateInterceptorsModule } from '@ngx-toolset/date-interceptors';
+import { DateInterceptorsModule, API_URL_REGEX, DATE_STRING_REGEX, API_DATE_FORMAT } from '@ngx-toolset/date-interceptors';
 
 @NgModule({
   declarations: [AppComponent],
