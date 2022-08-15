@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { LazyDialogService } from './lazy-dialog.service';
 
-import { LazyDialogsService } from './lazy-dialogs.service';
-
-describe('LazyDialogsService', () => {
-  let service: LazyDialogsService;
+describe('LazyDialogService', () => {
+  let service: LazyDialogService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LazyDialogsService);
+    service = TestBed.inject(LazyDialogService);
   });
 
   it('should be created', () => {
