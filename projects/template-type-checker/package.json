@@ -1,7 +1,7 @@
 {
   "name": "@ngx-toolset/template-type-checker",
   "version": "1.0.0-rc.3",
-  "description": "Angular template class type check support",
+  "description": "Validate object's class instance type in Angular HTML template",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",
   "author": "SwabianCoder",
