@@ -1,6 +1,6 @@
 {
   "name": "@ngx-toolset/date-interceptors",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0-rc.5",
   "description": "Angular date interceptors (parses HTTP response body date strings to date objects and converts HTTP request body date objects to date strings of given format)",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",

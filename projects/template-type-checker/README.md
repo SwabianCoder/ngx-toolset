@@ -26,6 +26,12 @@
 
 `npm install @ngx-toolset/template-type-checker --save`
 
+Choose the version corresponding to your Angular version:
+
+| Angular | @ngx-toolset/template-type-checker |
+|---------|------------------------------------|
+| 14.x.x  | 1.x.x                              |
+
 ## Usage
 
 ### Module Import

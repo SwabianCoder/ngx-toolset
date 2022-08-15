@@ -30,7 +30,13 @@
 
 ### NPM
 
-`npm install @ngx-toolset/date-interceptors date-fns@^2.0.0 rxjs@^7.0.0 --save`
+`npm install @ngx-toolset/date-interceptors --save`
+
+Choose the version corresponding to your Angular version:
+
+| Angular | @ngx-toolset/date-interceptors |
+|---------|--------------------------------|
+| 14.x.x  | 1.x.x                          |
 
 ## Usage
 
