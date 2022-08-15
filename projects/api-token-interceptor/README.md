@@ -30,6 +30,12 @@
 
 `npm install @ngx-toolset/api-token-interceptor --save`
 
+Choose the version corresponding to your Angular version:
+
+| Angular | @ngx-toolset/api-token-interceptor |
+|---------|------------------------------------|
+| 14.x.x  | 1.x.x                              |
+
 ## Usage
 
 ### Module Import
