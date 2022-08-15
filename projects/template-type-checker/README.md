@@ -13,8 +13,8 @@
     - [NPM](#npm)
   - [Usage](#usage)
     - [Module Import](#module-import)
-    - [HTML](#html)
     - [TS](#ts)
+    - [HTML](#html)
 
 ## Features
 
@@ -46,19 +46,14 @@ import { TemplateTypeCheckerModule } from '@ngx-toolset/template-type-checker';
 export class SampleModule {}
 ```
 
-### HTML
-
-```angular2html
-<div *ngIf="sampleObject | typeChecker:classA">
-</div>
-```
-
 ### TS
 
 ```ts
 import { Component } from '@angular/core';
 
 class ClassA {}
+
+class ClassB {}
 
 @Component({
   selector: 'app-sample',
@@ -67,11 +62,27 @@ class ClassA {}
 })
 export class ProductAlertsComponent {
   public classA: typeof ClassA;
+  public classB: typeof ClassB;
   public sampleObject: ClassA;
 
   public constructor() {
     this.classA = ClassA;
+    this.classB = ClassB;
     this.sampleObject = new ClassA();
   }
 }
+```
+
+### HTML
+
+```html
+<!-- TypeCheckerPipe returns object of type ClassA -> ngIf evaluates to truthy value -->
+<div *ngIf="sampleObject | typeChecker:classA">
+  This div will be rendered.
+</div>
+
+<!-- TypeCheckerPipe returns undefined -> ngIf evaluates to falsy value -->
+<div *ngIf="sampleObject | typeChecker:classB">
+  This div will not be rendered.
+</div>
 ```
