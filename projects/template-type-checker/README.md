@@ -60,7 +60,7 @@ class ClassB {}
   templateUrl: './sample.component.html',
   styleUrls: ['./sample.component.scss']
 })
-export class ProductAlertsComponent {
+export class SampleComponent {
   public classA: typeof ClassA;
   public classB: typeof ClassB;
   public sampleObject: ClassA;
