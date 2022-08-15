@@ -1,6 +1,6 @@
 # @ngx-toolset
 
-> Collection of helpful Angular components.
+> Collection of helpful Angular components
 
 ## Table of Contents
 
