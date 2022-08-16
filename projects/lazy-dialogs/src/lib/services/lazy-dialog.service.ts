@@ -7,6 +7,7 @@ import {
   Inject,
   Injectable,
   Injector,
+  NgModule,
   NgModuleRef,
   Renderer2,
   RendererFactory2,
@@ -35,18 +36,11 @@ export class LazyDialogService {
     const resolvedModule = await module;
     let component: Type<ComponentType>;
     let moduleRef: NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined;
-    console.log(resolvedModule, resolvedModule.prototype)
-    if (resolvedModule.prototype === "ModuleWithLazyDialog") {
+
+    if (resolvedModule.prototype instanceof ModuleWithLazyDialog<ComponentType>) {
        const castedModule = resolvedModule as Type<ModuleWithLazyDialog<ComponentType>>;
        moduleRef = createNgModule(castedModule, this.injector);
-       debugger;
        component = moduleRef.instance?.getDialog();
-  
-      if (!component) {
-          throw new Error(
-            'Dialog module does not extend or implement ModuleWithDialog class'
-          );
-      }
     } else {
       component = resolvedModule as Type<ComponentType>;
     }
