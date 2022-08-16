@@ -18,7 +18,7 @@ import { LazyDialogService } from './services';
  */
 @NgModule({
   declarations: [LazyDialogContainerComponent],
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class LazyDialogModule {
   /**

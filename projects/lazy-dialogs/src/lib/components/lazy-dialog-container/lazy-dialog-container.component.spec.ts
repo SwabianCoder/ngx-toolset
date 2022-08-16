@@ -6,12 +6,10 @@ describe('LazyDialogContainerComponent', () => {
   let spectator: Spectator<LazyDialogContainerComponent>;
   const createComponent = createComponentFactory({
     component: LazyDialogContainerComponent,
-    providers: [
-      { provide: LAZY_DIALOG_CONTAINER_STYLES, useValue: {} },
-    ],
+    providers: [{ provide: LAZY_DIALOG_CONTAINER_STYLES, useValue: {} }],
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => (spectator = createComponent()));
 
   it('creates instance', () => {
     expect(spectator.component).toBeTruthy();

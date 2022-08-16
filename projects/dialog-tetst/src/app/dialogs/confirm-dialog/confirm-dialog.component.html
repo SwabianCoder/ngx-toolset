@@ -1,0 +1,31 @@
+<app-dialog-base>
+    <div class="flex flex-col h-full justify-center items-center">
+      <div class="w-[560px] h-[190px] bg-white px-[24px] pt-[24px]">
+        <h2 class="pb-[48px]">{{ title }}</h2>
+        <h3>{{ description }}</h3>
+      </div>
+      <div
+        class="w-[560px] h-[80px] bg-bright-grey pr-[24px] flex justify-end items-center"
+      >
+        <button
+          type="button"
+          appButton
+          kind="secondary"
+          (click)="onCancelClicked()"
+          class="px-[24px]"
+        >
+          {{ 'confirmDialog.cancel' }}
+        </button>
+        <button
+          type="submit"
+          appButton
+          kind="primary"
+          (click)="onConfirmClicked()"
+          class="ml-[16px] px-[24px]"
+        >
+          {{ 'confirmDialog.confirm' }}
+        </button>
+      </div>
+    </div>
+  </app-dialog-base>
+  
