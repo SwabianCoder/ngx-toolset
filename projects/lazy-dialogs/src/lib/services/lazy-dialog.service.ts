@@ -1,10 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ApplicationRef,
+  ComponentFactoryResolver,
   createNgModule,
+  EmbeddedViewRef,
   Inject,
   Injectable,
   Injector,
+  NgModuleRef,
   Renderer2,
   RendererFactory2,
   Type,
@@ -13,39 +16,44 @@ import { LazyDialog, LazyDialogRef, ModuleWithLazyDialog } from '../models';
 
 @Injectable()
 export class LazyDialogService {
-  private readonly renderer: Renderer2;
+  private readonly renderer: Readonly<Renderer2>;
 
   public constructor(
     @Inject(DOCUMENT) private readonly document: Readonly<Document>,
     private readonly rendererFactory: RendererFactory2,
     private readonly applicationRef: ApplicationRef,
-    private readonly injector: Injector
+    private readonly injector: Injector,
+    private readonly componentFactoryResolver: ComponentFactoryResolver
   ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
-  public async create<DialogComponentType extends LazyDialog, DataType>(
-    module: Promise<Type<ModuleWithLazyDialog<DialogComponentType> | DialogComponentType>>,
+  public async create<ComponentType extends LazyDialog, DataType>(
+    module: Promise<Type<ModuleWithLazyDialog<ComponentType> | ComponentType>>,
     params?: DataType
-  ): Promise<LazyDialogRef<DataType>> {
+  ): Promise<LazyDialogRef<ComponentType, DataType>> {
     const resolvedModule = await module;
-    const moduleRef = createNgModule(resolvedModule, this.injector);
-    const component =
-      moduleRef.instance instanceof ModuleWithLazyDialog<DialogComponentType>
-        ? moduleRef.instance?.getDialog()
-        : (resolvedModule as Type<DialogComponentType>);
-
-    if (!component) {
-      if (moduleRef.instance instanceof ModuleWithLazyDialog<DialogComponentType>) {
-        throw new Error(
-          'Dialog module does not extend or implement ModuleWithDialog class'
-        );
-      } else {
-        throw new Error('Dialog component is not valid. Make sure it is a valid standalone component that implements LazyDialog interface');
+    let component: Type<ComponentType>;
+    let moduleRef: NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined;
+    console.log(resolvedModule, resolvedModule.prototype)
+    if (resolvedModule.prototype === "ModuleWithLazyDialog") {
+       const castedModule = resolvedModule as Type<ModuleWithLazyDialog<ComponentType>>;
+       moduleRef = createNgModule(castedModule, this.injector);
+       debugger;
+       component = moduleRef.instance?.getDialog();
+  
+      if (!component) {
+          throw new Error(
+            'Dialog module does not extend or implement ModuleWithDialog class'
+          );
       }
+    } else {
+      component = resolvedModule as Type<ComponentType>;
     }
 
-    const dialogComponentRef = this.applicationRef.bootstrap(component);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const dialogComponentRef = componentFactory.create(this.injector);
+    this.applicationRef.attachView(dialogComponentRef.hostView);
     this.renderer.appendChild(
       this.document.body,
       dialogComponentRef.location.nativeElement
@@ -55,11 +63,6 @@ export class LazyDialogService {
       dialogComponentRef.instance.onParams(params);
     }
 
-    return new LazyDialogRef<DataType>(dialogComponentRef, moduleRef, params);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private isDialog(obj: any): obj is LazyDialog {
-    return 'dialogRef' in obj && 'close' in obj && 'onParams' in obj;
+    return new LazyDialogRef<ComponentType, DataType>(dialogComponentRef, moduleRef, params);
   }
 }

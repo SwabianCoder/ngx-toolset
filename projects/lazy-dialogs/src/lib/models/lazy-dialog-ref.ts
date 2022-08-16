@@ -1,20 +1,21 @@
 import { firstValueFrom, Subject } from 'rxjs';
 import { ComponentRef, NgModuleRef } from '@angular/core';
 import { LazyDialog } from './lazy-dialog';
+import { ModuleWithLazyDialog } from './module-with-lazy-dialog';
 
-export class LazyDialogRef<T> {
+export class LazyDialogRef<ComponentType extends LazyDialog, DataType> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly close$: Subject<any>;
   private componentRef: ComponentRef<LazyDialog>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private moduleRef: NgModuleRef<any>;
-  public readonly data?: T;
+  private moduleRef?: NgModuleRef<ModuleWithLazyDialog<ComponentType>>;
+  public readonly data?: DataType;
 
   public constructor(
     componentRef: ComponentRef<LazyDialog>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    moduleRef: NgModuleRef<any>,
-    data?: T
+    moduleRef?: NgModuleRef<ModuleWithLazyDialog<ComponentType>>,
+    data?: DataType
   ) {
     this.componentRef = componentRef;
     this.moduleRef = moduleRef;
@@ -39,7 +40,7 @@ export class LazyDialogRef<T> {
 
   private destroy(): void {
     this.componentRef.destroy();
-    this.moduleRef.destroy();
+    this.moduleRef?.destroy();
     this.close$.complete();
   }
 }
