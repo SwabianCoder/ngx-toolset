@@ -6,11 +6,14 @@ import { LAZY_DIALOG_CONTAINER_STYLES } from '../../injection-tokens';
   templateUrl: './lazy-dialog-container.component.html',
 })
 export class LazyDialogContainerComponent {
-  @ViewChild('dialogContainer', {read: ViewContainerRef}) dialogContainer!: ViewContainerRef;
+  @ViewChild('dialogContainer', { read: ViewContainerRef })
+  public dialogContainer!: ViewContainerRef;
 
   public constructor(
-    @Inject(LAZY_DIALOG_CONTAINER_STYLES) public readonly dialogContainerStyles: Readonly<{
+    @Inject(LAZY_DIALOG_CONTAINER_STYLES)
+    public readonly dialogContainerStyles: Readonly<{
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       [klass: string]: any;
-  }>
+    }>
   ) {}
 }

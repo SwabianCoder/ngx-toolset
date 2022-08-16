@@ -8,9 +8,8 @@ describe('LazyDialogContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LazyDialogContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [LazyDialogContainerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LazyDialogContainerComponent);
     component = fixture.componentInstance;

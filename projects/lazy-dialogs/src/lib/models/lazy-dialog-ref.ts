@@ -1,29 +1,27 @@
 import { firstValueFrom, Subject } from 'rxjs';
 import { ComponentRef, NgModuleRef } from '@angular/core';
-import { LazyDialog } from './lazy-dialog';
-import { ModuleWithLazyDialog } from './module-with-lazy-dialog';
+import { LazyDialogContainerComponent } from '../components';
 
-export class LazyDialogRef<ComponentType extends LazyDialog, DataType> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private readonly close$: Subject<any>;
-  private componentRef: ComponentRef<LazyDialog>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private moduleRef?: NgModuleRef<ModuleWithLazyDialog<ComponentType>>;
+export class LazyDialogRef<DataType> {
   public readonly data?: DataType;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private readonly close$: Subject<any>;
+  private containerComponentRef: ComponentRef<LazyDialogContainerComponent>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private moduleRef?: NgModuleRef<unknown>;
+
   public constructor(
-    componentRef: ComponentRef<LazyDialog>,
+    containerComponentRef: ComponentRef<LazyDialogContainerComponent>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    moduleRef?: NgModuleRef<ModuleWithLazyDialog<ComponentType>>,
+    moduleRef?: NgModuleRef<unknown>,
     data?: DataType
   ) {
-    this.componentRef = componentRef;
+    this.containerComponentRef = containerComponentRef;
     this.moduleRef = moduleRef;
     this.data = data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.close$ = new Subject<any>();
-    this.componentRef.instance.dialogRef = this;
-    this.componentRef.instance.close = this.close.bind(this);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,7 +37,7 @@ export class LazyDialogRef<ComponentType extends LazyDialog, DataType> {
   }
 
   private destroy(): void {
-    this.componentRef.destroy();
+    this.containerComponentRef.destroy();
     this.moduleRef?.destroy();
     this.close$.complete();
   }

@@ -24,11 +24,18 @@ export class LazyDialogModule {
   }
 
   public static forRoot(dialogContainerStyles: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [klass: string]: any;
-}): ModuleWithProviders<LazyDialogModule> {
+  }): ModuleWithProviders<LazyDialogModule> {
     return {
       ngModule: LazyDialogModule,
-      providers: [LazyDialogService, {provide: LAZY_DIALOG_CONTAINER_STYLES, useValue: dialogContainerStyles}],
+      providers: [
+        LazyDialogService,
+        {
+          provide: LAZY_DIALOG_CONTAINER_STYLES,
+          useValue: dialogContainerStyles,
+        },
+      ],
     };
   }
 }
