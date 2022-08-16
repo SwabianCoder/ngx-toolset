@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { LAZY_DIALOG_CONTAINER_STYLES } from '../../injection-tokens';
 import { LazyDialogContainerComponent } from './lazy-dialog-container.component';
 
 describe('LazyDialogContainerComponent', () => {
-  let component: LazyDialogContainerComponent;
-  let fixture: ComponentFixture<LazyDialogContainerComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [LazyDialogContainerComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(LazyDialogContainerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  let spectator: Spectator<LazyDialogContainerComponent>;
+  const createComponent = createComponentFactory({
+    component: LazyDialogContainerComponent,
+    providers: [
+      { provide: LAZY_DIALOG_CONTAINER_STYLES, useValue: {} },
+    ],
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  beforeEach(() => spectator = createComponent());
+
+  it('creates instance', () => {
+    expect(spectator.component).toBeTruthy();
+    const dialogContainer = spectator.query('div.dialog-container');
+    expect(dialogContainer).toBeTruthy();
+    expect(dialogContainer?.childNodes.length).toBe(1);
   });
 });
