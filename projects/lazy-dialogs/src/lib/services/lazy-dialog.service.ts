@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import {
+  ApplicationRef,
   createNgModule,
   Inject,
   Injectable,
@@ -8,7 +9,6 @@ import {
   Renderer2,
   RendererFactory2,
   Type,
-  ViewContainerRef,
 } from '@angular/core';
 import { LazyDialog, LazyDialogRef, ModuleWithLazyDialog } from '../models';
 
@@ -19,13 +19,13 @@ export class LazyDialogService {
   public constructor(
     @Inject(DOCUMENT) private readonly document: Readonly<Document>,
     private readonly rendererFactory: RendererFactory2,
-    private readonly injector: Injector
+    private readonly injector: Injector,
+    private readonly applicationRef: ApplicationRef,
   ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
   public async create<ComponentType extends LazyDialog, DataType>(
-    viewContainerRef: ViewContainerRef,
     module: Promise<Type<ModuleWithLazyDialog<ComponentType> | ComponentType>>,
     params?: DataType
   ): Promise<LazyDialogRef<ComponentType, DataType>> {
@@ -41,16 +41,24 @@ export class LazyDialogService {
       component = resolvedModule as Type<ComponentType>;
     }
 
-    const dialogComponentRef = viewContainerRef.createComponent(component);
-    this.renderer.appendChild(
-      this.document.body,
-      dialogComponentRef.location.nativeElement
-    );
+    const dialogContainerElement = this.initDialogContainer();
+    const dialogContainerComponent = await import('../components/lazy-dialog-container/lazy-dialog-container.component').then(m => m.LazyDialogContainerComponent);
+    const dialogContainerComponentRef = this.applicationRef.bootstrap(dialogContainerComponent, dialogContainerElement);
+    const dialogContainerVcr = dialogContainerComponentRef.instance.dialogContainer;
+    const dialogComponentRef = dialogContainerVcr.createComponent(component);
 
     if (params) {
       dialogComponentRef.instance.onParams(params);
     }
 
     return new LazyDialogRef<ComponentType, DataType>(dialogComponentRef, moduleRef, params);
+  }
+
+  private initDialogContainer(): HTMLElement {
+    const dialogContainer = this.renderer.createElement('div');
+    this.renderer.addClass(dialogContainer, 'dialog-root');
+    this.renderer.appendChild(this.document.body, dialogContainer);
+
+    return dialogContainer;
   }
 }

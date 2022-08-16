@@ -1,12 +1,19 @@
+import { CommonModule } from '@angular/common';
 import {
   ModuleWithProviders,
   NgModule,
   Optional,
   SkipSelf,
 } from '@angular/core';
+import { LazyDialogContainerComponent } from './components';
+import { LAZY_DIALOG_CONTAINER_STYLES } from './injection-tokens';
 import { LazyDialogService } from './services';
 
-@NgModule()
+@NgModule({
+  declarations: [LazyDialogContainerComponent],
+  imports: [CommonModule],
+  exports: [LazyDialogContainerComponent],
+})
 export class LazyDialogModule {
   public constructor(@Optional() @SkipSelf() parentModule: LazyDialogModule) {
     if (parentModule) {
@@ -16,10 +23,12 @@ export class LazyDialogModule {
     }
   }
 
-  public static forRoot(): ModuleWithProviders<LazyDialogModule> {
+  public static forRoot(dialogContainerStyles: {
+    [klass: string]: any;
+}): ModuleWithProviders<LazyDialogModule> {
     return {
       ngModule: LazyDialogModule,
-      providers: [LazyDialogService],
+      providers: [LazyDialogService, {provide: LAZY_DIALOG_CONTAINER_STYLES, useValue: dialogContainerStyles}],
     };
   }
 }
