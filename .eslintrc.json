@@ -81,7 +81,8 @@
           "@typescript-eslint/no-empty-function": "error",
           "eqeqeq": "error",
           "curly": "error",
-          "require-await": "error",
+          "require-await": "off",
+          "@typescript-eslint/require-await": "error",
           "no-continue": "error",
           "padding-line-between-statements": "off",
           "@typescript-eslint/padding-line-between-statements": [
@@ -106,7 +107,7 @@
           "@typescript-eslint/member-ordering": "error",
           "arrow-parens": "error",
           "arrow-body-style": "error",
-          "max-len": ["error", { "code": 140 }],
+          "max-len": ["error", { "code": 140, "ignoreComments": true }],
           "no-console": "error",
           "no-alert": "error",
           "no-debugger": "error",
