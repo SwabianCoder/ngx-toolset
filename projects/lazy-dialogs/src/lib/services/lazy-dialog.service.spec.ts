@@ -1,6 +1,21 @@
-import { DOCUMENT } from '@angular/common';
-import { ApplicationRef, Component, ComponentRef, createNgModule, ElementRef, EnvironmentInjector, Injector, NgModule, NgModuleRef, Renderer2, RendererFactory2, RendererType2, Type, ViewContainerRef } from '@angular/core';
-import { SpectatorService, createServiceFactory, createSpyObject, SpyObject } from '@ngneat/spectator';
+import {
+  ApplicationRef,
+  Component,
+  ComponentRef,
+  EnvironmentInjector,
+  Injector,
+  NgModule,
+  NgModuleRef,
+  Renderer2,
+  RendererFactory2,
+  RendererType2,
+  Type,
+} from '@angular/core';
+import {
+  SpectatorService,
+  createServiceFactory,
+  SpyObject,
+} from '@ngneat/spectator';
 import { LazyDialogContainerComponent } from '../components';
 import { LAZY_DIALOG_CONTAINER_STYLES } from '../injection-tokens';
 import { LazyDialogRef, ModuleWithLazyDialog } from '../models';
@@ -58,172 +73,269 @@ export class DialogWithInvalidModuleComponent {
 export class DialogWithInvalidModuleComponentModule {}
 
 const mockRenderer = {
-  createElement: function(name: string, namespace?: string | null | undefined): any {
+  createElement: function (
+    name: string,
+    namespace?: string | null | undefined
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): any {
     return document.createElement('div');
   },
-  addClass:function(el: any, name: string): void{},
-  appendChild:function(parent: any, newChild: any): void{}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
+  addClass: function (el: any, name: string): void {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
+  appendChild: function (parent: any, newChild: any): void {},
 } as Renderer2;
 
 const mockComponentRef = {
   instance: {
     dialogContainer: {
-      createComponent: function<C>(componentType: Type<C>, options?: {
+      createComponent: function <C>(
+        componentType: Type<C>,
+        options?: {
           index?: number;
           injector?: Injector;
           ngModuleRef?: NgModuleRef<unknown>;
           environmentInjector?: EnvironmentInjector | NgModuleRef<unknown>;
           projectableNodes?: Node[][];
-      }): ComponentRef<C> {
+        }
+      ): ComponentRef<C> {
         return {} as ComponentRef<C>;
       },
-    }
-  }
+    },
+  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as unknown as ComponentRef<any>;
 
 describe('LazyDialogService', () => {
-  let spectator: SpectatorService<LazyDialogService>;
-  const createService = createServiceFactory({
-    service: LazyDialogService,
-    providers: [
-      {
-        provide: LAZY_DIALOG_CONTAINER_STYLES,
-        useValue: {},
-      },
-      {
-        provide: RendererFactory2,
-        useValue: {
-          createRenderer: function(element: any, type: RendererType2 | null): Renderer2 {
-            return mockRenderer;
+  describe('when the service receives proper data', () => {
+    let spectator: SpectatorService<LazyDialogService>;
+    const createService = createServiceFactory({
+      service: LazyDialogService,
+      providers: [
+        {
+          provide: LAZY_DIALOG_CONTAINER_STYLES,
+          useValue: {},
+        },
+        {
+          provide: RendererFactory2,
+          useValue: {
+            createRenderer: function (
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              element: any,
+              type: RendererType2 | null
+            ): Renderer2 {
+              return mockRenderer;
+            },
           },
-        }
-      },
-      {
-        provide: ApplicationRef,
-        useValue: {
-          bootstrap: function<C>(component: Type<C>, rootSelectorOrNode?: string | any): ComponentRef<C> {
-            return mockComponentRef;
-          }
-        }
-      }
-    ]
-  });
-
-  beforeEach(async () => {
-    spectator = createService();
-     applicationRef = spectator.inject(ApplicationRef);
-    injector = spectator.inject(Injector);
-
-     createElementSpy = spyOn(mockRenderer,'createElement').and.callThrough();
-     addClassSpy = spyOn(mockRenderer,'addClass').and.callThrough();
-     appendChildSpy = spyOn(mockRenderer,'appendChild').and.callThrough();
-     bootstrapSpy = spyOn(applicationRef, 'bootstrap').and.callThrough();
-     createComponentSpy = spyOn(mockComponentRef.instance.dialogContainer, 'createComponent').and.callThrough();
-
-     dialogContainerComponent = await import(
-      '../components/lazy-dialog-container/lazy-dialog-container.component'
-    ).then((m) => m.LazyDialogContainerComponent);
-    divElement = document.createElement('div');
-  });
-
-  let dialogContainerComponent: Type<LazyDialogContainerComponent>;
-  let applicationRef: SpyObject<ApplicationRef>;
-  let injector : SpyObject<Injector>;
-  let createElementSpy: jasmine.Spy;
-  let addClassSpy: jasmine.Spy;
-  let appendChildSpy:jasmine.Spy;
-  let bootstrapSpy:jasmine.Spy;
-  let createComponentSpy: jasmine.Spy;
-  let divElement: HTMLDivElement;
-
-  it('creates instance', () => {
-    expect(spectator.service).toBeTruthy();
-  });
-
-  fit('creates lazy dialog from standalone component with data', async (): Promise<void> => {
-    const creationResult = await spectator.service.create(
-      Promise.resolve(StandaloneDialogComponent),
-      {
-        test: 'data',
-      }
-    );
-
-    expect(createElementSpy).toHaveBeenCalledTimes(1);
-    expect(createElementSpy).toHaveBeenCalledWith('div');
-    expect(addClassSpy).toHaveBeenCalledTimes(1);
-    expect(addClassSpy).toHaveBeenCalledWith(divElement,'dialog-root');
-    expect(appendChildSpy).toHaveBeenCalledTimes(1);
-    expect(appendChildSpy).toHaveBeenCalledWith(document.body,divElement);
-    expect(bootstrapSpy).toHaveBeenCalledTimes(1);
-    expect(bootstrapSpy).toHaveBeenCalledWith(dialogContainerComponent, divElement);
-    expect(createComponentSpy).toHaveBeenCalledTimes(1);
-    expect(createComponentSpy).toHaveBeenCalledWith(StandaloneDialogComponent, {
-      injector,
-      ngModuleRef: undefined
+        },
+        {
+          provide: ApplicationRef,
+          useValue: {
+            bootstrap: function <C>(
+              component: Type<C>,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              rootSelectorOrNode?: string | any
+            ): ComponentRef<C> {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+              return mockComponentRef;
+            },
+          },
+        },
+      ],
     });
-    expect(creationResult).toBeTruthy();
-    expect(creationResult.data).toBeTruthy();
-    expect(creationResult.data).toEqual({ test: 'data' });
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.close).toBeTruthy();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.onClose).toBeTruthy();
+
+    beforeEach(async () => {
+      spectator = createService();
+      applicationRef = spectator.inject(ApplicationRef);
+
+      createElementSpy = spyOn(mockRenderer, 'createElement').and.callThrough();
+      addClassSpy = spyOn(mockRenderer, 'addClass').and.callThrough();
+      appendChildSpy = spyOn(mockRenderer, 'appendChild').and.callThrough();
+      bootstrapSpy = spyOn(applicationRef, 'bootstrap').and.callThrough();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      createComponentSpy = spyOn(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        mockComponentRef.instance.dialogContainer,
+        'createComponent'
+      ).and.callThrough();
+
+      dialogContainerComponent = await import(
+        '../components/lazy-dialog-container/lazy-dialog-container.component'
+      ).then((m) => m.LazyDialogContainerComponent);
+      divElement = document.createElement('div');
+    });
+
+    let dialogContainerComponent: Type<LazyDialogContainerComponent>;
+    let applicationRef: SpyObject<ApplicationRef>;
+    let createElementSpy: jasmine.Spy;
+    let addClassSpy: jasmine.Spy;
+    let appendChildSpy: jasmine.Spy;
+    let bootstrapSpy: jasmine.Spy;
+    let createComponentSpy: jasmine.Spy;
+    let divElement: HTMLDivElement;
+
+    it('creates lazy dialog from standalone component with data', async (): Promise<void> => {
+      const creationResult = await spectator.service.create(
+        Promise.resolve(StandaloneDialogComponent),
+        {
+          test: 'data',
+        }
+      );
+
+      expect(createElementSpy).toHaveBeenCalledTimes(1);
+      expect(createElementSpy).toHaveBeenCalledWith('div');
+      expect(addClassSpy).toHaveBeenCalledTimes(1);
+      expect(addClassSpy).toHaveBeenCalledWith(divElement, 'dialog-root');
+      expect(appendChildSpy).toHaveBeenCalledTimes(1);
+      expect(appendChildSpy).toHaveBeenCalledWith(document.body, divElement);
+      expect(bootstrapSpy).toHaveBeenCalledTimes(1);
+      expect(bootstrapSpy).toHaveBeenCalledWith(
+        dialogContainerComponent,
+        divElement
+      );
+      expect(createComponentSpy).toHaveBeenCalledTimes(1);
+      expect(createComponentSpy).toHaveBeenCalledWith(
+        StandaloneDialogComponent,
+        jasmine.objectContaining({
+          ngModuleRef: undefined,
+        })
+      );
+      expect(creationResult).toBeTruthy();
+      expect(creationResult.data).toBeTruthy();
+      expect(creationResult.data).toEqual({ test: 'data' });
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.close).toBeTruthy();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.onClose).toBeTruthy();
+    });
+
+    it('creates lazy dialog from standalone component without data', async (): Promise<void> => {
+      const creationResult = await spectator.service.create(
+        Promise.resolve(StandaloneDialogComponent)
+      );
+
+      expect(createElementSpy).toHaveBeenCalledTimes(1);
+      expect(createElementSpy).toHaveBeenCalledWith('div');
+      expect(addClassSpy).toHaveBeenCalledTimes(1);
+      expect(addClassSpy).toHaveBeenCalledWith(divElement, 'dialog-root');
+      expect(appendChildSpy).toHaveBeenCalledTimes(1);
+      expect(appendChildSpy).toHaveBeenCalledWith(document.body, divElement);
+      expect(bootstrapSpy).toHaveBeenCalledTimes(1);
+      expect(bootstrapSpy).toHaveBeenCalledWith(
+        dialogContainerComponent,
+        divElement
+      );
+      expect(createComponentSpy).toHaveBeenCalledTimes(1);
+      expect(createComponentSpy).toHaveBeenCalledWith(
+        StandaloneDialogComponent,
+        jasmine.objectContaining({
+          ngModuleRef: undefined,
+        })
+      );
+      expect(creationResult).toBeTruthy();
+      expect(creationResult.data).toBeFalsy();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.close).toBeTruthy();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.onClose).toBeTruthy();
+    });
+
+    it('creates lazy dialog from NgModule extending ModuleWithLazyDialog<T> with data', async (): Promise<void> => {
+      const creationResult = await spectator.service.create(
+        Promise.resolve(DialogWithModuleComponentModule),
+        {
+          test: 'data',
+        }
+      );
+
+      expect(createElementSpy).toHaveBeenCalledTimes(1);
+      expect(createElementSpy).toHaveBeenCalledWith('div');
+      expect(addClassSpy).toHaveBeenCalledTimes(1);
+      expect(addClassSpy).toHaveBeenCalledWith(divElement, 'dialog-root');
+      expect(appendChildSpy).toHaveBeenCalledTimes(1);
+      expect(appendChildSpy).toHaveBeenCalledWith(document.body, divElement);
+      expect(bootstrapSpy).toHaveBeenCalledTimes(1);
+      expect(bootstrapSpy).toHaveBeenCalledWith(
+        dialogContainerComponent,
+        divElement
+      );
+      expect(createComponentSpy).toHaveBeenCalledTimes(1);
+      expect(createComponentSpy).toHaveBeenCalledWith(
+        DialogWithModuleComponent,
+        jasmine.objectContaining({
+          ngModuleRef: jasmine.any(NgModuleRef),
+        })
+      );
+      expect(creationResult).toBeTruthy();
+      expect(creationResult.data).toBeTruthy();
+      expect(creationResult.data).toEqual({ test: 'data' });
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.close).toBeTruthy();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.onClose).toBeTruthy();
+    });
+
+    it('creates lazy dialog from NgModule extending ModuleWithLazyDialog<T> without data', async (): Promise<void> => {
+      const creationResult = await spectator.service.create(
+        Promise.resolve(DialogWithModuleComponentModule)
+      );
+
+      expect(createElementSpy).toHaveBeenCalledTimes(1);
+      expect(createElementSpy).toHaveBeenCalledWith('div');
+      expect(addClassSpy).toHaveBeenCalledTimes(1);
+      expect(addClassSpy).toHaveBeenCalledWith(divElement, 'dialog-root');
+      expect(appendChildSpy).toHaveBeenCalledTimes(1);
+      expect(appendChildSpy).toHaveBeenCalledWith(document.body, divElement);
+      expect(bootstrapSpy).toHaveBeenCalledTimes(1);
+      expect(bootstrapSpy).toHaveBeenCalledWith(
+        dialogContainerComponent,
+        divElement
+      );
+      expect(createComponentSpy).toHaveBeenCalledTimes(1);
+      expect(createComponentSpy).toHaveBeenCalledWith(
+        DialogWithModuleComponent,
+        jasmine.objectContaining({
+          ngModuleRef: jasmine.any(NgModuleRef),
+        })
+      );
+      expect(creationResult).toBeTruthy();
+      expect(creationResult.data).toBeFalsy();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.close).toBeTruthy();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(creationResult.onClose).toBeTruthy();
+    });
   });
 
-  it('creates lazy dialog from standalone component without data', async (): Promise<void> => {
-    const creationResult = await spectator.service.create(
-      Promise.resolve(StandaloneDialogComponent)
-    );
+  describe('when the service dos not receive proper data', () => {
+    let spectator: SpectatorService<LazyDialogService>;
+    const createService = createServiceFactory({
+      service: LazyDialogService,
+      providers: [
+        {
+          provide: LAZY_DIALOG_CONTAINER_STYLES,
+          useValue: {},
+        },
+      ],
+    });
 
-    expect(creationResult).toBeTruthy();
-    expect(creationResult.data).toBeFalsy();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.close).toBeTruthy();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.onClose).toBeTruthy();
-  });
+    beforeEach(() => {
+      spectator = createService();
+    });
 
-  it('creates lazy dialog from standalone component with data', async (): Promise<void> => {
-    const creationResult = await spectator.service.create(
-      Promise.resolve(DialogWithModuleComponentModule),
-      {
-        test: 'data',
-      }
-    );
+    it('creation of lazy dialog fails for NgModule not extending ModuleWithLazyDialog<T>', async (): Promise<void> => {
+      await expectAsync(
+        spectator.service.create(
+          Promise.resolve(DialogWithInvalidModuleComponentModule)
+        )
+      ).toBeRejected();
+    });
 
-    expect(creationResult).toBeTruthy();
-    expect(creationResult.data).toBeTruthy();
-    expect(creationResult.data).toEqual({ test: 'data' });
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.close).toBeTruthy();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.onClose).toBeTruthy();
-  });
-
-  it('creates lazy dialog from standalone component without data', async (): Promise<void> => {
-    const creationResult = await spectator.service.create(
-      Promise.resolve(DialogWithModuleComponentModule)
-    );
-
-    expect(creationResult).toBeTruthy();
-    expect(creationResult.data).toBeFalsy();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.close).toBeTruthy();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(creationResult.onClose).toBeTruthy();
-  });
-
-  it('creation of lazy dialog fails for NgModule not extending ModuleWithLazyDialog<T>', async (): Promise<void> => {
-    await expectAsync(
-      spectator.service.create(
-        Promise.resolve(DialogWithInvalidModuleComponentModule)
-      )
-    ).toBeRejected();
-  });
-
-  it('creation of lazy dialog fails for types that are neither standalone components nor NgModules extending ModuleWithLazyDialog<T>', async (): Promise<void> => {
-    await expectAsync(
-      spectator.service.create(Promise.resolve(Date))
-    ).toBeRejected();
+    it(`creation of lazy dialog fails for types that are 
+        neither standalone components nor NgModules extending ModuleWithLazyDialog<T>`, async (): Promise<void> => {
+      await expectAsync(
+        spectator.service.create(Promise.resolve(Date))
+      ).toBeRejected();
+    });
   });
 });
