@@ -1,6 +1,6 @@
 {
   "name": "@ngx-toolset/lazy-dialogs",
-  "version": "1.0.0-rc.0",
+  "version": "1.0.0-rc.1",
   "description": "Angular lazy dialogs support via service",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",
