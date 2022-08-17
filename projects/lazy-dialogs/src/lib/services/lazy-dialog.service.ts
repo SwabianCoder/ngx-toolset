@@ -57,7 +57,7 @@ export class LazyDialogService {
    * @async
    * @template ComponentType
    * @template DataType
-   * @param {(Promise<Type<ModuleWithLazyDialog<ComponentType> | ComponentType>>)} module The module containing the lazy dialog component (supports NgModule extending ModuleWithLazyDialog<T> as well as standalone components).
+   * @param {(Promise<Type<ModuleWithLazyDialog<ComponentType> | ComponentType>>)} module The module containing the lazy dialog component (supports {@link https://angular.io/api/core/NgModule NgModule} extending {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/lazy-dialogs/src/lib/models/module-with-lazy-dialog.ts ModuleWithLazyDialog<T>} as well as {@link https://angular.io/guide/standalone-components standalone components}).
    * @param {?DataType} [data] The data provided to the dialog.
    * @returns {Promise<LazyDialogRef<DataType>>}
    */
@@ -86,12 +86,12 @@ export class LazyDialogService {
   }
 
   /**
-   * Determines the dialog component type (if @param module is a NgModule it also initializes the module).
+   * Determines the dialog component type (if module is a {@link https://angular.io/api/core/NgModule NgModule} it also initializes the module).
    *
    * @private
    * @async
    * @template ComponentType
-   * @param {(Promise<Type<ModuleWithLazyDialog<ComponentType> | ComponentType>>)} module The module containing the lazy dialog component (supports NgModule extending ModuleWithLazyDialog<T> as well as standalone components).
+   * @param {(Promise<Type<ModuleWithLazyDialog<ComponentType> | ComponentType>>)} module The module containing the lazy dialog component (supports {@link https://angular.io/api/core/NgModule NgModule} extending {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/lazy-dialogs/src/lib/models/module-with-lazy-dialog.ts ModuleWithLazyDialog<T>} as well as {@link https://angular.io/guide/standalone-components standalone components}).
    * @returns {(Promise<{
       componentType: Type<ComponentType>;
       moduleRef: NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined;
@@ -134,7 +134,7 @@ export class LazyDialogService {
    * @param {LazyDialogRef<DataType>} lazyDialogRef The reference of the lazy dialog.
    * @param {ViewContainerRef} dialogContainerVcr The dialog container's view container reference.
    * @param {Type<ComponentType>} componentType The type of the dialog component.
-   * @param {(NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined)} moduleRef The reference of the module containing the dialog component (only has a value if module isn't a standalone component).
+   * @param {(NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined)} moduleRef The reference of the module containing the dialog component (only has a value if module isn't a {@link https://angular.io/guide/standalone-components standalone component}).
    */
   private initDialog<ComponentType, DataType>(
     lazyDialogRef: LazyDialogRef<DataType>,
@@ -160,7 +160,7 @@ export class LazyDialogService {
    * @template ComponentType
    * @template DataType
    * @param {HTMLDivElement} dialogContainerRootElement The HTML element of the dialog container root.
-   * @param {(NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined)} moduleRef The reference of the module containing the dialog component (only has a value if module isn't a standalone component).
+   * @param {(NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined)} moduleRef The reference of the module containing the dialog component (only has a value if module isn't a {@link https://angular.io/guide/standalone-components standalone component}).
    * @param {?DataType} [data] The data provided to the dialog.
    * @returns {Promise<{
       lazyDialogRef: LazyDialogRef<DataType>;

@@ -37,7 +37,7 @@ export class LazyDialogModule {
   }
 
   /**
-   * Creates the singleton services.
+   * Creates the {@link https://angular.io/guide/singleton-services#the-forroot-pattern singleton services}.
    *
    * @public
    * @static

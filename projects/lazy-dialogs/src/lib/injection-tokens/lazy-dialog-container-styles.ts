@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 /**
- * Injection token for receiving the dialog container styles in the @type {LazyDialogContainerComponent}.
+ * {@link https://angular.io/api/core/InjectionToken Injection token} for receiving the dialog container styles in the {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/lazy-dialogs/src/lib/components/lazy-dialog-container/lazy-dialog-container.component.ts LazyDialogContainerComponent}.
  *
  * @type {InjectionToken<{
   [klass: string]: any;

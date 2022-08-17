@@ -21,7 +21,7 @@ export class LazyDialogRef<DataType> {
   public readonly data?: DataType;
 
   /**
-   * Represents the close event stream being called when @function @name close function is called.
+   * Represents the close event stream being called when {@link close} function is called.
    *
    * @private
    * @readonly
@@ -39,7 +39,7 @@ export class LazyDialogRef<DataType> {
   private containerComponentRef: ComponentRef<LazyDialogContainerComponent>;
 
   /**
-   * The module reference of the dialog component (optional: standalone components aren't related to a NgModule).
+   * The module reference of the dialog component (optional: {@link https://angular.io/guide/standalone-components standalone components} aren't related to a {@link https://angular.io/api/core/NgModule NgModule}).
    *
    * @private
    * @type {?NgModuleRef<unknown>}
@@ -53,7 +53,7 @@ export class LazyDialogRef<DataType> {
    * @constructor
    * @public
    * @param {ComponentRef<LazyDialogContainerComponent>} containerComponentRef The reference of the dialog component's container component.
-   * @param {?NgModuleRef<unknown>} [moduleRef] The module reference of the dialog component (optional: standalone components aren't related to a NgModule).
+   * @param {?NgModuleRef<unknown>} [moduleRef] The module reference of the dialog component (optional: {@link https://angular.io/guide/standalone-components standalone components} aren't related to a {@link https://angular.io/api/core/NgModule NgModule}).
    * @param {?DataType} [data] The data of the lazy dialog.
    */
   public constructor(
@@ -70,7 +70,7 @@ export class LazyDialogRef<DataType> {
   }
 
   /**
-   * Triggers the dialog close process as well as informing @function @name onClose with the provided @param {output} via @member {Subject<any>} close$.
+   * Triggers the dialog close process as well as informing {@link onClose} with the provided {@link output} via {@link https://rxjs.dev/guide/subject Subject<any>} close$.
    *
    * @public
    * @param {?*} [output]
@@ -95,7 +95,7 @@ export class LazyDialogRef<DataType> {
   }
 
   /**
-   * Destroys the dialog container, module reference and close$.
+   * Destroys the dialog container, module reference and close$ stream.
    *
    * @private
    */
