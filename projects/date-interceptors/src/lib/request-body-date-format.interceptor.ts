@@ -9,13 +9,37 @@ import { Observable } from 'rxjs';
 import { API_DATE_FORMAT, API_URL_REGEX } from './injection-tokens';
 import { format } from 'date-fns';
 
+/**
+ * Description placeholder
+ *
+ * @export
+ * @class RequestBodyDateFormatInterceptor
+ * @typedef {RequestBodyDateFormatInterceptor}
+ * @implements {HttpInterceptor}
+ */
 @Injectable()
 export class RequestBodyDateFormatInterceptor implements HttpInterceptor {
+  /**
+   * Creates an instance of RequestBodyDateFormatInterceptor.
+   *
+   * @constructor
+   * @public
+   * @param {Readonly<RegExp>} apiUrlRegex
+   * @param {string} apiDateFormat
+   */
   public constructor(
     @Inject(API_URL_REGEX) private readonly apiUrlRegex: Readonly<RegExp>,
     @Inject(API_DATE_FORMAT) private readonly apiDateFormat: string
   ) {}
 
+  /**
+   * Description placeholder
+   *
+   * @public
+   * @param {HttpRequest<unknown>} request
+   * @param {HttpHandler} next
+   * @returns {Observable<HttpEvent<unknown>>}
+   */
   public intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -36,6 +60,12 @@ export class RequestBodyDateFormatInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
+  /**
+   * Description placeholder
+   *
+   * @private
+   * @param {?({ [key: string]: any } | any[])} [body]
+   */
   private convertDatesToDateStrings(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body?: { [key: string]: any } | any[]

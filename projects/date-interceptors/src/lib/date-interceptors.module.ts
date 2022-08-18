@@ -8,8 +8,22 @@ import {
 import { RequestBodyDateFormatInterceptor } from './request-body-date-format.interceptor';
 import { ResponseBodyDateParseInterceptor } from './response-body-date-parse.interceptor';
 
+/**
+ * The DateInterceptorsModule providing the {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/request-body-date-format.interceptor.ts RequestBodyDateFormatInterceptor} and {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/response-body-date-parse.interceptor.ts ResponseBodyDateParseInterceptor}.
+ *
+ * @export
+ * @class DateInterceptorsModule
+ * @typedef {DateInterceptorsModule}
+ */
 @NgModule()
 export class DateInterceptorsModule {
+  /**
+   * Creates an instance of DateInterceptorsModule.
+   *
+   * @constructor
+   * @public
+   * @param {DateInterceptorsModule} parentModule
+   */
   public constructor(
     @Optional() @SkipSelf() parentModule: DateInterceptorsModule
   ) {
@@ -20,6 +34,13 @@ export class DateInterceptorsModule {
     }
   }
 
+  /**
+   * Creates the {@link https://angular.io/guide/singleton-services#the-forroot-pattern singleton services}.
+   *
+   * @public
+   * @static
+   * @returns {ModuleWithProviders<DateInterceptorsModule>}
+   */
   public static forRoot(): ModuleWithProviders<DateInterceptorsModule> {
     return {
       ngModule: DateInterceptorsModule,
