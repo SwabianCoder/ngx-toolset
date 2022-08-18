@@ -10,7 +10,7 @@ import { API_DATE_FORMAT, API_URL_REGEX } from './injection-tokens';
 import { format } from 'date-fns';
 
 /**
- * The interceptor responsible for converting date objects of HTTP requests matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-url-regex.ts API_URL_REGEX} to date strings of {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-date-format.ts defined format}.
+ * The interceptor responsible for converting date objects of body of HTTP request having an URL matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-url-regex.ts API_URL_REGEX} to date strings of {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-date-format.ts defined format}.
  *
  * @export
  * @class RequestBodyDateFormatInterceptor
@@ -61,7 +61,7 @@ export class RequestBodyDateFormatInterceptor implements HttpInterceptor {
   }
 
   /**
-   * Converts date objects of HTTP requests matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-url-regex.ts API_URL_REGEX} to date strings of {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-date-format.ts defined format}.
+   * Converts properties of passed object that are date objects to date strings.
    *
    * @private
    * @param {?({ [key: string]: any } | any[])} [body]

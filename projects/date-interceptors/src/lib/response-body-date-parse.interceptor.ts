@@ -15,7 +15,7 @@ import {
 import { parse } from 'date-fns';
 
 /**
- * Description placeholder
+ * The interceptor responsible for converting date strings matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/date-string-regex.ts DATE_STRING_REGEX} of body of HTTP response with an URL matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-url-regex.ts API_URL_REGEX} to date objects.
  *
  * @export
  * @class ResponseBodyDateParseInterceptor
@@ -72,7 +72,7 @@ export class ResponseBodyDateParseInterceptor implements HttpInterceptor {
   }
 
   /**
-   * Description placeholder
+   * Converts properties of passed object that are date strings to date objects.
    *
    * @private
    * @param {?({ [key: string]: any } | any[])} [body]
