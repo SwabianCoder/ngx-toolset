@@ -14,6 +14,10 @@
   - [Usage](#usage)
     - [Module Import](#module-import)
     - [Dialog Container and Background Overlay Styles](#dialog-container-and-background-overlay-styles)
+    - [Standalone Component](#standalone-component)
+    - [Open Standalone Component Dialog](#open-standalone-component-dialog)
+    - [NgModule Extending ModuleWithLazyDialog<T>](#ngmodule-extending-modulewithlazydialogt)
+    - [Open Dialog Contained In NgModule](#open-dialog-contained-in-ngmodule)
 
 ## Features
 
@@ -85,4 +89,140 @@ import { LazyDialogModule } from '@ngx-toolset/lazy-dialogs';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+```
+
+### Standalone Component
+
+Sample standalone component:
+
+```ts
+import { Component } from '@angular/core';
+import { LazyDialogRef } from '@ngx-toolset/lazy-dialogs';
+
+@Component({
+  selector: 'app-standalone-dialog-component',
+  standalone: true,
+  template: '<button (click)="onCloseClicked()">Mark as successful</button>',
+})
+export class StandaloneDialogComponent {
+  public data: { firstName: string, lastName: string };
+
+  public constructor(private dialogRef: LazyDialogRef<{ firstName: string, lastName: string }>) {
+    this.data = this.dialogRef.data;
+  }
+
+  public onCloseClicked(): void {
+    this.dialogRef.close({ succeeded: true });
+  }
+}
+```
+
+### Open Standalone Component Dialog
+
+Sample component:
+
+```ts
+import { Component } from '@angular/core';
+import { LazyDialogService } from '@ngx-toolset/lazy-dialogs';
+
+@Component({
+  selector: 'app-open-standalone-dialog-component',
+  template: '<button (click)="onOpenDialogClicked()">Open dialog</button>',
+})
+export class OpenStandaloneDialogComponent {
+  public constructor(private lazyDialogService: LazyDialogService) {
+    this.data = this.dialogRef.data;
+  }
+
+  public async onOpenDialogClicked(): Promise<void> {
+    const componentType = import('../standalone-dialog/standalone-dialog.component')
+      .then(c => c.StandaloneDialogType);
+
+    const dialogRef = this.dialogRef.create(
+      componentType,
+      {
+        test: 'data',
+      }
+    );
+
+    const dialogOutput = await dialogRef.onClose();
+    // Do sth. with the dialog output.
+  }
+}
+```
+
+### NgModule Extending ModuleWithLazyDialog<T>
+
+Sample component:
+
+```ts
+import { Component } from '@angular/core';
+import { LazyDialogRef } from '@ngx-toolset/lazy-dialogs';
+
+@Component({
+  selector: 'app-dialog-with-module-component',
+  template: '<button (click)="onCloseClicked()">Close</button>',
+})
+export class DialogWithModuleComponent {
+  public data: { emailAddress: string };
+
+  public constructor(private dialogRef: LazyDialogRef<{ emailAddress: string }>) {
+    this.data = this.dialogRef.data;
+  }
+
+  public onCloseClicked(): void {
+    this.dialogRef.close();
+  }
+}
+```
+
+Sample NgModule:
+
+```ts
+import { NgModule } from '@angular/core';
+import { DialogWithModuleComponent } from './dialog-with-module.component';
+import { ModuleWithLazyDialog } from '@ngx-toolset/lazy-dialogs';
+
+@NgModule({
+  declarations: [DialogWithModuleComponent],
+})
+export class DialogWithModuleComponentModule extends ModuleWithLazyDialog<DialogWithModuleComponent> {
+  public getDialog(): typeof DialogWithModuleComponent {
+    return DialogWithModuleComponent;
+  }
+}
+```
+
+### Open Dialog Contained In NgModule
+
+Sample component:
+
+```ts
+import { Component } from '@angular/core';
+import { LazyDialogService } from '@ngx-toolset/lazy-dialogs';
+
+@Component({
+  selector: 'app-open-dialog-with-module-component',
+  template: '<button (click)="onOpenDialogClicked()">Open dialog</button>',
+})
+export class OpenDialogWithModuleComponent {
+  public constructor(private lazyDialogService: LazyDialogService) {
+    this.data = this.dialogRef.data;
+  }
+
+  public async onOpenDialogClicked(): Promise<void> {
+    const moduleType = import('../dialog-with-module-component/dialog-with-module-component.module')
+      .then(m => m.DialogWithModuleComponentModule);
+
+    const dialogRef = this.dialogRef.create(
+      moduleType,
+      {
+        test: 'data',
+      }
+    );
+
+    const dialogOutput = await dialogRef.onClose();
+    // Do sth. with the dialog output.
+  }
+}
 ```
