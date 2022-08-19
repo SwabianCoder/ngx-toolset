@@ -108,6 +108,4 @@ jobs:
           npm run test:unit:${{ inputs.PACKAGE_NAME }}:no-watch
       - name: Build lib
         run: |
-          npx -c 'ng b @ngx-toolset/${{ inputs.PACKAGE_NAME }}'
-          # Somehow calling build script via npm run does not work as of now.
-          # npm run build:${{ inputs.PACKAGE_NAME }}
+          npm run build:${{ inputs.PACKAGE_NAME }}
