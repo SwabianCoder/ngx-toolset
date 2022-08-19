@@ -22,6 +22,10 @@
   "bugs": {
     "url": "https://github.com/SwabianCoder/ngx-toolset/issues"
   },
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
   "engines": {
     "npm": ">=8.0.0",
     "node": ">=16.0.0"
