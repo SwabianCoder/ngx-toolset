@@ -16,7 +16,7 @@
     - [Dialog Container and Background Overlay Styles](#dialog-container-and-background-overlay-styles)
     - [Standalone Component](#standalone-component)
     - [Open Standalone Component Dialog](#open-standalone-component-dialog)
-    - [NgModule Extending ModuleWithLazyDialog<T>](#ngmodule-extending-modulewithlazydialogt)
+    - [NgModule Extending ModuleWithLazyDialog&#60;T&#62;](#ngmodule-extending-modulewithlazydialogt)
     - [Open Dialog Contained In NgModule](#open-dialog-contained-in-ngmodule)
 
 ## Features
@@ -151,7 +151,7 @@ export class OpenStandaloneDialogComponent {
 }
 ```
 
-### NgModule Extending ModuleWithLazyDialog<T>
+### NgModule Extending ModuleWithLazyDialog&#60;T&#62;
 
 Sample component:
 
