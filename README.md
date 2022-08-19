@@ -9,7 +9,7 @@
 
 ## Packages
 
-The packages from this repository are published as scoped packages under [@ngx-toolset](https://www.npmjs.com/org/ngx-toolset)
+The packages of this repository are published as scoped packages under [@ngx-toolset](https://www.npmjs.com/org/ngx-toolset)
 
 - [@ngx-toolset/api-token-interceptor](https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/api-token-interceptor/README.md) - Angular API token interceptor
 - [@ngx-toolset/date-interceptors](https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/README.md) - Angular date interceptors (parses HTTP response body date strings to date objects and converts HTTP request body date objects to date strings of given format)
