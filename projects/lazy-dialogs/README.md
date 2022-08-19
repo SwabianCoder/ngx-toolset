@@ -7,17 +7,13 @@
 
 ## Table of Contents
 
-- [@ngx-toolset/date-interceptors](#ngx-toolsetdate-interceptors)
+- [@ngx-toolset/lazy-dialogs](#ngx-toolsetlazy-dialogs)
   - [Features](#features)
   - [Installation](#installation)
     - [NPM](#npm)
   - [Usage](#usage)
     - [Module Import](#module-import)
-    - [Provide Injection Tokens](#provide-injection-tokens)
-  - [Injection Tokens](#injection-tokens)
-    - [API_DATE_FORMAT](#api_date_format)
-    - [API_URL_REGEX](#api_url_regex)
-    - [DATE_STRING_REGEX](#date_string_regex)
+    - [Dialog Container and Background Overlay Styles](#dialog-container-and-background-overlay-styles)
 
 ## Features
 
@@ -58,7 +54,7 @@ import { LazyDialogModule } from '@ngx-toolset/lazy-dialogs';
 export class AppModule {}
 ```
 
-### Dialog container and background overlay styles
+### Dialog Container and Background Overlay Styles
 
 Provide your own CSS styles for the dialog's container which can also act as the dialog's background overlay to the `forRoot` function of the `LazyDialogModule`:
 
@@ -73,6 +69,7 @@ import { LazyDialogModule } from '@ngx-toolset/lazy-dialogs';
   imports: [
     BrowserModule,
     LazyDialogModule.forRoot({
+      // Sample CSS styles
       position: 'fixed',
       left: 0,
       right: 0,
