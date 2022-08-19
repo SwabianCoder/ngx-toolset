@@ -21,7 +21,7 @@
 
 ## Features
 
-- Creates (opens) a dialog via lazy loading (works with NgModule extending ModuleWithLazyDialog<T> as well as standalone components)
+- Creates (opens) a dialog via lazy loading so that the dialog component and module aren't part of the Angular app's main bundle. That reduces your Angular app's bundle size. Works with NgModules extending ModuleWithLazyDialog&#60;T&#62; as well as standalone components.
 
 ## Installation
 
