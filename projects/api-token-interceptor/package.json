@@ -1,6 +1,6 @@
 {
   "name": "@ngx-toolset/api-token-interceptor",
-  "version": "1.0.0-rc.8",
+  "version": "1.0.0-rc.9",
   "scripts": {
     "build": "tsc -p tsconfig.schematics.json",
     "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../dist/api-token-interceptor/"

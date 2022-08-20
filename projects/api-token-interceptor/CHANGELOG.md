@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-rc.9] - 2022-08-20
+
+### Added
+
+- Support for module and injection tokens import to ng add schematic
+
+### Changed
+
+- README to contain ng add schematic
+
+### Removed
+
+- Angular compatibility table from README
+
 ## [1.0.0-rc.8] - 2022-08-19
 
 ### Fixed

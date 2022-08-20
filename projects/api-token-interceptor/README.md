@@ -10,9 +10,7 @@
 - [@ngx-toolset/api-token-interceptor](#ngx-toolsetapi-token-interceptor)
   - [Features](#features)
   - [Installation](#installation)
-    - [NPM](#npm)
   - [Usage](#usage)
-    - [Module Import](#module-import)
     - [Provide Injection Tokens](#provide-injection-tokens)
   - [Injection Tokens](#injection-tokens)
     - [API_URL_REGEX](#api_url_regex)
@@ -26,73 +24,15 @@
 
 ## Installation
 
-### NPM
-
-`npm install @ngx-toolset/api-token-interceptor --save`
-
-Choose the version corresponding to your Angular version:
-
-| Angular | @ngx-toolset/api-token-interceptor |
-|---------|------------------------------------|
-| 14.x.x  | 1.x.x                              |
+```
+ng add @ngx-toolset/api-token-interceptor
+```
 
 ## Usage
 
-### Module Import
-
-Import the `ApiTokenInterceptorModule` in your `AppModule`:
-
-```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { ApiTokenInterceptorModule } from '@ngx-toolset/api-token-interceptor';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    ApiTokenInterceptorModule.forRoot(),
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
 ### Provide Injection Tokens
 
-Provide `API_URL_REGEX` and `BEARER_TOKEN_CALLBACK_FN` in your `AppModule`:
-
-```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import {
-  ApiTokenInterceptorModule,
-  API_URL_REGEX,
-  BEARER_TOKEN_CALLBACK_FN
-} from '@ngx-toolset/api-token-interceptor';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    ApiTokenInterceptorModule.forRoot(),
-  ],
-  providers: [
-    {
-      provide: API_URL_REGEX,
-      useValue: /^https:\/\/test-url.com/
-    },
-    {
-      provide: BEARER_TOKEN_CALLBACK_FN,
-      useValue: (): string => 'dummyToken',
-    },
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
+Provide proper value for `API_URL_REGEX` and `BEARER_TOKEN_CALLBACK_FN` in your `AppModule`.
 
 ## Injection Tokens
 
