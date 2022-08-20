@@ -6,7 +6,7 @@ import {
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { applyToUpdateRecorder } from '@schematics/angular/utility/change';
-import { addSymbolToNgModuleMetadata } from '../../../../utility/ast-utils';
+import { addSymbolToNgModuleMetadata } from '../../../../schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 
 export function ngAdd(): Rule {
