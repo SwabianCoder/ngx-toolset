@@ -1,6 +1,14 @@
 {
   "name": "@ngx-toolset/lazy-dialogs",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
+  "scripts": {
+    "build": "tsc -p tsconfig.schematics.json",
+    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../dist/lazy-dialogs/"
+  },
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
   "description": "Angular lazy dialogs support via service",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",
@@ -29,5 +37,9 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "copyfiles": "file:../../node_modules/copyfiles",
+    "typescript": "file:../../node_modules/typescript"
   }
 }

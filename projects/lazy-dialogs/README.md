@@ -10,9 +10,7 @@
 - [@ngx-toolset/lazy-dialogs](#ngx-toolsetlazy-dialogs)
   - [Features](#features)
   - [Installation](#installation)
-    - [NPM](#npm)
   - [Usage](#usage)
-    - [Module Import](#module-import)
     - [Dialog Container and Background Overlay Styles](#dialog-container-and-background-overlay-styles)
     - [Standalone Component](#standalone-component)
     - [Open Standalone Component Dialog](#open-standalone-component-dialog)
@@ -25,38 +23,11 @@
 
 ## Installation
 
-### NPM
-
-`npm install @ngx-toolset/lazy-dialogs --save`
-
-Choose the version corresponding to your Angular version:
-
-| Angular | @ngx-toolset/lazy-dialogs |
-|---------|---------------------------|
-| 14.x.x  | 1.x.x                     |
+```
+ng add @ngx-toolset/lazy-dialogs
+```
 
 ## Usage
-
-### Module Import
-
-Import the `LazyDialogModule` in your `AppModule`:
-
-```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { LazyDialogModule } from '@ngx-toolset/lazy-dialogs';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    LazyDialogModule.forRoot(),
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
 
 ### Dialog Container and Background Overlay Styles
 
