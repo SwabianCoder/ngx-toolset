@@ -1,5 +1,18 @@
 ARG VARIANT="jammy"
+ARG USER=vscode
 FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
+
+# Setup user
+RUN adduser \
+   --system \
+   --shell /bin/bash \
+   --gecos $USER \
+   --group \
+   --disabled-password \
+   --home /home/$USER \
+   $USER
+   
+USER $USER
 
 # Setup latest Node 16
 RUN apt-get install curl
@@ -15,3 +28,5 @@ RUN npm i verdaccio --location=global
 # Setup latest Chrome browser
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
+
+USER root
