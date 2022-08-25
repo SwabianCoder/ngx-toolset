@@ -6,9 +6,11 @@
 			"VARIANT": "ubuntu-22.04"
 		}
 	},
+	"containerUser": "defaultUser",
 	"forwardPorts": [
     4200,
-    9876
+    9876,
+    4873
   ],
 	"postCreateCommand": "npm i",
 	"customizations": {
