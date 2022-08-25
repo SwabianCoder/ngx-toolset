@@ -101,15 +101,13 @@ import { LazyDialogService } from '@ngx-toolset/lazy-dialogs';
   template: '<button (click)="onOpenDialogClicked()">Open dialog</button>',
 })
 export class OpenStandaloneDialogComponent {
-  public constructor(private lazyDialogService: LazyDialogService) {
-    this.data = this.dialogRef.data;
-  }
+  public constructor(private lazyDialogService: LazyDialogService) {}
 
   public async onOpenDialogClicked(): Promise<void> {
     const componentType = import('../standalone-dialog/standalone-dialog.component')
       .then(c => c.StandaloneDialogType);
 
-    const dialogRef = this.dialogRef.create(
+    const dialogRef = this.lazyDialogService.create(
       componentType,
       {
         test: 'data',
@@ -177,15 +175,13 @@ import { LazyDialogService } from '@ngx-toolset/lazy-dialogs';
   template: '<button (click)="onOpenDialogClicked()">Open dialog</button>',
 })
 export class OpenDialogWithModuleComponent {
-  public constructor(private lazyDialogService: LazyDialogService) {
-    this.data = this.dialogRef.data;
-  }
+  public constructor(private lazyDialogService: LazyDialogService) {}
 
   public async onOpenDialogClicked(): Promise<void> {
     const moduleType = import('../dialog-with-module-component/dialog-with-module-component.module')
       .then(m => m.DialogWithModuleComponentModule);
 
-    const dialogRef = this.dialogRef.create(
+    const dialogRef = this.lazyDialogService.create(
       moduleType,
       {
         test: 'data',
