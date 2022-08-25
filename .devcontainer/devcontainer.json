@@ -6,7 +6,7 @@
 			"VARIANT": "ubuntu-22.04"
 		}
 	},
-	"containerUser": "defaultUser",
+	"containerUser": "vscode",
 	"forwardPorts": [
     4200,
     9876,
