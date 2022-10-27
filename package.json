@@ -55,7 +55,7 @@
     "@angular-eslint/schematics": "14.1.2",
     "@angular-eslint/template-parser": "14.1.2",
     "@angular/cli": "~14.2.4",
-    "@angular/compiler-cli": "^14.2.3",
+    "@angular/compiler-cli": "^14.2.8",
     "@ngneat/spectator": "^11.2.0",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.38.1",
