@@ -1,153 +1,180 @@
-/**
- * -----------------------------------------------------
- * NOTES ON CONFIGURATION STRUCTURE
- * -----------------------------------------------------
- *
- * Out of the box, ESLint does not support TypeScript or HTML. Naturally those are the two
- * main file types we care about in Angular projects, so we have to do a little extra work
- * to configure ESLint exactly how we need to.
- *
- * Fortunately, ESLint gives us an "overrides" configuration option which allows us to set
- * different lint tooling (parser, plugins, rules etc) for different file types, which is
- * critical because our .ts files require a different parser and different rules to our
- * .html (and our inline Component) templates.
- */
- {
-    "root": true,
-    // Additional projects are linted separately
-    "overrides": [
-      /**
-       * -----------------------------------------------------
-       * TYPESCRIPT FILES (COMPONENTS, SERVICES ETC) (.ts)
-       * -----------------------------------------------------
-       */
-      {
-        "files": ["*.ts"],
-        "parserOptions": {
-          "project": [
-            "tsconfig.json"
-          ],
-          "createDefaultProgram": true
-        },
-        "extends": [
-          "plugin:@angular-eslint/recommended",
-          "plugin:@angular-eslint/template/process-inline-templates",
-          "plugin:@typescript-eslint/recommended",
-          "plugin:@typescript-eslint/recommended-requiring-type-checking",
-          "plugin:prettier/recommended"
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
         ],
-        "rules": {
-          /**
-           * Any TypeScript related rules you wish to use/reconfigure over and above the
-           * recommended set provided by the @angular-eslint project would go here.
-           *
-           * There are some examples below from the @angular-eslint plugin and ESLint core:
-           */
-          "@angular-eslint/directive-selector": [
-            "error",
-            { "type": "attribute", "prefix": "ngx-toolset", "style": "camelCase" }
-          ],
-          "@angular-eslint/component-selector": [
-            "error",
-            { "type": "element", "prefix": "ngx-toolset", "style": "kebab-case" }
-          ],
-          "radix": "error",
-          "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
-          "@typescript-eslint/no-throw-literal": "error",
-          "@typescript-eslint/prefer-includes": "error",
-          "@typescript-eslint/prefer-literal-enum-member": "error",
-          "@typescript-eslint/prefer-nullish-coalescing": "error",
-          "@typescript-eslint/prefer-optional-chain": "error",
-          "@typescript-eslint/prefer-string-starts-ends-with": "error",
-          "@typescript-eslint/promise-function-async": "error",
-          "@typescript-eslint/require-array-sort-compare": "error",
-          "@typescript-eslint/switch-exhaustiveness-check": "error",
-          "@typescript-eslint/type-annotation-spacing": "error",
-          "@typescript-eslint/no-explicit-any": "error",
-          "@typescript-eslint/no-unsafe-return": "error",
-          "@typescript-eslint/no-unsafe-member-access": "error",
-          "@typescript-eslint/no-unsafe-assignment": "error",
-          "@typescript-eslint/no-unsafe-call": "error",
-          "@typescript-eslint/no-floating-promises": "error",
-          "@typescript-eslint/explicit-member-accessibility": "error",
-          "@typescript-eslint/explicit-function-return-type": "error",
-          "@typescript-eslint/unbound-method": [
-            "error",
-            {
-              "ignoreStatic": true
-            }
-          ],
-          "no-empty-function": "off",
-          "@typescript-eslint/no-empty-function": "error",
-          "eqeqeq": "error",
-          "curly": "error",
-          "require-await": "off",
-          "@typescript-eslint/require-await": "error",
-          "no-continue": "error",
-          "padding-line-between-statements": "off",
-          "@typescript-eslint/padding-line-between-statements": [
-            "error",
-            { "blankLine": "always", "prev": "*", "next": ["interface", "type", "class"] },
-            { "blankLine": "always", "prev": "*", "next": "block-like" },
-            { "blankLine": "always", "prev": "*", "next": "return" },
-            { "blankLine": "always", "prev": ["case", "default"], "next": "*" }
-          ],
-          "no-array-constructor": "off",
-          "@typescript-eslint/no-array-constructor": "error",
-          "@typescript-eslint/prefer-for-of": "error",
-          "@typescript-eslint/prefer-enum-initializers": "error",
-          "lines-between-class-members": "off",
-          "@typescript-eslint/lines-between-class-members": [
-            "error",
-            "always",
-            {
-              "exceptAfterSingleLine": true
-            }
-          ],
-          "@typescript-eslint/member-ordering": "error",
-          "arrow-parens": "error",
-          "arrow-body-style": "error",
-          "max-len": ["error", { "code": 140, "ignoreComments": true }],
-          "no-console": "error",
-          "no-alert": "error",
-          "no-debugger": "error",
-          "camelcase": "error",
-          "no-empty": "error",
-          "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }]
-        }
+        "createDefaultProgram": true
       },
-  
-      /**
-       * -----------------------------------------------------
-       * COMPONENT TEMPLATES
-       * -----------------------------------------------------
-       *
-       * If you use inline templates, make sure you you have read the notes on the extends
-       * in the "*.ts" overrides above to understand how they relate to this configuration
-       * directly below.
-       */
-      {
-        "files": ["*.html"],
-        "extends": ["plugin:@angular-eslint/template/recommended"],
-        "rules": {
-          /**
-           * Any template/HTML related rules you wish to use/reconfigure over and above the
-           * recommended set provided by the @angular-eslint project would go here.
-           *
-           * There is an example below from ESLint core (note, this specific example is not
-           * necessarily recommended for all projects):
-           */
-          "max-len": ["error", { "code": 140 }]
-        }
-      },
-      {
-        "files": ["*.html"],
-        "excludedFiles": ["*inline-template-*.component.html"],
-        "extends": ["plugin:prettier/recommended"],
-        "rules": {
-          "prettier/prettier": ["error", { "parser": "angular" }]
-        }
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "ngx-toolset",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "ngx-toolset",
+            "style": "kebab-case"
+          }
+        ],
+        "radix": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "args": "none"
+          }
+        ],
+        "@typescript-eslint/no-throw-literal": "error",
+        "@typescript-eslint/prefer-includes": "error",
+        "@typescript-eslint/prefer-literal-enum-member": "error",
+        "@typescript-eslint/prefer-nullish-coalescing": "error",
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-string-starts-ends-with": "error",
+        "@typescript-eslint/promise-function-async": "error",
+        "@typescript-eslint/require-array-sort-compare": "error",
+        "@typescript-eslint/switch-exhaustiveness-check": "error",
+        "@typescript-eslint/type-annotation-spacing": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unsafe-return": "error",
+        "@typescript-eslint/no-unsafe-member-access": "error",
+        "@typescript-eslint/no-unsafe-assignment": "error",
+        "@typescript-eslint/no-unsafe-call": "error",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/explicit-member-accessibility": "error",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ],
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": "error",
+        "eqeqeq": "error",
+        "curly": "error",
+        "require-await": "off",
+        "@typescript-eslint/require-await": "error",
+        "no-continue": "error",
+        "padding-line-between-statements": "off",
+        "@typescript-eslint/padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": [
+              "interface",
+              "type",
+              "class"
+            ]
+          },
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "block-like"
+          },
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          },
+          {
+            "blankLine": "always",
+            "prev": [
+              "case",
+              "default"
+            ],
+            "next": "*"
+          }
+        ],
+        "no-array-constructor": "off",
+        "@typescript-eslint/no-array-constructor": "error",
+        "@typescript-eslint/prefer-for-of": "error",
+        "@typescript-eslint/prefer-enum-initializers": "error",
+        "lines-between-class-members": "off",
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          "always",
+          {
+            "exceptAfterSingleLine": true
+          }
+        ],
+        "@typescript-eslint/member-ordering": "error",
+        "arrow-parens": "error",
+        "arrow-body-style": "error",
+        "max-len": [
+          "error",
+          {
+            "code": 140,
+            "ignoreComments": true
+          }
+        ],
+        "no-console": "error",
+        "no-alert": "error",
+        "no-debugger": "error",
+        "camelcase": "error",
+        "no-empty": "error",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1,
+            "maxEOF": 1,
+            "maxBOF": 0
+          }
+        ]
       }
-    ]
-  }
-  
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "max-len": [
+          "error",
+          {
+            "code": 140
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "excludedFiles": [
+        "*inline-template-*.component.html"
+      ],
+      "extends": [
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
+      }
+    }
+  ]
+}

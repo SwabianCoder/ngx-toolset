@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { tags } from '@angular-devkit/core';
 import * as ts from 'typescript';
+
+import { tags } from '@angular-devkit/core';
 import {
   Change,
   InsertChange,
@@ -17,10 +18,11 @@ import {
 /**
  * Add Import `import { symbolName } from fileName` if the import doesn't exit
  * already. Assumes fileToEdit can be resolved and accessed.
- * @param fileToEdit (file we want to add import to)
- * @param symbolName (item to import)
- * @param fileName (path to the file)
- * @param isDefault (if true, import follows style for importing default exports)
+ * @param fileToEdit File we want to add import to.
+ * @param symbolName Item to import.
+ * @param fileName Path to the file.
+ * @param isDefault If true, import follows style for importing default exports.
+ * @param alias Alias that the symbol should be inserted under.
  * @return Change
  */
 export function insertImport(
@@ -28,48 +30,45 @@ export function insertImport(
   fileToEdit: string,
   symbolName: string,
   fileName: string,
-  isDefault = false
+  isDefault = false,
+  alias?: string
 ): Change {
   const rootNode = source;
-  const allImports = findNodes(rootNode, ts.SyntaxKind.ImportDeclaration);
+  const allImports = findNodes(rootNode, ts.isImportDeclaration);
+  const importExpression = alias ? `${symbolName} as ${alias}` : symbolName;
 
   // get nodes that map to import statements from the file fileName
-  const relevantImports = allImports.filter((node) => {
-    // StringLiteral of the ImportDeclaration is the import file (fileName in this case).
-    const importFiles = node
-      .getChildren()
-      .filter(ts.isStringLiteral)
-      .map((n) => n.text);
-
-    return importFiles.filter((file) => file === fileName).length === 1;
-  });
+  const relevantImports = allImports.filter(
+    (node) =>
+      ts.isStringLiteralLike(node.moduleSpecifier) &&
+      node.moduleSpecifier.text === fileName
+  );
 
   if (relevantImports.length > 0) {
-    let importsAsterisk = false;
-    // imports from import file
-    const imports: ts.Node[] = [];
-    relevantImports.forEach((n) => {
-      Array.prototype.push.apply(
-        imports,
-        findNodes(n, ts.SyntaxKind.Identifier)
-      );
-
-      if (findNodes(n, ts.SyntaxKind.AsteriskToken).length > 0) {
-        importsAsterisk = true;
-      }
-    });
+    const hasNamespaceImport = relevantImports.some(
+      (node) =>
+        node.importClause?.namedBindings?.kind === ts.SyntaxKind.NamespaceImport
+    );
 
     // if imports * from fileName, don't add symbolName
-    if (importsAsterisk) {
+    if (hasNamespaceImport) {
       return new NoopChange();
     }
 
-    const importTextNodes = imports.filter(
-      (n) => (n as ts.Identifier).text === symbolName
+    const imports = relevantImports.flatMap((node) =>
+      node.importClause?.namedBindings &&
+      ts.isNamedImports(node.importClause.namedBindings)
+        ? node.importClause.namedBindings.elements
+        : []
     );
 
     // insert import if it's not there
-    if (importTextNodes.length === 0) {
+    if (
+      !imports.some(
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        (node) => (node.propertyName || node.name).text === symbolName
+      )
+    ) {
       const fallbackPos =
         findNodes(
           relevantImports[0],
@@ -79,7 +78,7 @@ export function insertImport(
 
       return insertAfterLastOccurrence(
         imports,
-        `, ${symbolName}`,
+        `, ${importExpression}`,
         fileToEdit,
         fallbackPos
       );
@@ -103,7 +102,7 @@ export function insertImport(
   const insertAtBeginning = allImports.length === 0 && useStrict.length === 0;
   const separator = insertAtBeginning ? '' : ';\n';
   const toInsert =
-    `${separator}import ${open}${symbolName}${close}` +
+    `${separator}import ${open}${importExpression}${close}` +
     ` from '${fileName}'${insertAtBeginning ? ';\n' : ''}`;
 
   return insertAfterLastOccurrence(
@@ -195,7 +194,7 @@ export function findNodes<T extends ts.Node>(
  */
 export function getSourceNodes(sourceFile: ts.SourceFile): ts.Node[] {
   const nodes: ts.Node[] = [sourceFile];
-  const result = [];
+  const result: ts.Node[] = [];
 
   while (nodes.length > 0) {
     const node = nodes.shift();
@@ -252,7 +251,7 @@ function nodesByPosition(first: ts.Node, second: ts.Node): number {
  * @throw Error if toInsert is first occurence but fall back is not set
  */
 export function insertAfterLastOccurrence(
-  nodes: ts.Node[],
+  nodes: ts.Node[] | ts.NodeArray<ts.Node>,
   toInsert: string,
   file: string,
   fallbackPos: number,
@@ -429,8 +428,7 @@ export function addSymbolToNgModuleMetadata(
     return [];
   }
 
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  importText = importText || symbolName;
+  importText = importText ?? symbolName;
 
   // Get all the children property assignment of object literals.
   const matchingProperties = getMetadataField(node, metadataField);
@@ -665,52 +663,6 @@ export function isImported(
 }
 
 /**
- * This function returns the name of the environment export
- * whether this export is aliased or not. If the environment file
- * is not imported, then it will return `null`.
- */
-export function getEnvironmentExportName(source: ts.SourceFile): string | null {
-  // Initial value is `null` as we don't know yet if the user
-  // has imported `environment` into the root module or not.
-  let environmentExportName: string | null = null;
-
-  const allNodes = getSourceNodes(source);
-
-  allNodes
-    .filter(ts.isImportDeclaration)
-    .filter(
-      (declaration) =>
-        declaration.moduleSpecifier.kind === ts.SyntaxKind.StringLiteral &&
-        declaration.importClause !== undefined
-    )
-    .map((declaration) =>
-      // If `importClause` property is defined then the first
-      // child will be `NamedImports` object (or `namedBindings`).
-      (declaration.importClause as ts.ImportClause).getChildAt(0)
-    )
-    // Find those `NamedImports` object that contains `environment` keyword
-    // in its text. E.g. `{ environment as env }`.
-    .filter(ts.isNamedImports)
-    .filter((namedImports) => namedImports.getText().includes('environment'))
-    .forEach((namedImports) => {
-      for (const specifier of namedImports.elements) {
-        // `propertyName` is defined if the specifier
-        // has an aliased import.
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-        const name = specifier.propertyName || specifier.name;
-
-        // Find specifier that contains `environment` keyword in its text.
-        // Whether it's `environment` or `environment as env`.
-        if (name.text.includes('environment')) {
-          environmentExportName = specifier.name.text;
-        }
-      }
-    });
-
-  return environmentExportName;
-}
-
-/**
  * Returns the RouterModule declaration from NgModule metadata, if any.
  */
 export function getRouterModuleDeclaration(
@@ -829,6 +781,7 @@ export function addRouteDeclarationToModule(
 
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     const indentation = text.match(/\r?\n(\r?)\s*/) || [];
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     const routeText = `${indentation[0] || ' '}${routeLiteral}`;
 
     // Add the new route before the wildcard route
@@ -843,4 +796,55 @@ export function addRouteDeclarationToModule(
   }
 
   return new InsertChange(fileToAdd, insertPos, route);
+}
+
+/** Asserts if the specified node is a named declaration (e.g. class, interface). */
+function isNamedNode(
+  node: ts.Node & { name?: ts.Node }
+): node is ts.Node & { name: ts.Identifier } {
+  return !!node.name && ts.isIdentifier(node.name);
+}
+
+/**
+ * Determines if a SourceFile has a top-level declaration whose name matches a specific symbol.
+ * Can be used to avoid conflicts when inserting new imports into a file.
+ * @param sourceFile File in which to search.
+ * @param symbolName Name of the symbol to search for.
+ * @param skipModule Path of the module that the symbol may have been imported from. Used to
+ * avoid false positives where the same symbol we're looking for may have been imported.
+ */
+export function hasTopLevelIdentifier(
+  sourceFile: ts.SourceFile,
+  symbolName: string,
+  skipModule: string | null = null
+): boolean {
+  for (const node of sourceFile.statements) {
+    if (isNamedNode(node) && node.name.text === symbolName) {
+      return true;
+    }
+
+    if (
+      ts.isVariableStatement(node) &&
+      node.declarationList.declarations.some(
+        (decl) => isNamedNode(decl) && decl.name.text === symbolName
+      )
+    ) {
+      return true;
+    }
+
+    if (
+      ts.isImportDeclaration(node) &&
+      ts.isStringLiteralLike(node.moduleSpecifier) &&
+      node.moduleSpecifier.text !== skipModule &&
+      node.importClause?.namedBindings &&
+      ts.isNamedImports(node.importClause.namedBindings) &&
+      node.importClause.namedBindings.elements.some(
+        (el) => el.name.text === symbolName
+      )
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }

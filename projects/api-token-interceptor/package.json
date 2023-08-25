@@ -1,6 +1,6 @@
 {
   "name": "@ngx-toolset/api-token-interceptor",
-  "version": "1.0.0-rc.13",
+  "version": "1.0.0-rc.14",
   "scripts": {
     "build": "tsc -p tsconfig.schematics.json",
     "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../dist/api-token-interceptor/"
@@ -31,12 +31,12 @@
     "url": "https://github.com/SwabianCoder/ngx-toolset/issues"
   },
   "engines": {
-    "npm": ">=8.0.0",
-    "node": ">=16.0.0"
+    "npm": ">=9.0.0",
+    "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/core": "^15.0.0"
+    "@angular/common": "^16.0.0",
+    "@angular/core": "^16.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
