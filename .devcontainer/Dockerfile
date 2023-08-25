@@ -4,13 +4,13 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 USER $USER
 
-# Setup latest Node 16
+# Setup latest Node 18
 RUN apt-get install curl
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash
 RUN apt-get install nodejs
 
-# Setup latest Angular 14 CLI
-RUN npm i @angular/cli@^14.0.0 --location=global
+# Setup latest Angular 16 CLI
+RUN npm i @angular/cli@^16.0.0 --location=global
 
 # Setup Verdaccio proxy registry
 RUN npm i verdaccio --location=global
