@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/prefer-nullish-coalescing
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
