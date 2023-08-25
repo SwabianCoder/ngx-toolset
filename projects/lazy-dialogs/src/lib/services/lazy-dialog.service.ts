@@ -11,7 +11,11 @@ import {
   Type,
   ViewContainerRef,
 } from '@angular/core';
-import { LazyDialogRef, ModuleWithLazyDialog } from '../models';
+
+import {
+  LazyDialogRef,
+  ModuleWithLazyDialog,
+} from '../models';
 
 /**
  * The LazyDialogService responsible for creating lazy loading dialogs.
@@ -108,7 +112,7 @@ export class LazyDialogService {
     let moduleRef: NgModuleRef<ModuleWithLazyDialog<ComponentType>> | undefined;
 
     if (
-      resolvedModule.prototype instanceof ModuleWithLazyDialog<ComponentType>
+      resolvedModule.prototype instanceof ModuleWithLazyDialog
     ) {
       const castedModule = resolvedModule as Type<
         ModuleWithLazyDialog<ComponentType>
