@@ -28,7 +28,7 @@ jobs:
           echo "packageVersion=$packageVersion" >> $GITHUB_ENV
           echo "$packageVersion"
       - name: Validate changelog entry
-        uses: mindsers/changelog-reader-action@v2.2.0
+        uses: mindsers/changelog-reader-action@v2
         with:
           validation_level: error
           version: ${{ env.packageVersion }}
@@ -99,10 +99,10 @@ jobs:
           semverCompareResult=$( pysemver compare ${{ env.latestNpmPackageVersion }} ${{ env.localPackageVersion }} )
           if [[ $semverCompareResult == -1 ]];
           then
-            echo '::set-output name=version_increased::True'
+             echo 'version_increased=True' >> $GITHUB_OUTPUT
             echo 'Version changed'
           else
-            echo '::set-output name=version_increased::False'
+            echo 'version_increased=False' >> $GITHUB_OUTPUT
             echo 'Version did not change'
           fi
   npm-package:
@@ -167,7 +167,7 @@ jobs:
           zip -r "../../${{ env.zipName }}" *
       - name: Get changelog entry
         id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2.2.0
+        uses: mindsers/changelog-reader-action@v2
         with:
           version: ${{ env.packageVersion }}
           path: ./CHANGELOG.md
