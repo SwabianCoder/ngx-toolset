@@ -30,7 +30,7 @@ Choose the version corresponding to your Angular version:
 
 | Angular | @ngx-toolset/template-type-checker |
 |---------|------------------------------------|
-| 14.x.x  | 1.x.x                              |
+| 16.x.x  | 1.x.x                              |
 
 ## Usage
 
