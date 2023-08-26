@@ -32,32 +32,10 @@ ng add @ngx-toolset/date-interceptors
 
 ## Usage
 
-### Module Import
-
-Import the `DateInterceptorsModule` in your `AppModule`:
-
-```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { DateInterceptorsModule } from '@ngx-toolset/date-interceptors';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    DateInterceptorsModule.forRoot(),
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
 ### Provide Injection Tokens
 
-Provide proper values for `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `AppModule`.
-
-> Hint: The list of options to provide `API_DATE_FORMAT` value could be found here: [date-fns documentation](https://date-fns.org/v2.29.1/docs/parse).
+Provide proper values for automatically added `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` 
+injection tokens in your `AppModule`.
 
 ## Injection Tokens
 
