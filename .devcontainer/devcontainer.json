@@ -11,7 +11,7 @@
     9876,
     8100
   ],
-  "postCreateCommand": "npm ci --ignore-scripts",
+  "postCreateCommand": "git pull && npm ci --ignore-scripts",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {}
   },
