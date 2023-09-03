@@ -1,22 +1,23 @@
 {
-	"name": "Ubuntu",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			"VARIANT": "ubuntu-22.04",
-			"USER": "vscode"
-		}
-	},
-	"containerUser": "vscode",
-	"forwardPorts": [
-    4200,
+  "name": "Node.js & TypeScript",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "18"
+    }
+  },
+  "remoteUser": "node",
+  "forwardPorts": [
     9876,
-    4873
+    8100
   ],
-	"postCreateCommand": "npm i",
-	"customizations": {
-		"vscode": {
-			"settings": {
+  "postCreateCommand": "npm ci --ignore-scripts",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
         "terminal.integrated.profiles.linux": {
           "bash": {
             "path": "bash",
@@ -27,20 +28,30 @@
         "workbench.colorTheme": "GitHub Dark Default",
         "workbench.startupEditor": "none",
         "extensions.ignoreRecommendations": true,
-        "gitlens.showWelcomeOnInstall": false,
-        "gitlens.showWhatsNewAfterUpgrades": false
+        "console-ninja.showWhatsNew": false
       },
-			"extensions": [
-				"eamodio.gitlens",
+      "extensions": [
+        "GitHub.vscode-github-actions",
         "visualstudioexptteam.vscodeintellicode",
         "github.vscode-pull-request-github",
-        "angular.ng-template",
-        "johnpapa.angular2",
-        "cyrilletuzi.angular-schematics",
+        "shd101wyy.markdown-preview-enhanced",
         "seatonjiang.gitmoji-vscode",
+        "wix.vscode-import-cost",
+        "MariusAlchimavicius.json-to-ts",
+        "yoavbls.pretty-ts-errors",
+        "formulahendry.auto-complete-tag",
+        "adpyke.codesnap",
+        "donjayamanne.githistory",
+        "johnpapa.Angular2",
+        "Angular.ng-template",
         "redhat.vscode-yaml",
-	"bierner.markdown-preview-github-styles"
-			]
-		}
-	}
+        "ChakrounAnas.turbo-console-log",
+        "WallabyJs.console-ninja",
+        "helixquar.randomeverything",
+        "oderwat.indent-rainbow",
+        "kisstkondoros.vscode-gutter-preview",
+        "BriteSnow.vscode-toggle-quotes"
+      ]
+    }
+  }
 }
