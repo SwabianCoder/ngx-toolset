@@ -34,8 +34,9 @@ Choose the version corresponding to your Angular version:
 
 | Angular | @ngx-toolset/api-token-interceptor |
 |---------|------------------------------------|
-| 14.x.x  | 1.x.x                              |
-| 16.x.x  | 2.x.x                              |
+| 14.x.x  | >=0.0.1 <=1.0.0-rc.12              |
+| 15.x.x  | 1.0.0-rc.13                        |
+| 16.x.x  | >=1.0.0-rc.14 <=2.0.0              |
 
 ## Usage
 
