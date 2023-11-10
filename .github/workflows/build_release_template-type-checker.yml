@@ -11,6 +11,8 @@ on:
 jobs:
   call-build-release-workflow:
     name: Call Build & Release workflow
+    permissions:
+      contents: read
     uses: ./.github/workflows/build_release.yml
     with:
       PACKAGE_NAME: template-type-checker
