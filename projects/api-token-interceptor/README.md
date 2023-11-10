@@ -10,7 +10,9 @@
 - [@ngx-toolset/api-token-interceptor](#ngx-toolsetapi-token-interceptor)
   - [Features](#features)
   - [Installation](#installation)
+    - [NPM](#npm)
   - [Usage](#usage)
+    - [Module Import](#module-import)
     - [Provide Injection Tokens](#provide-injection-tokens)
   - [Injection Tokens](#injection-tokens)
     - [API_URL_REGEX](#api_url_regex)
@@ -24,15 +26,71 @@
 
 ## Installation
 
-```
-ng add @ngx-toolset/api-token-interceptor
-```
+### NPM
+
+`npm install @ngx-toolset/api-token-interceptor --save`
+
+Choose the version corresponding to your Angular version:
+
+| Angular | @ngx-toolset/api-token-interceptor |
+|---------|------------------------------------|
+| 14.x.x  | >=0.0.1 <=1.0.0-rc.12              |
+| 15.x.x  | 1.0.0-rc.13                        |
+| 16.x.x  | >=1.0.0-rc.14 <=2.0.0              |
 
 ## Usage
 
+### Module Import
+
+Provide the HTTP client with the `apiTokenInterceptor` in your `main.ts`:
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { apiTokenInterceptor } from '@ngx-toolset/api-token-interceptor';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(
+      withInterceptors([
+        apiTokenInterceptor
+      ])
+    )
+  ]
+});
+```
+
 ### Provide Injection Tokens
 
-Provide proper value for `API_URL_REGEX` and `BEARER_TOKEN_CALLBACK_FN` in your `AppModule`.
+Provide `API_URL_REGEX` and `BEARER_TOKEN_CALLBACK_FN` in your `main.ts`:
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import {
+  apiTokenInterceptor,
+  API_URL_REGEX,
+  BEARER_TOKEN_CALLBACK_FN
+} from '@ngx-toolset/api-token-interceptor';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(
+      withInterceptors([
+        apiTokenInterceptor
+      ])
+    ),
+    {
+      provide: API_URL_REGEX,
+      useValue: /^https:\/\/test-url.com/
+    },
+    {
+      provide: BEARER_TOKEN_CALLBACK_FN,
+      useValue: (): string => 'dummyToken',
+    }
+  ]
+});
+```
 
 ## Injection Tokens
 
