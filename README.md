@@ -13,7 +13,6 @@ The packages of this repository are published as scoped packages under [@ngx-too
 
 - [@ngx-toolset/api-token-interceptor](https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/api-token-interceptor/README.md) - Angular API token interceptor
 - [@ngx-toolset/date-interceptors](https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/README.md) - Angular date interceptors (parses HTTP response body date strings to date objects and converts HTTP request body date objects to date strings of given format)
-- [@ngx-toolset/lazy-dialogs](https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/lazy-dialogs/README.md) - Angular lazy dialogs support via service
 - [@ngx-toolset/template-type-checker](https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/template-type-checker/README.md) - Validate object's class instance type in Angular HTML template
 
 ## License

@@ -3,46 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "@ngx-toolset/lazy-dialogs": {
-      "projectType": "library",
-      "root": "projects/lazy-dialogs",
-      "sourceRoot": "projects/lazy-dialogs/src",
-      "prefix": "ngx-toolset",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/lazy-dialogs/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/lazy-dialogs/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/lazy-dialogs/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/lazy-dialogs/src/test.ts",
-            "tsConfig": "projects/lazy-dialogs/tsconfig.spec.json",
-            "karmaConfig": "projects/lazy-dialogs/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/lazy-dialogs/**/*.ts",
-              "projects/lazy-dialogs/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "@ngx-toolset/template-type-checker": {
       "projectType": "library",
       "root": "projects/template-type-checker",
