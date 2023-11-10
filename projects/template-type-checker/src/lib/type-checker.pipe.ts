@@ -1,4 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+
 import { Constructor } from './types';
 
 /**
@@ -11,6 +15,7 @@ import { Constructor } from './types';
  */
 @Pipe({
   name: 'typeChecker',
+  standalone: true,
 })
 export class TypeCheckerPipe implements PipeTransform {
   /**
