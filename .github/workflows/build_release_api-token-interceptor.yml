@@ -12,7 +12,7 @@ jobs:
   call-build-release-workflow:
     name: Call Build & Release workflow
     permissions:
-      contents: read
+      contents: write, read
     uses: ./.github/workflows/build_release.yml
     with:
       PACKAGE_NAME: api-token-interceptor
