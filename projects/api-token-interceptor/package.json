@@ -1,14 +1,6 @@
 {
   "name": "@ngx-toolset/api-token-interceptor",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "tsc -p tsconfig.schematics.json",
-    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ../../dist/api-token-interceptor/"
-  },
-  "schematics": "./schematics/collection.json",
-  "ng-add": {
-    "save": "dependencies"
-  },
+  "version": "2.0.0",
   "description": "Angular API token interceptor",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",
@@ -40,9 +32,5 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
-  },
-  "devDependencies": {
-    "copyfiles": "file:../../node_modules/copyfiles",
-    "typescript": "file:../../node_modules/typescript"
   }
 }
