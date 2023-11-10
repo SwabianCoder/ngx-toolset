@@ -30,32 +30,35 @@ Choose the version corresponding to your Angular version:
 
 | Angular | @ngx-toolset/template-type-checker |
 |---------|------------------------------------|
-| 16.x.x  | 1.x.x                              |
+| 14.x.x  | >=0.0.1 <=1.0.0-rc.9               |
+| 15.x.x  | 1.0.0-rc.10                        |
+| 16.x.x  | >=1.0.0-rc.11 <=2.x.x              |
 
 ## Usage
 
-### Module Import
+### Import
 
-Import the `TemplateTypeCheckerModule` in the module(s) you would like to use the `TypeCheckerPipe`:
-
-```ts
-import { NgModule } from '@angular/core';
-import { SampleComponent } from './sample.component';
-import { TemplateTypeCheckerModule } from '@ngx-toolset/template-type-checker';
-
-@NgModule({
-  declarations: [SampleComponent],
-  imports: [
-    TemplateTypeCheckerModule,
-  ],
-})
-export class SampleModule {}
-```
-
-### TS
+Import the `TypeCheckerPipe` in the component(s) you would like to use it:
 
 ```ts
 import { Component } from '@angular/core';
+import { TypeCheckerPipe } from '@ngx-toolset/template-type-checker';
+
+@Component({
+  selector: 'app-sample',
+  templateUrl: 'sample.component.html',
+  styleUrls: ['sample.component.scss'],
+  standalone: true,
+  imports: [TypeCheckerPipe],
+})
+export class SampleComponent {}
+```
+
+### TS Example
+
+```ts
+import { Component } from '@angular/core';
+import { TypeCheckerPipe } from '@ngx-toolset/template-type-checker';
 
 class ClassA {}
 
@@ -64,7 +67,9 @@ class ClassB {}
 @Component({
   selector: 'app-sample',
   templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.scss']
+  styleUrls: ['./sample.component.scss'],
+  standalone: true,
+  imports: [TypeCheckerPipe],
 })
 export class SampleComponent {
   public classA: typeof ClassA;
@@ -79,7 +84,7 @@ export class SampleComponent {
 }
 ```
 
-### HTML
+### HTML Example
 
 ```html
 <!-- TypeCheckerPipe returns object of type ClassA -> ngIf evaluates to truthy value -->
