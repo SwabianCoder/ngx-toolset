@@ -9,9 +9,6 @@
       "@ngx-toolset/date-interceptors": [
         "dist/date-interceptors"
       ],
-      "@ngx-toolset/lazy-dialogs": [
-        "dist/lazy-dialogs"
-      ],
       "@ngx-toolset/template-type-checker": [
         "dist/template-type-checker"
       ]
