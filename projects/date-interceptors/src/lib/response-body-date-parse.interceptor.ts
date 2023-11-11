@@ -1,105 +1,89 @@
-import { Inject, Injectable } from '@angular/core';
 import {
+  HttpHandlerFn,
+  HttpInterceptorFn,
   HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable, of, switchMap } from 'rxjs';
+import { inject } from '@angular/core';
+
+import { parse } from 'date-fns';
+import { of, switchMap } from 'rxjs';
+
 import {
   API_DATE_FORMAT,
   API_URL_REGEX,
   DATE_STRING_REGEX,
 } from './injection-tokens';
-import { parse } from 'date-fns';
 
 /**
- * The interceptor responsible for converting date strings matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/date-string-regex.ts DATE_STRING_REGEX} of body of HTTP response with an URL matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-url-regex.ts API_URL_REGEX} to date objects.
+ * The responseBodyDateParseInterceptor is responsible for converting date strings matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/date-string-regex.ts DATE_STRING_REGEX} of body of HTTP response with an URL matching {@link https://github.com/SwabianCoder/ngx-toolset/blob/main/projects/date-interceptors/src/lib/injection-tokens/api-url-regex.ts API_URL_REGEX} to date objects.
  *
- * @export
- * @class ResponseBodyDateParseInterceptor
- * @typedef {ResponseBodyDateParseInterceptor}
- * @implements {HttpInterceptor}
+ * @param {HttpRequest<unknown>} req - An HTTP request
+ * @param {HttpHandlerFn} next - An HTTP handler function
  */
-@Injectable()
-export class ResponseBodyDateParseInterceptor implements HttpInterceptor {
-  /**
-   * Creates an instance of ResponseBodyDateParseInterceptor.
-   *
-   * @constructor
-   * @public
-   * @param {Readonly<RegExp>} apiUrlRegex
-   * @param {Readonly<RegExp>} dateStringRegex
-   * @param {string} apiDateFormat
-   */
-  public constructor(
-    @Inject(API_URL_REGEX) private readonly apiUrlRegex: Readonly<RegExp>,
-    @Inject(DATE_STRING_REGEX)
-    private readonly dateStringRegex: Readonly<RegExp>,
-    @Inject(API_DATE_FORMAT) private readonly apiDateFormat: string
-  ) {}
+export const responseBodyDateParseInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+) => {
+  const apiUrlRegex = inject(API_URL_REGEX);
+  const dateStringRegex = inject(DATE_STRING_REGEX);
+  const apiDateFormat = inject(API_DATE_FORMAT);
 
-  /**
-   * Description placeholder
-   *
-   * @public
-   * @param {HttpRequest<unknown>} request
-   * @param {HttpHandler} next
-   * @returns {Observable<HttpEvent<unknown>>}
-   */
-  public intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    let result$ = next.handle(request);
-    const urlMatch = this.apiUrlRegex.test(request.url);
+  let result$ = next(req);
+  const urlMatch = apiUrlRegex.test(req.url);
 
-    if (urlMatch) {
-      result$ = result$.pipe(
-        switchMap((event) => {
-          if (event instanceof HttpResponse) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            this.convertDateStringsToDates(event.body);
-          }
+  if (urlMatch) {
+    result$ = result$.pipe(
+      switchMap((event) => {
+        if (event instanceof HttpResponse) {
+          const castedBody = event.body as  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            | { [key: string]: any }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            | any[]
+            | null
+            | undefined;
+          convertDateStringsToDates(dateStringRegex, apiDateFormat, castedBody);
+        }
 
-          return of(event);
-        })
-      );
-    }
-
-    return result$;
+        return of(event);
+      })
+    );
   }
 
-  /**
-   * Converts properties of passed object that are date strings to date objects.
-   *
-   * @private
-   * @param {?({ [key: string]: any } | any[])} [body]
-   */
-  private convertDateStringsToDates(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: { [key: string]: any } | any[]
-  ): void {
-    if (body) {
-      if (Array.isArray(body)) {
-        for (const item of body) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          this.convertDateStringsToDates(item);
-        }
-      } else if (typeof body === 'object') {
-        for (const key of Object.keys(body)) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          const value = body[key];
+  return result$;
+};
 
-          if (typeof value === 'string' && this.dateStringRegex.test(value)) {
-            body[key] = parse(value, this.apiDateFormat, new Date());
-          } else if (typeof value === 'object') {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            this.convertDateStringsToDates(value);
-          }
+/**
+ * Converts properties of passed object that are date strings to date objects.
+ *
+ * @param {RegExp} [dateStringRegex]
+ * @param {string} [apiDateFormat]
+ * @param {({ [key: string]: any } | any[] | null | undefined)} [body]
+ */
+const convertDateStringsToDates = (
+  dateStringRegex: RegExp,
+  apiDateFormat: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  body: { [key: string]: any } | any[] | null | undefined
+): void => {
+  if (body) {
+    if (Array.isArray(body)) {
+      for (const item of body) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        convertDateStringsToDates(dateStringRegex, apiDateFormat, item);
+      }
+    } else if (typeof body === 'object') {
+      for (const key of Object.keys(body)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const value = body[key];
+
+        if (typeof value === 'string' && dateStringRegex.test(value)) {
+          body[key] = parse(value, apiDateFormat, new Date());
+        } else if (typeof value === 'object') {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          convertDateStringsToDates(dateStringRegex, apiDateFormat, value);
         }
       }
     }
   }
-}
+};
