@@ -10,7 +10,9 @@
 - [@ngx-toolset/date-interceptors](#ngx-toolsetdate-interceptors)
   - [Features](#features)
   - [Installation](#installation)
+    - [NPM](#npm)
   - [Usage](#usage)
+    - [Module Import](#module-import)
     - [Provide Injection Tokens](#provide-injection-tokens)
   - [Injection Tokens](#injection-tokens)
     - [API_DATE_FORMAT](#api_date_format)
@@ -26,16 +28,82 @@
 
 ## Installation
 
-```
-ng add @ngx-toolset/date-interceptors
-```
+### NPM
+
+`npm install @ngx-toolset/date-interceptors --save`
+
+Choose the version corresponding to your Angular version:
+
+| Angular | @ngx-toolset/date-interceptors |
+|---------|--------------------------------|
+| 14.x.x  | >=0.0.1 <=1.0.0-rc.11          |
+| 15.x.x  | 1.0.0-rc.12                    |
+| 16.x.x  | >=1.0.0-rc.13 <=2.0.0          |
 
 ## Usage
 
+### Module Import
+
+Import the `DateInterceptorsModule` in your `AppModule`:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { DateInterceptorsModule } from '@ngx-toolset/date-interceptors';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    DateInterceptorsModule.forRoot(),
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
 ### Provide Injection Tokens
 
-Provide proper values for automatically added `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` 
-injection tokens in your `AppModule`.
+Provide `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `AppModule`:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import {
+  DateInterceptorsModule,
+  API_URL_REGEX,
+  DATE_STRING_REGEX,
+  API_DATE_FORMAT
+} from '@ngx-toolset/date-interceptors';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    DateInterceptorsModule.forRoot(),
+  ],
+  providers: [
+    {
+      provide: API_URL_REGEX,
+      useValue: /^https:\/\/test-url.com/
+    },
+    {
+      provide: DATE_STRING_REGEX,
+      useValue: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
+    },
+    {
+      provide: API_DATE_FORMAT,
+      useValue: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+    },
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+> Hint: The list of options to provide `API_DATE_FORMAT` value could be found here: [date-fns documentation](https://date-fns.org/v2.29.1/docs/parse).
 
 ## Injection Tokens
 
