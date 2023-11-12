@@ -37,6 +37,7 @@ Choose the version corresponding to your Angular version:
 | 14.x.x  | >=0.0.1 <=1.0.0-rc.12              |
 | 15.x.x  | 1.0.0-rc.13                        |
 | 16.x.x  | >=1.0.0-rc.14 <=3.0.0              |
+| 17.x.x  | 4.0.0                              |
 
 ## Usage
 

@@ -18,7 +18,7 @@ import { requestBodyDateFormatInterceptor } from './request-body-date-format.int
 describe('RequestBodyDateFormatInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() =>
-      requestBodyDateFormatInterceptor(req, next)
+      requestBodyDateFormatInterceptor(req, next),
     );
   const dummyRequest = createSpyObject(HttpRequest<unknown>);
   dummyRequest.castToWritable().headers = new HttpHeaders();
@@ -53,7 +53,7 @@ describe('RequestBodyDateFormatInterceptor', () => {
           birthday: parse(
             '2020-02-02T12:45:30.000Z',
             apiDateFormat,
-            new Date()
+            new Date(),
           ),
         },
       ],
@@ -90,7 +90,7 @@ describe('RequestBodyDateFormatInterceptor', () => {
             birthday: parse(
               '2020-02-02T12:45:30.000Z',
               apiDateFormat,
-              new Date()
+              new Date(),
             ),
           },
         },
@@ -112,7 +112,7 @@ describe('RequestBodyDateFormatInterceptor', () => {
           birthday: parse(
             '2020-02-02T12:45:30.000Z',
             apiDateFormat,
-            new Date()
+            new Date(),
           ),
         },
       },
@@ -125,12 +125,12 @@ describe('RequestBodyDateFormatInterceptor', () => {
       const requestUrl = 'https://test-url.com/test';
       dummyRequest.castToWritable().url = requestUrl;
       dummyRequest.castToWritable().body = testCase.httpRequest;
-      dummyRequest.clone.andCallFake((update: { body?: unknown | null }) =>
-        new HttpRequest<unknown>('GET', requestUrl).clone(update)
+      dummyRequest.clone.andCallFake((update: { body: unknown }) =>
+        new HttpRequest<unknown>('GET', requestUrl).clone(update),
       );
 
       const next = (
-        _request: HttpRequest<unknown>
+        _request: HttpRequest<unknown>,
       ): Observable<HttpEvent<unknown>> => {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
@@ -162,7 +162,7 @@ describe('RequestBodyDateFormatInterceptor', () => {
     dummyRequest.clone.reset();
 
     const next = (
-      _request: HttpRequest<unknown>
+      _request: HttpRequest<unknown>,
     ): Observable<HttpEvent<unknown>> => {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
@@ -187,7 +187,7 @@ describe('RequestBodyDateFormatInterceptor', () => {
     dummyRequest.clone.reset();
 
     const next = (
-      _request: HttpRequest<unknown>
+      _request: HttpRequest<unknown>,
     ): Observable<HttpEvent<unknown>> => {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(dummyRequest.clone).toHaveBeenCalledTimes(0);

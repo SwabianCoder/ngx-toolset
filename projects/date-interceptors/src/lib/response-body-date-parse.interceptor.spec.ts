@@ -22,7 +22,7 @@ import { responseBodyDateParseInterceptor } from './response-body-date-parse.int
 describe('ResponseBodyDateParseInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() =>
-      responseBodyDateParseInterceptor(req, next)
+      responseBodyDateParseInterceptor(req, next),
     );
   const dummyRequest = createSpyObject(HttpRequest<unknown>);
   dummyRequest.castToWritable().headers = new HttpHeaders();
@@ -54,7 +54,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
           birthday: parse(
             '2020-02-02T12:45:30.000Z',
             apiDateFormat,
-            new Date()
+            new Date(),
           ),
         },
       ],
@@ -89,7 +89,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
             birthday: parse(
               '2020-02-02T12:45:30.000Z',
               apiDateFormat,
-              new Date()
+              new Date(),
             ),
           },
         },
@@ -113,7 +113,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
           birthday: parse(
             '2020-02-02T12:45:30.000Z',
             apiDateFormat,
-            new Date()
+            new Date(),
           ),
         },
       },
@@ -133,7 +133,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
       dummyRequest.castToWritable().url = 'https://test-url.com/test';
 
       const next = (
-        _request: HttpRequest<unknown>
+        _request: HttpRequest<unknown>,
       ): Observable<HttpEvent<unknown>> => {
         const dummyResponse = new HttpResponse<unknown>({
           status: 200,
@@ -147,7 +147,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
       const interceptResult = await firstValueFrom(interceptResult$);
 
       expect((interceptResult as HttpResponse<unknown>).body).toEqual(
-        testCase.expectedResponse
+        testCase.expectedResponse,
       );
 
       return interceptResult;
@@ -231,7 +231,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
       dummyRequest.castToWritable().url = 'https://test-url.com/test';
 
       const next = (
-        _request: HttpRequest<unknown>
+        _request: HttpRequest<unknown>,
       ): Observable<HttpEvent<unknown>> => {
         const dummyResponse = new HttpResponse<unknown>({
           status: 200,
@@ -245,7 +245,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
       const interceptResult = await firstValueFrom(interceptResult$);
 
       expect((interceptResult as HttpResponse<unknown>).body).toEqual(
-        testCase.expectedResponse
+        testCase.expectedResponse,
       );
 
       return interceptResult;
@@ -329,7 +329,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
       dummyRequest.castToWritable().url = 'https://demo-url.com/test';
 
       const next = (
-        _request: HttpRequest<unknown>
+        _request: HttpRequest<unknown>,
       ): Observable<HttpEvent<unknown>> => {
         const dummyResponse = new HttpResponse<unknown>({
           status: 200,
@@ -343,7 +343,7 @@ describe('ResponseBodyDateParseInterceptor', () => {
       const interceptResult = await firstValueFrom(interceptResult$);
 
       expect((interceptResult as HttpResponse<unknown>).body).toEqual(
-        testCase.expectedResponse
+        testCase.expectedResponse,
       );
 
       return interceptResult;

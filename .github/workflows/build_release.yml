@@ -15,12 +15,12 @@ jobs:
       contents: read
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.9.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Get package version
@@ -68,10 +68,10 @@ jobs:
       version_increased: ${{ steps.verify_package_version_change.outputs.version_increased }}
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.9.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Download artifact
@@ -119,10 +119,10 @@ jobs:
     environment: NPM
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.9.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Download artifact
@@ -144,10 +144,10 @@ jobs:
       contents: write
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.9.x]
     steps:
       - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Download artifact

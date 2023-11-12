@@ -1,6 +1,6 @@
 {
   "name": "@ngx-toolset/api-token-interceptor",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Angular API token interceptor",
   "homepage": "https://github.com/SwabianCoder/ngx-toolset",
   "license": "MIT",
@@ -23,14 +23,14 @@
     "url": "https://github.com/SwabianCoder/ngx-toolset/issues"
   },
   "engines": {
-    "npm": ">=9.0.0",
-    "node": ">=18.0.0"
+    "npm": ">=10.2.3",
+    "node": ">=20.9.0"
   },
   "peerDependencies": {
-    "@angular/common": "^16.0.0",
-    "@angular/core": "^16.0.0"
+    "@angular/common": "^17.0.0",
+    "@angular/core": "^17.0.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.6.2"
   }
 }

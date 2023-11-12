@@ -42,11 +42,11 @@ describe('apiTokenInterceptor', () => {
         setHeaders?: {
           [name: string]: string | string[];
         };
-      }) => new HttpRequest<unknown>('GET', requestUrl).clone(update)
+      }) => new HttpRequest<unknown>('GET', requestUrl).clone(update),
     );
 
     const next: HttpHandlerFn = (
-      request: HttpRequest<unknown>
+      request: HttpRequest<unknown>,
     ): Observable<HttpResponse<unknown>> => {
       expect(request.headers.has('Authorization')).toBeTrue();
       expect(request.headers.get('Authorization')).toBe('Bearer dummyToken');
@@ -79,11 +79,11 @@ describe('apiTokenInterceptor', () => {
         setHeaders?: {
           [name: string]: string | string[];
         };
-      }) => new HttpRequest<unknown>('GET', requestUrl).clone(update)
+      }) => new HttpRequest<unknown>('GET', requestUrl).clone(update),
     );
 
     const next: HttpHandlerFn = (
-      request: HttpRequest<unknown>
+      request: HttpRequest<unknown>,
     ): Observable<HttpEvent<unknown>> => {
       expect(request.headers.has('Authorization')).toBeFalse();
       // eslint-disable-next-line @typescript-eslint/unbound-method

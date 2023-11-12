@@ -6,5 +6,5 @@ import { InjectionToken } from '@angular/core';
  * @type {InjectionToken<RegExp>}
  */
 export const API_URL_REGEX: InjectionToken<RegExp> = new InjectionToken<RegExp>(
-  'API_URL_REGEX'
+  'API_URL_REGEX',
 );
