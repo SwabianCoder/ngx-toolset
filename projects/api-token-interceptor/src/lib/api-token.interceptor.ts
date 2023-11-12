@@ -15,7 +15,7 @@ import { API_URL_REGEX, BEARER_TOKEN_CALLBACK_FN } from './injection-tokens';
  */
 export const apiTokenInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   const apiUrlRegex = inject(API_URL_REGEX);
   const bearerTokenCallback = inject(BEARER_TOKEN_CALLBACK_FN);
