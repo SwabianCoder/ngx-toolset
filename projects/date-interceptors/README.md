@@ -42,65 +42,67 @@ Choose the version corresponding to your Angular version:
 
 ## Usage
 
-### Module Import
+### Provide HTTP client with Interceptors
 
-Import the `DateInterceptorsModule` in your `AppModule`:
+Provide the HTTP client with the `requestBodyDateFormatInterceptor` and `responseBodyDateParseInterceptor` in your `main.ts`:
 
 ```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { DateInterceptorsModule } from '@ngx-toolset/date-interceptors';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import {
+  requestBodyDateFormatInterceptor,
+  responseBodyDateParseInterceptor
+} from '@ngx-toolset/date-interceptors';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    DateInterceptorsModule.forRoot(),
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(
+      withInterceptors([
+        requestBodyDateFormatInterceptor,
+        responseBodyDateParseInterceptor
+      ])
+    )
+  ]
+});
 ```
 
 ### Provide Injection Tokens
 
-Provide `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `AppModule`:
+Provide `API_DATE_FORMAT`, `API_URL_REGEX` and `DATE_STRING_REGEX` in your `main.ts`:
 
 ```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
 import {
-  DateInterceptorsModule,
+  requestBodyDateFormatInterceptor,
+  responseBodyDateParseInterceptor,
   API_URL_REGEX,
   DATE_STRING_REGEX,
   API_DATE_FORMAT
 } from '@ngx-toolset/date-interceptors';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    DateInterceptorsModule.forRoot(),
-  ],
+bootstrapApplication(AppComponent, {
   providers: [
+    provideHttpClient(
+      withInterceptors([
+        requestBodyDateFormatInterceptor,
+        responseBodyDateParseInterceptor
+      ])
+    ),
     {
       provide: API_URL_REGEX,
       useValue: /^https:\/\/test-url.com/
     },
     {
       provide: DATE_STRING_REGEX,
-      useValue: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
+      useValue: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
     },
     {
       provide: API_DATE_FORMAT,
-      useValue: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-    },
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+      useValue: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    }
+  ]
+});
 ```
 
 > Hint: The list of options to provide `API_DATE_FORMAT` value could be found here: [date-fns documentation](https://date-fns.org/v2.29.1/docs/parse).
