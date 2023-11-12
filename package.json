@@ -23,8 +23,8 @@
     "lint:template-type-checker:fix": "ng lint @ngx-toolset/template-type-checker --fix && npx stylelint \"projects/template-type-checker/**/*.{css,scss}\" --quiet --allow-empty-input --fix"
   },
   "engines": {
-    "npm": ">=8.0.0",
-    "node": ">=16.0.0"
+    "npm": ">=10.2.3",
+    "node": ">=20.9.0"
   },
   "private": true,
   "dependencies": {
