@@ -1,30 +1,40 @@
-import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import {
-  SpectatorService,
-  createServiceFactory,
-  createSpyObject,
-} from '@ngneat/spectator';
+  HttpEvent,
+  HttpHeaders,
+  HttpInterceptorFn,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+
 import { parse } from 'date-fns';
 import { firstValueFrom, Observable, of } from 'rxjs';
+
+import { createSpyObject } from '@ngneat/spectator';
+
 import { API_DATE_FORMAT, API_URL_REGEX } from './injection-tokens';
-import { RequestBodyDateFormatInterceptor } from './request-body-date-format.interceptor';
+import { requestBodyDateFormatInterceptor } from './request-body-date-format.interceptor';
 
 describe('RequestBodyDateFormatInterceptor', () => {
-  let spectator: SpectatorService<RequestBodyDateFormatInterceptor>;
-  const apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-  const createService = createServiceFactory({
-    service: RequestBodyDateFormatInterceptor,
-    providers: [
-      { provide: API_URL_REGEX, useValue: /^https:\/\/test-url.com/ },
-      {
-        provide: API_DATE_FORMAT,
-        useValue: apiDateFormat,
-      },
-    ],
-  });
+  const interceptor: HttpInterceptorFn = (req, next) =>
+    TestBed.runInInjectionContext(() =>
+      requestBodyDateFormatInterceptor(req, next)
+    );
   const dummyRequest = createSpyObject(HttpRequest<unknown>);
+  dummyRequest.castToWritable().headers = new HttpHeaders();
+  const apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
-  beforeEach(() => (spectator = createService()));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: API_URL_REGEX, useValue: /^https:\/\/test-url.com/ },
+        {
+          provide: API_DATE_FORMAT,
+          useValue: apiDateFormat,
+        },
+      ],
+    });
+  });
 
   for (const testCase of [
     {
@@ -119,24 +129,22 @@ describe('RequestBodyDateFormatInterceptor', () => {
         new HttpRequest<unknown>('GET', requestUrl).clone(update)
       );
 
-      const next = {
-        handle(
-          _request: HttpRequest<unknown>
-        ): Observable<HttpResponse<unknown>> {
-          // eslint-disable-next-line @typescript-eslint/unbound-method
-          expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
-          // eslint-disable-next-line @typescript-eslint/unbound-method
-          expect(dummyRequest.clone).toHaveBeenCalledWith({
-            body: testCase.expectedRequest,
-          });
+      const next = (
+        _request: HttpRequest<unknown>
+      ): Observable<HttpEvent<unknown>> => {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(dummyRequest.clone).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(dummyRequest.clone).toHaveBeenCalledWith({
+          body: testCase.expectedRequest,
+        });
 
-          const httpResponse = new HttpResponse({ status: 200 });
+        const httpResponse = new HttpResponse({ status: 200 });
 
-          return of(httpResponse);
-        },
+        return of(httpResponse);
       };
 
-      const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+      const interceptResult$ = interceptor(dummyRequest, next);
       const interceptResult = firstValueFrom(interceptResult$);
 
       dummyRequest.clone.reset();
@@ -153,20 +161,18 @@ describe('RequestBodyDateFormatInterceptor', () => {
     dummyRequest.castToWritable().body = null;
     dummyRequest.clone.reset();
 
-    const next = {
-      handle(
-        _request: HttpRequest<unknown>
-      ): Observable<HttpResponse<unknown>> {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
+    const next = (
+      _request: HttpRequest<unknown>
+    ): Observable<HttpEvent<unknown>> => {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
 
-        const httpResponse = new HttpResponse({ status: 200 });
+      const httpResponse = new HttpResponse({ status: 200 });
 
-        return of(httpResponse);
-      },
+      return of(httpResponse);
     };
 
-    const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+    const interceptResult$ = interceptor(dummyRequest, next);
     const interceptResult = firstValueFrom(interceptResult$);
 
     return interceptResult;
@@ -180,20 +186,18 @@ describe('RequestBodyDateFormatInterceptor', () => {
     dummyRequest.castToWritable().body = {};
     dummyRequest.clone.reset();
 
-    const next = {
-      handle(
-        _request: HttpRequest<unknown>
-      ): Observable<HttpResponse<unknown>> {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
+    const next = (
+      _request: HttpRequest<unknown>
+    ): Observable<HttpEvent<unknown>> => {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(dummyRequest.clone).toHaveBeenCalledTimes(0);
 
-        const httpResponse = new HttpResponse({ status: 200 });
+      const httpResponse = new HttpResponse({ status: 200 });
 
-        return of(httpResponse);
-      },
+      return of(httpResponse);
     };
 
-    const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+    const interceptResult$ = interceptor(dummyRequest, next);
     const interceptResult = firstValueFrom(interceptResult$);
 
     return interceptResult;

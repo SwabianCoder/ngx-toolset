@@ -1,38 +1,48 @@
-import { HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import {
-  createServiceFactory,
-  createSpyObject,
-  SpectatorService,
-} from '@ngneat/spectator';
+  HttpEvent,
+  HttpHeaders,
+  HttpInterceptorFn,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+
 import { parse } from 'date-fns';
 import { firstValueFrom, Observable, of } from 'rxjs';
+
+import { createSpyObject } from '@ngneat/spectator';
+
 import {
   API_DATE_FORMAT,
   API_URL_REGEX,
   DATE_STRING_REGEX,
 } from './injection-tokens';
-import { ResponseBodyDateParseInterceptor } from './response-body-date-parse.interceptor';
+import { responseBodyDateParseInterceptor } from './response-body-date-parse.interceptor';
 
 describe('ResponseBodyDateParseInterceptor', () => {
-  let spectator: SpectatorService<ResponseBodyDateParseInterceptor>;
-  const apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-  const createService = createServiceFactory({
-    service: ResponseBodyDateParseInterceptor,
-    providers: [
-      { provide: API_URL_REGEX, useValue: /^https:\/\/test-url.com/ },
-      {
-        provide: DATE_STRING_REGEX,
-        useValue: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
-      },
-      {
-        provide: API_DATE_FORMAT,
-        useValue: apiDateFormat,
-      },
-    ],
-  });
+  const interceptor: HttpInterceptorFn = (req, next) =>
+    TestBed.runInInjectionContext(() =>
+      responseBodyDateParseInterceptor(req, next)
+    );
   const dummyRequest = createSpyObject(HttpRequest<unknown>);
+  dummyRequest.castToWritable().headers = new HttpHeaders();
+  const apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
-  beforeEach(() => (spectator = createService()));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: API_URL_REGEX, useValue: /^https:\/\/test-url.com/ },
+        {
+          provide: DATE_STRING_REGEX,
+          useValue: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
+        },
+        {
+          provide: API_DATE_FORMAT,
+          useValue: apiDateFormat,
+        },
+      ],
+    });
+  });
 
   for (const testCase of [
     {
@@ -122,20 +132,18 @@ describe('ResponseBodyDateParseInterceptor', () => {
     > => {
       dummyRequest.castToWritable().url = 'https://test-url.com/test';
 
-      const next = {
-        handle(
-          _request: HttpRequest<unknown>
-        ): Observable<HttpResponse<unknown>> {
-          const dummyResponse = new HttpResponse<unknown>({
-            status: 200,
-            body: testCase.httpResponse,
-          });
+      const next = (
+        _request: HttpRequest<unknown>
+      ): Observable<HttpEvent<unknown>> => {
+        const dummyResponse = new HttpResponse<unknown>({
+          status: 200,
+          body: testCase.httpResponse,
+        });
 
-          return of(dummyResponse);
-        },
+        return of(dummyResponse);
       };
 
-      const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+      const interceptResult$ = interceptor(dummyRequest, next);
       const interceptResult = await firstValueFrom(interceptResult$);
 
       expect((interceptResult as HttpResponse<unknown>).body).toEqual(
@@ -222,20 +230,18 @@ describe('ResponseBodyDateParseInterceptor', () => {
     > => {
       dummyRequest.castToWritable().url = 'https://test-url.com/test';
 
-      const next = {
-        handle(
-          _request: HttpRequest<unknown>
-        ): Observable<HttpResponse<unknown>> {
-          const dummyResponse = new HttpResponse<unknown>({
-            status: 200,
-            body: testCase.httpResponse,
-          });
+      const next = (
+        _request: HttpRequest<unknown>
+      ): Observable<HttpEvent<unknown>> => {
+        const dummyResponse = new HttpResponse<unknown>({
+          status: 200,
+          body: testCase.httpResponse,
+        });
 
-          return of(dummyResponse);
-        },
+        return of(dummyResponse);
       };
 
-      const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+      const interceptResult$ = interceptor(dummyRequest, next);
       const interceptResult = await firstValueFrom(interceptResult$);
 
       expect((interceptResult as HttpResponse<unknown>).body).toEqual(
@@ -322,20 +328,18 @@ describe('ResponseBodyDateParseInterceptor', () => {
     > => {
       dummyRequest.castToWritable().url = 'https://demo-url.com/test';
 
-      const next = {
-        handle(
-          _request: HttpRequest<unknown>
-        ): Observable<HttpResponse<unknown>> {
-          const dummyResponse = new HttpResponse<unknown>({
-            status: 200,
-            body: testCase.httpResponse,
-          });
+      const next = (
+        _request: HttpRequest<unknown>
+      ): Observable<HttpEvent<unknown>> => {
+        const dummyResponse = new HttpResponse<unknown>({
+          status: 200,
+          body: testCase.httpResponse,
+        });
 
-          return of(dummyResponse);
-        },
+        return of(dummyResponse);
       };
 
-      const interceptResult$ = spectator.service.intercept(dummyRequest, next);
+      const interceptResult$ = interceptor(dummyRequest, next);
       const interceptResult = await firstValueFrom(interceptResult$);
 
       expect((interceptResult as HttpResponse<unknown>).body).toEqual(
