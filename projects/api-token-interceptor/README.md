@@ -40,7 +40,7 @@ Choose the version corresponding to your Angular version:
 
 ## Usage
 
-### Module Import
+### Provide HTTP client with Interceptor
 
 Provide the HTTP client with the `apiTokenInterceptor` in your `main.ts`:
 
@@ -86,7 +86,7 @@ bootstrapApplication(AppComponent, {
     },
     {
       provide: BEARER_TOKEN_CALLBACK_FN,
-      useValue: (): string => 'dummyToken',
+      useValue: (): string => 'dummyToken'
     }
   ]
 });
