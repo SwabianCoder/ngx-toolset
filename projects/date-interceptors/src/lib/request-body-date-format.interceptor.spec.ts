@@ -125,7 +125,7 @@ describe('RequestBodyDateFormatInterceptor', () => {
       const requestUrl = 'https://test-url.com/test';
       dummyRequest.castToWritable().url = requestUrl;
       dummyRequest.castToWritable().body = testCase.httpRequest;
-      dummyRequest.clone.andCallFake((update: { body?: unknown | null }) =>
+      dummyRequest.clone.andCallFake((update: { body: unknown }) =>
         new HttpRequest<unknown>('GET', requestUrl).clone(update),
       );
 
