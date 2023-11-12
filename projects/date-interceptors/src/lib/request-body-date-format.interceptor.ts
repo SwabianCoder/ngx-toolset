@@ -17,7 +17,7 @@ import { API_DATE_FORMAT, API_URL_REGEX } from './injection-tokens';
  */
 export const requestBodyDateFormatInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   const apiUrlRegex = inject(API_URL_REGEX);
   const apiDateFormat = inject(API_DATE_FORMAT);
@@ -49,7 +49,7 @@ export const requestBodyDateFormatInterceptor: HttpInterceptorFn = (
 const convertDatesToDateStrings = (
   apiDateFormat: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body: { [key: string]: any } | any[] | null | undefined
+  body: { [key: string]: any } | any[] | null | undefined,
 ): void => {
   if (body) {
     if (Array.isArray(body)) {

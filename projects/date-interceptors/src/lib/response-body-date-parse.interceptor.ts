@@ -23,7 +23,7 @@ import {
  */
 export const responseBodyDateParseInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   const apiUrlRegex = inject(API_URL_REGEX);
   const dateStringRegex = inject(DATE_STRING_REGEX);
@@ -46,7 +46,7 @@ export const responseBodyDateParseInterceptor: HttpInterceptorFn = (
         }
 
         return of(event);
-      })
+      }),
     );
   }
 
@@ -64,7 +64,7 @@ const convertDateStringsToDates = (
   dateStringRegex: RegExp,
   apiDateFormat: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body: { [key: string]: any } | any[] | null | undefined
+  body: { [key: string]: any } | any[] | null | undefined,
 ): void => {
   if (body) {
     if (Array.isArray(body)) {
