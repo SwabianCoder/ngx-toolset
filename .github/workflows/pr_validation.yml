@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.5.x]
+        node-version: [20.9.x]
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v3

@@ -22,8 +22,8 @@
     "url": "https://github.com/SwabianCoder/ngx-toolset/issues"
   },
   "engines": {
-    "npm": ">=10.0.0",
-    "node": ">=20.5.0"
+    "npm": ">=10.2.3",
+    "node": ">=20.9.0"
   },
   "peerDependencies": {
     "@angular/common": "^17.0.0",

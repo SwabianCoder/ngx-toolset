@@ -15,7 +15,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        node-version: [20.5.x]
+        node-version: [20.9.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
       version_increased: ${{ steps.verify_package_version_change.outputs.version_increased }}
     strategy:
       matrix:
-        node-version: [20.5.x]
+        node-version: [20.9.x]
     steps:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -119,7 +119,7 @@ jobs:
     environment: NPM
     strategy:
       matrix:
-        node-version: [20.5.x]
+        node-version: [20.9.x]
     steps:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -144,7 +144,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        node-version: [20.5.x]
+        node-version: [20.9.x]
     steps:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
