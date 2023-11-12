@@ -14,7 +14,7 @@ jobs:
       project_changes: ${{ steps.changes.outputs.project }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check for changes in path
         uses: dorny/paths-filter@v2
         id: changes
