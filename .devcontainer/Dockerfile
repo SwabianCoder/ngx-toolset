@@ -1,4 +1,4 @@
-ARG VARIANT="20-bullseye"
+ARG VARIANT="20"
 FROM mcr.microsoft.com/devcontainers/typescript-node:1-${VARIANT}
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
